@@ -16,37 +16,83 @@ public class Recipe {
    private String description;
    /** @pdOid 18ba5f08-42cf-458c-b39d-95bb061fd99d */
    private int likes;
-   /** @pdOid 9c2eafe3-83c6-4307-b9c4-4c5f19c77a61 */
-   private ArrayList<Cuisine> cuisine;
-   /** @pdOid aa7acd76-c9fb-45ab-8bd2-d03fdb7bc5c2 */
-   private ArrayList<Diet> diet;
    /** @pdOid 08c0ef64-31ff-4a4b-9e0d-a3121bf1b34e */
    private ArrayList<Taste> taste;
    
-   /** @pdRoleInfo migr=no name=Equipment assc=association10 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Equipment> equipment;
-   /** @pdRoleInfo migr=no name=Comment assc=association11 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Comment> comment;
-   public java.util.Collection association2;
+   /** @pdRoleInfo migr=no name=Tag assc=association19 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Tag> tags;
+   /** @pdRoleInfo migr=no name=Equipment assc=association10 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Equipment> equipment;
+   /** @pdRoleInfo migr=no name=Comment assc=association11 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Comment> comment;
+   public java.util.List association2;
    
    
    /** @pdGenerated default getter */
-   public java.util.Collection<Equipment> getEquipment() {
+   public java.util.List<Tag> getTags() {
+      if (tags == null)
+         tags = new java.util.ArrayList<Tag>();
+      return tags;
+   }
+   
+   /** @pdGenerated default iterator getter */
+   public java.util.Iterator getIteratorTags() {
+      if (tags == null)
+         tags = new java.util.ArrayList<Tag>();
+      return tags.iterator();
+   }
+   
+   /** @pdGenerated default setter
+     * @param newTags */
+   public void setTags(java.util.List<Tag> newTags) {
+      removeAllTags();
+      for (java.util.Iterator iter = newTags.iterator(); iter.hasNext();)
+         addTags((Tag)iter.next());
+   }
+   
+   /** @pdGenerated default add
+     * @param newTag */
+   public void addTags(Tag newTag) {
+      if (newTag == null)
+         return;
+      if (this.tags == null)
+         this.tags = new java.util.ArrayList<Tag>();
+      if (!this.tags.contains(newTag))
+         this.tags.add(newTag);
+   }
+   
+   /** @pdGenerated default remove
+     * @param oldTag */
+   public void removeTags(Tag oldTag) {
+      if (oldTag == null)
+         return;
+      if (this.tags != null)
+         if (this.tags.contains(oldTag))
+            this.tags.remove(oldTag);
+   }
+   
+   /** @pdGenerated default removeAll */
+   public void removeAllTags() {
+      if (tags != null)
+         tags.clear();
+   }
+   /** @pdGenerated default getter */
+   public java.util.List<Equipment> getEquipment() {
       if (equipment == null)
-         equipment = new java.util.HashSet<Equipment>();
+         equipment = new java.util.ArrayList<Equipment>();
       return equipment;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorEquipment() {
       if (equipment == null)
-         equipment = new java.util.HashSet<Equipment>();
+         equipment = new java.util.ArrayList<Equipment>();
       return equipment.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newEquipment */
-   public void setEquipment(java.util.Collection<Equipment> newEquipment) {
+   public void setEquipment(java.util.List<Equipment> newEquipment) {
       removeAllEquipment();
       for (java.util.Iterator iter = newEquipment.iterator(); iter.hasNext();)
          addEquipment((Equipment)iter.next());
@@ -58,7 +104,7 @@ public class Recipe {
       if (newEquipment == null)
          return;
       if (this.equipment == null)
-         this.equipment = new java.util.HashSet<Equipment>();
+         this.equipment = new java.util.ArrayList<Equipment>();
       if (!this.equipment.contains(newEquipment))
          this.equipment.add(newEquipment);
    }
@@ -79,22 +125,22 @@ public class Recipe {
          equipment.clear();
    }
    /** @pdGenerated default getter */
-   public java.util.Collection<Comment> getComment() {
+   public java.util.List<Comment> getComment() {
       if (comment == null)
-         comment = new java.util.HashSet<Comment>();
+         comment = new java.util.ArrayList<Comment>();
       return comment;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorComment() {
       if (comment == null)
-         comment = new java.util.HashSet<Comment>();
+         comment = new java.util.ArrayList<Comment>();
       return comment.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newComment */
-   public void setComment(java.util.Collection<Comment> newComment) {
+   public void setComment(java.util.List<Comment> newComment) {
       removeAllComment();
       for (java.util.Iterator iter = newComment.iterator(); iter.hasNext();)
          addComment((Comment)iter.next());
@@ -106,7 +152,7 @@ public class Recipe {
       if (newComment == null)
          return;
       if (this.comment == null)
-         this.comment = new java.util.HashSet<Comment>();
+         this.comment = new java.util.ArrayList<Comment>();
       if (!this.comment.contains(newComment))
          this.comment.add(newComment);
    }

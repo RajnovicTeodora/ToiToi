@@ -19,30 +19,30 @@ public class User extends Akter {
    /** @pdOid bbeb87af-bbe0-4ae3-82b9-cecd7507dc63 */
    private int points = 0;
    
-   public java.util.Collection association1;
-   /** @pdRoleInfo migr=no name=Product assc=association7 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Product> alergies;
-   /** @pdRoleInfo migr=no name=Equipment assc=association9 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Equipment> equipment;
+   public java.util.List availableGroceries;
+   /** @pdRoleInfo migr=no name=Product assc=association7 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Product> alergies;
+   /** @pdRoleInfo migr=no name=Equipment assc=association9 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Equipment> equipment;
    
    
    /** @pdGenerated default getter */
-   public java.util.Collection<Product> getAlergies() {
+   public java.util.List<Product> getAlergies() {
       if (alergies == null)
-         alergies = new java.util.HashSet<Product>();
+         alergies = new java.util.ArrayList<Product>();
       return alergies;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorAlergies() {
       if (alergies == null)
-         alergies = new java.util.HashSet<Product>();
+         alergies = new java.util.ArrayList<Product>();
       return alergies.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newAlergies */
-   public void setAlergies(java.util.Collection<Product> newAlergies) {
+   public void setAlergies(java.util.List<Product> newAlergies) {
       removeAllAlergies();
       for (java.util.Iterator iter = newAlergies.iterator(); iter.hasNext();)
          addAlergies((Product)iter.next());
@@ -54,7 +54,7 @@ public class User extends Akter {
       if (newProduct == null)
          return;
       if (this.alergies == null)
-         this.alergies = new java.util.HashSet<Product>();
+         this.alergies = new java.util.ArrayList<Product>();
       if (!this.alergies.contains(newProduct))
          this.alergies.add(newProduct);
    }
@@ -75,22 +75,22 @@ public class User extends Akter {
          alergies.clear();
    }
    /** @pdGenerated default getter */
-   public java.util.Collection<Equipment> getEquipment() {
+   public java.util.List<Equipment> getEquipment() {
       if (equipment == null)
-         equipment = new java.util.HashSet<Equipment>();
+         equipment = new java.util.ArrayList<Equipment>();
       return equipment;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorEquipment() {
       if (equipment == null)
-         equipment = new java.util.HashSet<Equipment>();
+         equipment = new java.util.ArrayList<Equipment>();
       return equipment.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newEquipment */
-   public void setEquipment(java.util.Collection<Equipment> newEquipment) {
+   public void setEquipment(java.util.List<Equipment> newEquipment) {
       removeAllEquipment();
       for (java.util.Iterator iter = newEquipment.iterator(); iter.hasNext();)
          addEquipment((Equipment)iter.next());
@@ -102,7 +102,7 @@ public class User extends Akter {
       if (newEquipment == null)
          return;
       if (this.equipment == null)
-         this.equipment = new java.util.HashSet<Equipment>();
+         this.equipment = new java.util.ArrayList<Equipment>();
       if (!this.equipment.contains(newEquipment))
          this.equipment.add(newEquipment);
    }

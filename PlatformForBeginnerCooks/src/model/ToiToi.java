@@ -15,35 +15,85 @@ public class ToiToi {
    /** @pdOid abc56e73-0c3b-4361-96bb-de05ce0919f8 */
    private String telephone;
    
-   /** @pdRoleInfo migr=no name=Akter assc=association3 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Akter> users;
-   /** @pdRoleInfo migr=no name=Recipe assc=association4 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Recipe> recipe;
-   /** @pdRoleInfo migr=no name=Product assc=association5 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Product> product;
-   /** @pdRoleInfo migr=no name=Equipment assc=association8 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Equipment> equipment;
-   /** @pdRoleInfo migr=no name=CookBook assc=association14 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<CookBook> cookBook;
+   /** @pdRoleInfo migr=no name=Tag assc=association20 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Tag> tags;
+   /** @pdRoleInfo migr=no name=Akter assc=association3 coll=java.util.List mult=0..* */
+   public java.util.List<Akter> users;
+   /** @pdRoleInfo migr=no name=Recipe assc=association4 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Recipe> recipe;
+   /** @pdRoleInfo migr=no name=Product assc=association5 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Product> products;
+   /** @pdRoleInfo migr=no name=Equipment assc=association8 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Equipment> equipment;
+   /** @pdRoleInfo migr=no name=CookBook assc=association14 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<CookBook> cookBooks;
    
    
    /** @pdGenerated default getter */
-   public java.util.Collection<Akter> getUsers() {
+   public java.util.List<Tag> getTags() {
+      if (tags == null)
+         tags = new java.util.ArrayList<Tag>();
+      return tags;
+   }
+   
+   /** @pdGenerated default iterator getter */
+   public java.util.Iterator getIteratorTags() {
+      if (tags == null)
+         tags = new java.util.ArrayList<Tag>();
+      return tags.iterator();
+   }
+   
+   /** @pdGenerated default setter
+     * @param newTags */
+   public void setTags(java.util.List<Tag> newTags) {
+      removeAllTags();
+      for (java.util.Iterator iter = newTags.iterator(); iter.hasNext();)
+         addTags((Tag)iter.next());
+   }
+   
+   /** @pdGenerated default add
+     * @param newTag */
+   public void addTags(Tag newTag) {
+      if (newTag == null)
+         return;
+      if (this.tags == null)
+         this.tags = new java.util.ArrayList<Tag>();
+      if (!this.tags.contains(newTag))
+         this.tags.add(newTag);
+   }
+   
+   /** @pdGenerated default remove
+     * @param oldTag */
+   public void removeTags(Tag oldTag) {
+      if (oldTag == null)
+         return;
+      if (this.tags != null)
+         if (this.tags.contains(oldTag))
+            this.tags.remove(oldTag);
+   }
+   
+   /** @pdGenerated default removeAll */
+   public void removeAllTags() {
+      if (tags != null)
+         tags.clear();
+   }
+   /** @pdGenerated default getter */
+   public java.util.List<Akter> getUsers() {
       if (users == null)
-         users = new java.util.HashSet<Akter>();
+         users = new java.util.Vector<Akter>();
       return users;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorUsers() {
       if (users == null)
-         users = new java.util.HashSet<Akter>();
+         users = new java.util.Vector<Akter>();
       return users.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newUsers */
-   public void setUsers(java.util.Collection<Akter> newUsers) {
+   public void setUsers(java.util.List<Akter> newUsers) {
       removeAllUsers();
       for (java.util.Iterator iter = newUsers.iterator(); iter.hasNext();)
          addUsers((Akter)iter.next());
@@ -55,7 +105,7 @@ public class ToiToi {
       if (newAkter == null)
          return;
       if (this.users == null)
-         this.users = new java.util.HashSet<Akter>();
+         this.users = new java.util.Vector<Akter>();
       if (!this.users.contains(newAkter))
          this.users.add(newAkter);
    }
@@ -76,22 +126,22 @@ public class ToiToi {
          users.clear();
    }
    /** @pdGenerated default getter */
-   public java.util.Collection<Recipe> getRecipe() {
+   public java.util.List<Recipe> getRecipe() {
       if (recipe == null)
-         recipe = new java.util.HashSet<Recipe>();
+         recipe = new java.util.ArrayList<Recipe>();
       return recipe;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorRecipe() {
       if (recipe == null)
-         recipe = new java.util.HashSet<Recipe>();
+         recipe = new java.util.ArrayList<Recipe>();
       return recipe.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newRecipe */
-   public void setRecipe(java.util.Collection<Recipe> newRecipe) {
+   public void setRecipe(java.util.List<Recipe> newRecipe) {
       removeAllRecipe();
       for (java.util.Iterator iter = newRecipe.iterator(); iter.hasNext();)
          addRecipe((Recipe)iter.next());
@@ -103,7 +153,7 @@ public class ToiToi {
       if (newRecipe == null)
          return;
       if (this.recipe == null)
-         this.recipe = new java.util.HashSet<Recipe>();
+         this.recipe = new java.util.ArrayList<Recipe>();
       if (!this.recipe.contains(newRecipe))
          this.recipe.add(newRecipe);
    }
@@ -124,70 +174,70 @@ public class ToiToi {
          recipe.clear();
    }
    /** @pdGenerated default getter */
-   public java.util.Collection<Product> getProduct() {
-      if (product == null)
-         product = new java.util.HashSet<Product>();
-      return product;
+   public java.util.List<Product> getProducts() {
+      if (products == null)
+         products = new java.util.ArrayList<Product>();
+      return products;
    }
    
    /** @pdGenerated default iterator getter */
-   public java.util.Iterator getIteratorProduct() {
-      if (product == null)
-         product = new java.util.HashSet<Product>();
-      return product.iterator();
+   public java.util.Iterator getIteratorProducts() {
+      if (products == null)
+         products = new java.util.ArrayList<Product>();
+      return products.iterator();
    }
    
    /** @pdGenerated default setter
-     * @param newProduct */
-   public void setProduct(java.util.Collection<Product> newProduct) {
-      removeAllProduct();
-      for (java.util.Iterator iter = newProduct.iterator(); iter.hasNext();)
-         addProduct((Product)iter.next());
+     * @param newProducts */
+   public void setProducts(java.util.List<Product> newProducts) {
+      removeAllProducts();
+      for (java.util.Iterator iter = newProducts.iterator(); iter.hasNext();)
+         addProducts((Product)iter.next());
    }
    
    /** @pdGenerated default add
      * @param newProduct */
-   public void addProduct(Product newProduct) {
+   public void addProducts(Product newProduct) {
       if (newProduct == null)
          return;
-      if (this.product == null)
-         this.product = new java.util.HashSet<Product>();
-      if (!this.product.contains(newProduct))
-         this.product.add(newProduct);
+      if (this.products == null)
+         this.products = new java.util.ArrayList<Product>();
+      if (!this.products.contains(newProduct))
+         this.products.add(newProduct);
    }
    
    /** @pdGenerated default remove
      * @param oldProduct */
-   public void removeProduct(Product oldProduct) {
+   public void removeProducts(Product oldProduct) {
       if (oldProduct == null)
          return;
-      if (this.product != null)
-         if (this.product.contains(oldProduct))
-            this.product.remove(oldProduct);
+      if (this.products != null)
+         if (this.products.contains(oldProduct))
+            this.products.remove(oldProduct);
    }
    
    /** @pdGenerated default removeAll */
-   public void removeAllProduct() {
-      if (product != null)
-         product.clear();
+   public void removeAllProducts() {
+      if (products != null)
+         products.clear();
    }
    /** @pdGenerated default getter */
-   public java.util.Collection<Equipment> getEquipment() {
+   public java.util.List<Equipment> getEquipment() {
       if (equipment == null)
-         equipment = new java.util.HashSet<Equipment>();
+         equipment = new java.util.ArrayList<Equipment>();
       return equipment;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorEquipment() {
       if (equipment == null)
-         equipment = new java.util.HashSet<Equipment>();
+         equipment = new java.util.ArrayList<Equipment>();
       return equipment.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newEquipment */
-   public void setEquipment(java.util.Collection<Equipment> newEquipment) {
+   public void setEquipment(java.util.List<Equipment> newEquipment) {
       removeAllEquipment();
       for (java.util.Iterator iter = newEquipment.iterator(); iter.hasNext();)
          addEquipment((Equipment)iter.next());
@@ -199,7 +249,7 @@ public class ToiToi {
       if (newEquipment == null)
          return;
       if (this.equipment == null)
-         this.equipment = new java.util.HashSet<Equipment>();
+         this.equipment = new java.util.ArrayList<Equipment>();
       if (!this.equipment.contains(newEquipment))
          this.equipment.add(newEquipment);
    }
@@ -220,52 +270,52 @@ public class ToiToi {
          equipment.clear();
    }
    /** @pdGenerated default getter */
-   public java.util.Collection<CookBook> getCookBook() {
-      if (cookBook == null)
-         cookBook = new java.util.HashSet<CookBook>();
-      return cookBook;
+   public java.util.List<CookBook> getCookBooks() {
+      if (cookBooks == null)
+         cookBooks = new java.util.ArrayList<CookBook>();
+      return cookBooks;
    }
    
    /** @pdGenerated default iterator getter */
-   public java.util.Iterator getIteratorCookBook() {
-      if (cookBook == null)
-         cookBook = new java.util.HashSet<CookBook>();
-      return cookBook.iterator();
+   public java.util.Iterator getIteratorCookBooks() {
+      if (cookBooks == null)
+         cookBooks = new java.util.ArrayList<CookBook>();
+      return cookBooks.iterator();
    }
    
    /** @pdGenerated default setter
-     * @param newCookBook */
-   public void setCookBook(java.util.Collection<CookBook> newCookBook) {
-      removeAllCookBook();
-      for (java.util.Iterator iter = newCookBook.iterator(); iter.hasNext();)
-         addCookBook((CookBook)iter.next());
+     * @param newCookBooks */
+   public void setCookBooks(java.util.List<CookBook> newCookBooks) {
+      removeAllCookBooks();
+      for (java.util.Iterator iter = newCookBooks.iterator(); iter.hasNext();)
+         addCookBooks((CookBook)iter.next());
    }
    
    /** @pdGenerated default add
      * @param newCookBook */
-   public void addCookBook(CookBook newCookBook) {
+   public void addCookBooks(CookBook newCookBook) {
       if (newCookBook == null)
          return;
-      if (this.cookBook == null)
-         this.cookBook = new java.util.HashSet<CookBook>();
-      if (!this.cookBook.contains(newCookBook))
-         this.cookBook.add(newCookBook);
+      if (this.cookBooks == null)
+         this.cookBooks = new java.util.ArrayList<CookBook>();
+      if (!this.cookBooks.contains(newCookBook))
+         this.cookBooks.add(newCookBook);
    }
    
    /** @pdGenerated default remove
      * @param oldCookBook */
-   public void removeCookBook(CookBook oldCookBook) {
+   public void removeCookBooks(CookBook oldCookBook) {
       if (oldCookBook == null)
          return;
-      if (this.cookBook != null)
-         if (this.cookBook.contains(oldCookBook))
-            this.cookBook.remove(oldCookBook);
+      if (this.cookBooks != null)
+         if (this.cookBooks.contains(oldCookBook))
+            this.cookBooks.remove(oldCookBook);
    }
    
    /** @pdGenerated default removeAll */
-   public void removeAllCookBook() {
-      if (cookBook != null)
-         cookBook.clear();
+   public void removeAllCookBooks() {
+      if (cookBooks != null)
+         cookBooks.clear();
    }
 
 }

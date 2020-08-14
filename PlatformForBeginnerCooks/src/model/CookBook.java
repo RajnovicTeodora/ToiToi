@@ -17,107 +17,107 @@ public class CookBook {
    /** @pdOid 00191b62-4c74-4a1c-94bc-69db7c6c0b0f */
    private int likes;
    
-   /** @pdRoleInfo migr=no name=Comment assc=association12 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Comment> comment;
-   /** @pdRoleInfo migr=no name=Recipe assc=association15 coll=java.util.Collection impl=java.util.HashSet mult=0..* type=Aggregation */
-   public java.util.Collection<Recipe> recipe;
+   /** @pdRoleInfo migr=no name=Comment assc=association12 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Comment> comments;
+   /** @pdRoleInfo migr=no name=Recipe assc=association15 coll=java.util.List impl=java.util.ArrayList mult=0..* type=Aggregation */
+   public java.util.List<Recipe> recipes;
    
    
    /** @pdGenerated default getter */
-   public java.util.Collection<Comment> getComment() {
-      if (comment == null)
-         comment = new java.util.HashSet<Comment>();
-      return comment;
+   public java.util.List<Comment> getComments() {
+      if (comments == null)
+         comments = new java.util.ArrayList<Comment>();
+      return comments;
    }
    
    /** @pdGenerated default iterator getter */
-   public java.util.Iterator getIteratorComment() {
-      if (comment == null)
-         comment = new java.util.HashSet<Comment>();
-      return comment.iterator();
+   public java.util.Iterator getIteratorComments() {
+      if (comments == null)
+         comments = new java.util.ArrayList<Comment>();
+      return comments.iterator();
    }
    
    /** @pdGenerated default setter
-     * @param newComment */
-   public void setComment(java.util.Collection<Comment> newComment) {
-      removeAllComment();
-      for (java.util.Iterator iter = newComment.iterator(); iter.hasNext();)
-         addComment((Comment)iter.next());
+     * @param newComments */
+   public void setComments(java.util.List<Comment> newComments) {
+      removeAllComments();
+      for (java.util.Iterator iter = newComments.iterator(); iter.hasNext();)
+         addComments((Comment)iter.next());
    }
    
    /** @pdGenerated default add
      * @param newComment */
-   public void addComment(Comment newComment) {
+   public void addComments(Comment newComment) {
       if (newComment == null)
          return;
-      if (this.comment == null)
-         this.comment = new java.util.HashSet<Comment>();
-      if (!this.comment.contains(newComment))
-         this.comment.add(newComment);
+      if (this.comments == null)
+         this.comments = new java.util.ArrayList<Comment>();
+      if (!this.comments.contains(newComment))
+         this.comments.add(newComment);
    }
    
    /** @pdGenerated default remove
      * @param oldComment */
-   public void removeComment(Comment oldComment) {
+   public void removeComments(Comment oldComment) {
       if (oldComment == null)
          return;
-      if (this.comment != null)
-         if (this.comment.contains(oldComment))
-            this.comment.remove(oldComment);
+      if (this.comments != null)
+         if (this.comments.contains(oldComment))
+            this.comments.remove(oldComment);
    }
    
    /** @pdGenerated default removeAll */
-   public void removeAllComment() {
-      if (comment != null)
-         comment.clear();
+   public void removeAllComments() {
+      if (comments != null)
+         comments.clear();
    }
    /** @pdGenerated default getter */
-   public java.util.Collection<Recipe> getRecipe() {
-      if (recipe == null)
-         recipe = new java.util.HashSet<Recipe>();
-      return recipe;
+   public java.util.List<Recipe> getRecipes() {
+      if (recipes == null)
+         recipes = new java.util.ArrayList<Recipe>();
+      return recipes;
    }
    
    /** @pdGenerated default iterator getter */
-   public java.util.Iterator getIteratorRecipe() {
-      if (recipe == null)
-         recipe = new java.util.HashSet<Recipe>();
-      return recipe.iterator();
+   public java.util.Iterator getIteratorRecipes() {
+      if (recipes == null)
+         recipes = new java.util.ArrayList<Recipe>();
+      return recipes.iterator();
    }
    
    /** @pdGenerated default setter
-     * @param newRecipe */
-   public void setRecipe(java.util.Collection<Recipe> newRecipe) {
-      removeAllRecipe();
-      for (java.util.Iterator iter = newRecipe.iterator(); iter.hasNext();)
-         addRecipe((Recipe)iter.next());
+     * @param newRecipes */
+   public void setRecipes(java.util.List<Recipe> newRecipes) {
+      removeAllRecipes();
+      for (java.util.Iterator iter = newRecipes.iterator(); iter.hasNext();)
+         addRecipes((Recipe)iter.next());
    }
    
    /** @pdGenerated default add
      * @param newRecipe */
-   public void addRecipe(Recipe newRecipe) {
+   public void addRecipes(Recipe newRecipe) {
       if (newRecipe == null)
          return;
-      if (this.recipe == null)
-         this.recipe = new java.util.HashSet<Recipe>();
-      if (!this.recipe.contains(newRecipe))
-         this.recipe.add(newRecipe);
+      if (this.recipes == null)
+         this.recipes = new java.util.ArrayList<Recipe>();
+      if (!this.recipes.contains(newRecipe))
+         this.recipes.add(newRecipe);
    }
    
    /** @pdGenerated default remove
      * @param oldRecipe */
-   public void removeRecipe(Recipe oldRecipe) {
+   public void removeRecipes(Recipe oldRecipe) {
       if (oldRecipe == null)
          return;
-      if (this.recipe != null)
-         if (this.recipe.contains(oldRecipe))
-            this.recipe.remove(oldRecipe);
+      if (this.recipes != null)
+         if (this.recipes.contains(oldRecipe))
+            this.recipes.remove(oldRecipe);
    }
    
    /** @pdGenerated default removeAll */
-   public void removeAllRecipe() {
-      if (recipe != null)
-         recipe.clear();
+   public void removeAllRecipes() {
+      if (recipes != null)
+         recipes.clear();
    }
 
 }

@@ -15,29 +15,29 @@ public class Comment {
    /** @pdOid b65852b4-96ad-4dc7-833c-626be70b5490 */
    private java.util.Date date;
    
-   /** @pdRoleInfo migr=no name=Comment assc=association13 coll=java.util.Collection impl=java.util.HashSet mult=0..* */
-   public java.util.Collection<Comment> child;
+   /** @pdRoleInfo migr=no name=Comment assc=association13 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<Comment> child;
    /** @pdRoleInfo migr=no name=User assc=association17 mult=1..1 */
    public User commentator;
    
    
    /** @pdGenerated default getter */
-   public java.util.Collection<Comment> getChild() {
+   public java.util.List<Comment> getChild() {
       if (child == null)
-         child = new java.util.HashSet<Comment>();
+         child = new java.util.ArrayList<Comment>();
       return child;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorChild() {
       if (child == null)
-         child = new java.util.HashSet<Comment>();
+         child = new java.util.ArrayList<Comment>();
       return child.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newChild */
-   public void setChild(java.util.Collection<Comment> newChild) {
+   public void setChild(java.util.List<Comment> newChild) {
       removeAllChild();
       for (java.util.Iterator iter = newChild.iterator(); iter.hasNext();)
          addChild((Comment)iter.next());
@@ -49,7 +49,7 @@ public class Comment {
       if (newComment == null)
          return;
       if (this.child == null)
-         this.child = new java.util.HashSet<Comment>();
+         this.child = new java.util.ArrayList<Comment>();
       if (!this.child.contains(newComment))
          this.child.add(newComment);
    }

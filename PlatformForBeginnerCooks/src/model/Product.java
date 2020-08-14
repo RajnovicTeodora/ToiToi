@@ -17,27 +17,27 @@ public class Product {
    /** @pdOid dad12e77-0e91-4316-9b2f-c9aff403592f */
    private int productID;
    
-   /** @pdRoleInfo migr=no name=Product assc=association16 coll=java.util.Collection impl=java.util.HashSet mult=0..* type=Aggregation */
-   public java.util.Collection<Product> part;
+   /** @pdRoleInfo migr=no name=Product assc=association16 coll=java.util.List impl=java.util.ArrayList mult=0..* type=Aggregation */
+   public java.util.List<Product> part;
    
    
    /** @pdGenerated default getter */
-   public java.util.Collection<Product> getPart() {
+   public java.util.List<Product> getPart() {
       if (part == null)
-         part = new java.util.HashSet<Product>();
+         part = new java.util.ArrayList<Product>();
       return part;
    }
    
    /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorPart() {
       if (part == null)
-         part = new java.util.HashSet<Product>();
+         part = new java.util.ArrayList<Product>();
       return part.iterator();
    }
    
    /** @pdGenerated default setter
      * @param newPart */
-   public void setPart(java.util.Collection<Product> newPart) {
+   public void setPart(java.util.List<Product> newPart) {
       removeAllPart();
       for (java.util.Iterator iter = newPart.iterator(); iter.hasNext();)
          addPart((Product)iter.next());
@@ -49,7 +49,7 @@ public class Product {
       if (newProduct == null)
          return;
       if (this.part == null)
-         this.part = new java.util.HashSet<Product>();
+         this.part = new java.util.ArrayList<Product>();
       if (!this.part.contains(newProduct))
          this.part.add(newProduct);
    }
