@@ -1,8 +1,12 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
+import model.User;
+import model.Akter;
 import model.Equipment;
 import model.Product;
 import model.Tag;
@@ -20,7 +24,13 @@ public class ToiToiController {
 
 	private static final String tagFile = "./src/data/tags";
 	private TagController tagController = new TagController(tagFile);
+	
+	private static final String userFile = "./src/data/users";
+	private UserController userController = new UserController(userFile);
 
+	private static final String akterFile = "./src/data/akters";
+	private AkterController akterController = new AkterController(akterFile);
+	
 	public ToiToiController() {
 		super();
 
@@ -29,8 +39,8 @@ public class ToiToiController {
 	public void writteData() {
 
 		// PRAVLJENJE OBJEKATA PA IH UPISEM PA TEK ONDA UCITAM, OVAKO ZA POCETAK PA CE KASNIJE ICI DRUGACIJE
-		Equipment e1 = new Equipment("Serpa", "Metalac", "Duboka serpa, precnik 5cm");
-		Equipment e2 = new Equipment("Tanjir", "Home", "Beli tanjir, precnik 10, keramika");
+		Equipment e1 = new Equipment(1, "Serpa", "Metalac", "Duboka serpa, precnik 5cm");
+		Equipment e2 = new Equipment(2, "Tanjir", "Home", "Beli tanjir, precnik 10, keramika");
 
 		ArrayList<Equipment> equipmentList = new ArrayList<Equipment>();
 		equipmentList.add(e1);
@@ -64,11 +74,25 @@ public class ToiToiController {
 		ArrayList<Tag> tagList = new ArrayList<Tag>();
 		tagList.add(t1);
 		tagList.add(t2);
+		
+		Date d1 = new Date(1999,12,12);
+		ArrayList<Product>peraProducts = new ArrayList<Product>();
+		peraProducts.add(p3);
+		peraProducts.add(p2);
+		ArrayList<Product>peraAlergies = new ArrayList<Product>();
+		peraAlergies.add(p1);
+		ArrayList<Equipment>peraEq = new ArrayList<Equipment>();
+		peraEq.add(e1);
+		User u1 = new User("Pera", "Peric", "peraa","pera123","pera@gmail.com",d1,"Glavna 73 NS","123456",0,peraProducts,peraAlergies,peraEq);
+		ArrayList<Akter>userList = new ArrayList<Akter>();
+		userList.add(u1);
+		
 		// OVDJE IDU POZIVI KONTROLERA ZA UPIS
 		try {
 			this.equipmentController.writeEquipment(equipmentList);
 			this.productController.writeProducts(ingredients1);
 			this.tagController.writeTags(tagList);
+			this.akterController.writeAkters(userList);
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -86,6 +110,8 @@ public class ToiToiController {
 			//System.out.println(toiToi.getProducts());
 			toiToi.setTags(this.tagController.readTags());
 			System.out.println(toiToi.getTags());
+			toiToi.setUsers(this.akterController.readAkters());
+			System.out.println(toiToi.getUsers());
 		} catch (IOException e) {
 
 			e.printStackTrace();

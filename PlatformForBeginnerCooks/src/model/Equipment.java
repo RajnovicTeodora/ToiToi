@@ -1,5 +1,5 @@
 /***********************************************************************
- * Module:  CookBook.java
+ * Module:  Equipment.java
  * Author:  Teodora Rajnovic, Olivera Mirilovic,Isidora Savic
  * Purpose: Defines the Class CookBook
  ***********************************************************************/
@@ -14,6 +14,8 @@ public class Equipment implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private int equipmentID;
 
 	private String name;
 
@@ -25,13 +27,16 @@ public class Equipment implements Serializable {
 		super();
 	}
 
-	public Equipment(String name, String company, String description) {
+	public Equipment(int equipmentID, String name, String company, String description) {
 		super();
 		this.name = name;
 		this.company = company;
 		this.description = description;
+		this.equipmentID = equipmentID;
 	}
 
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -48,8 +53,6 @@ public class Equipment implements Serializable {
 		this.company = company;
 	}
 
-	
-
 	public String getDescription() {
 		return description;
 	}
@@ -58,8 +61,19 @@ public class Equipment implements Serializable {
 		this.description = description;
 	}
 
+	public int getEquipmentID() {
+		return equipmentID;
+	}
+
+	public void setEquipmentID(int equipmentID) {
+		this.equipmentID = equipmentID;
+	}
+
 	@Override
 	public String toString() {
-		return "Equipment [name=" + name + ", company=" + company + ", description=" + description + "]";
+		return "Equipment [equipmentID=" + equipmentID + ", name=" + name + ", company=" + company + ", description="
+				+ description + "]";
 	}
+	
+	
 }
