@@ -1,5 +1,5 @@
 /***********************************************************************
- * Module:  CookBook.java
+ * Module:  Product.java
  * Author:  Teodora Rajnovic, Olivera Mirilovic,Isidora Savic
  * Purpose: Defines the Class CookBook
  ***********************************************************************/
@@ -81,7 +81,7 @@ public class Product implements Serializable {
 
 	public void setPart(java.util.List<Product> newPart) {
 		removeAllPart();
-		for (java.util.Iterator iter = newPart.iterator(); iter.hasNext();)
+		for (Iterator<Product> iter = newPart.iterator(); iter.hasNext();)
 			addPart((Product) iter.next());
 	}
 
@@ -109,10 +109,10 @@ public class Product implements Serializable {
 
 	@Override
 	public String toString() {
-		String first = "Product [name=" + name + ", producedBy=" + producedBy + ", productID=" + productID + ", part=";
+		String first = "Product [productID=" + productID + " name=" + name + ", producedBy=" + producedBy + ", part=";
 		if (part != null) {
 			for (Product product : part) {
-				first += product.name + ", ";
+				first += product.getProductID() + ", ";
 			}
 			first = first.substring(0, first.length()-2);
 		}
