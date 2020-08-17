@@ -8,46 +8,51 @@ package model;
 
 import java.util.*;
 
-
+/** @pdOid 930ff152-8efa-4b95-8f5d-87b8650c1ff8 */
 public class ToiToi {
+   /** @pdOid ed03089b-0831-4721-89cb-715a95f5cef3 */
    private String name;
-
+   /** @pdOid abc56e73-0c3b-4361-96bb-de05ce0919f8 */
    private String telephone;
    
+   /** @pdRoleInfo migr=no name=Tag assc=association20 coll=java.util.List impl=java.util.ArrayList mult=0..* */
    public java.util.List<Tag> tags;
-
+   /** @pdRoleInfo migr=no name=Akter assc=association3 coll=java.util.List mult=0..* */
    public java.util.List<Akter> users;
-
+   /** @pdRoleInfo migr=no name=Recipe assc=association4 coll=java.util.List impl=java.util.ArrayList mult=0..* */
    public java.util.List<Recipe> recipe;
-
+   /** @pdRoleInfo migr=no name=Product assc=association5 coll=java.util.List impl=java.util.ArrayList mult=0..* */
    public java.util.List<Product> products;
-
+   /** @pdRoleInfo migr=no name=Equipment assc=association8 coll=java.util.List impl=java.util.ArrayList mult=0..* */
    public java.util.List<Equipment> equipment;
-
+   /** @pdRoleInfo migr=no name=CookBook assc=association14 coll=java.util.List impl=java.util.ArrayList mult=0..* */
    public java.util.List<CookBook> cookBooks;
    
    
+   /** @pdGenerated default getter */
    public java.util.List<Tag> getTags() {
       if (tags == null)
          tags = new java.util.ArrayList<Tag>();
       return tags;
    }
    
-
+   /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorTags() {
       if (tags == null)
          tags = new java.util.ArrayList<Tag>();
       return tags.iterator();
    }
    
-
+   /** @pdGenerated default setter
+     * @param newTags */
    public void setTags(java.util.List<Tag> newTags) {
       removeAllTags();
       for (java.util.Iterator iter = newTags.iterator(); iter.hasNext();)
          addTags((Tag)iter.next());
    }
    
-
+   /** @pdGenerated default add
+     * @param newTag */
    public void addTags(Tag newTag) {
       if (newTag == null)
          return;
@@ -57,7 +62,8 @@ public class ToiToi {
          this.tags.add(newTag);
    }
    
-
+   /** @pdGenerated default remove
+     * @param oldTag */
    public void removeTags(Tag oldTag) {
       if (oldTag == null)
          return;
@@ -66,31 +72,35 @@ public class ToiToi {
             this.tags.remove(oldTag);
    }
    
+   /** @pdGenerated default removeAll */
    public void removeAllTags() {
       if (tags != null)
          tags.clear();
    }
-
+   /** @pdGenerated default getter */
    public java.util.List<Akter> getUsers() {
       if (users == null)
          users = new java.util.Vector<Akter>();
       return users;
    }
    
-
+   /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorUsers() {
       if (users == null)
          users = new java.util.Vector<Akter>();
       return users.iterator();
    }
    
-
+   /** @pdGenerated default setter
+     * @param newUsers */
    public void setUsers(java.util.List<Akter> newUsers) {
       removeAllUsers();
       for (java.util.Iterator iter = newUsers.iterator(); iter.hasNext();)
          addUsers((Akter)iter.next());
    }
-
+   
+   /** @pdGenerated default add
+     * @param newAkter */
    public void addUsers(Akter newAkter) {
       if (newAkter == null)
          return;
@@ -100,7 +110,8 @@ public class ToiToi {
          this.users.add(newAkter);
    }
    
-
+   /** @pdGenerated default remove
+     * @param oldAkter */
    public void removeUsers(Akter oldAkter) {
       if (oldAkter == null)
          return;
@@ -109,18 +120,19 @@ public class ToiToi {
             this.users.remove(oldAkter);
    }
    
-
+   /** @pdGenerated default removeAll */
    public void removeAllUsers() {
       if (users != null)
          users.clear();
    }
-  
+   /** @pdGenerated default getter */
    public java.util.List<Recipe> getRecipe() {
       if (recipe == null)
          recipe = new java.util.ArrayList<Recipe>();
       return recipe;
    }
-
+   
+   /** @pdGenerated default iterator getter */
    public java.util.Iterator getIteratorRecipe() {
       if (recipe == null)
          recipe = new java.util.ArrayList<Recipe>();

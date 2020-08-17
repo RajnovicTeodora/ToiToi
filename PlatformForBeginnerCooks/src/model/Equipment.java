@@ -1,79 +1,19 @@
 /***********************************************************************
- * Module:  Equipment.java
+ * Module:  CookBook.java
  * Author:  Teodora Rajnovic, Olivera Mirilovic,Isidora Savic
  * Purpose: Defines the Class CookBook
  ***********************************************************************/
 
 package model;
 
-import java.io.Serializable;
+import java.util.*;
 
-public class Equipment implements Serializable {
+public class Equipment {
+	   /** @pdOid 00b69476-b7b8-4ec5-a114-49da45bf0ad2 */
+	   private String name;
+	   /** @pdOid 6b80a065-e2d1-4284-af63-516de05ecbe1 */
+	   private String company;
+	   /** @pdOid 0b484a31-4e98-4d17-b4d5-d05d2f7a8130 */
+	   private String description;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private int equipmentID;
-
-	private String name;
-
-	private String company;
-
-	private String description;
-
-	public Equipment() {
-		super();
 	}
-
-	public Equipment(int equipmentID, String name, String company, String description) {
-		super();
-		this.name = name;
-		this.company = company;
-		this.description = description;
-		this.equipmentID = equipmentID;
-	}
-
-	
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getEquipmentID() {
-		return equipmentID;
-	}
-
-	public void setEquipmentID(int equipmentID) {
-		this.equipmentID = equipmentID;
-	}
-
-	@Override
-	public String toString() {
-		return "Equipment [equipmentID=" + equipmentID + ", name=" + name + ", company=" + company + ", description="
-				+ description + "]";
-	}
-	
-	
-}

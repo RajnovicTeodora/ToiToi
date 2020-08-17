@@ -1,123 +1,73 @@
 /***********************************************************************
- * Module:  Product.java
+ * Module:  CookBook.java
  * Author:  Teodora Rajnovic, Olivera Mirilovic,Isidora Savic
  * Purpose: Defines the Class CookBook
  ***********************************************************************/
 
 package model;
 
-import java.io.Serializable;
 import java.util.*;
 
-public class Product implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	private String name;
-
-	private String producedBy;
-
-	private int productID;
-
-	public java.util.List<Product> part;
-
-	public Product() {
-		super();
-	}
-
-	public Product(String name, String producedBy, int productID) {
-		super();
-		this.name = name;
-		this.producedBy = producedBy;
-		this.productID = productID;
-	}
-
-	public Product(String name, String producedBy, int productID, List<Product> part) {
-		super();
-		this.name = name;
-		this.producedBy = producedBy;
-		this.productID = productID;
-		this.part = part;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getProducedBy() {
-		return producedBy;
-	}
-
-	public void setProducedBy(String producedBy) {
-		this.producedBy = producedBy;
-	}
-
-	public int getProductID() {
-		return productID;
-	}
-
-	public void setProductID(int productID) {
-		this.productID = productID;
-	}
-
-	public java.util.List<Product> getPart() {
-		if (part == null)
-			part = new java.util.ArrayList<Product>();
-		return part;
-	}
-
-	public java.util.Iterator getIteratorPart() {
-		if (part == null)
-			part = new java.util.ArrayList<Product>();
-		return part.iterator();
-	}
-
-	public void setPart(java.util.List<Product> newPart) {
-		removeAllPart();
-		for (Iterator<Product> iter = newPart.iterator(); iter.hasNext();)
-			addPart((Product) iter.next());
-	}
-
-	public void addPart(Product newProduct) {
-		if (newProduct == null)
-			return;
-		if (this.part == null)
-			this.part = new java.util.ArrayList<Product>();
-		if (!this.part.contains(newProduct))
-			this.part.add(newProduct);
-	}
-
-	public void removePart(Product oldProduct) {
-		if (oldProduct == null)
-			return;
-		if (this.part != null)
-			if (this.part.contains(oldProduct))
-				this.part.remove(oldProduct);
-	}
-
-	public void removeAllPart() {
-		if (part != null)
-			part.clear();
-	}
-
-	@Override
-	public String toString() {
-		String first = "Product [productID=" + productID + " name=" + name + ", producedBy=" + producedBy + ", part=";
-		if (part != null) {
-			for (Product product : part) {
-				first += product.getProductID() + ", ";
-			}
-			first = first.substring(0, first.length()-2);
-		}
-		first += "]";
-		return first;
-	}
+/** @pdOid 6bd2980a-2daa-405e-948d-ee4b4751d709 */
+public class Product {
+   /** @pdOid d580cefc-99e8-4d7c-a04d-d617697a4088 */
+   private String name;
+   /** @pdOid 983a89e2-126d-4948-be7a-beb2d714a80e */
+   private String producedBy;
+   /** @pdOid dad12e77-0e91-4316-9b2f-c9aff403592f */
+   private int productID;
+   
+   /** @pdRoleInfo migr=no name=Product assc=association16 coll=java.util.List impl=java.util.ArrayList mult=0..* type=Aggregation */
+   public java.util.List<Product> part;
+   
+   
+   /** @pdGenerated default getter */
+   public java.util.List<Product> getPart() {
+      if (part == null)
+         part = new java.util.ArrayList<Product>();
+      return part;
+   }
+   
+   /** @pdGenerated default iterator getter */
+   public java.util.Iterator getIteratorPart() {
+      if (part == null)
+         part = new java.util.ArrayList<Product>();
+      return part.iterator();
+   }
+   
+   /** @pdGenerated default setter
+     * @param newPart */
+   public void setPart(java.util.List<Product> newPart) {
+      removeAllPart();
+      for (java.util.Iterator iter = newPart.iterator(); iter.hasNext();)
+         addPart((Product)iter.next());
+   }
+   
+   /** @pdGenerated default add
+     * @param newProduct */
+   public void addPart(Product newProduct) {
+      if (newProduct == null)
+         return;
+      if (this.part == null)
+         this.part = new java.util.ArrayList<Product>();
+      if (!this.part.contains(newProduct))
+         this.part.add(newProduct);
+   }
+   
+   /** @pdGenerated default remove
+     * @param oldProduct */
+   public void removePart(Product oldProduct) {
+      if (oldProduct == null)
+         return;
+      if (this.part != null)
+         if (this.part.contains(oldProduct))
+            this.part.remove(oldProduct);
+   }
+   
+   /** @pdGenerated default removeAll */
+   public void removeAllPart() {
+      if (part != null)
+         part.clear();
+   }
 
 }
