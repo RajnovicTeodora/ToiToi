@@ -6,11 +6,36 @@
 
 package model;
 
-import java.util.*;
+import java.io.Serializable;
 
-/** @pdOid ec99c9bc-7768-4469-a5b9-962bbcb567b2 */
-public class Tag {
-   /** @pdOid 405e714c-5e98-4a44-8827-3ad663362384 */
-   private String tag;
+public class Tag implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String tag;
+
+	public Tag() {
+		super();
+	}
+
+	public Tag(String tag) {
+		super();
+		this.tag = tag;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	@Override
+	public String toString() {
+		return "Tag [tag=" + tag + "]";
+	}
 
 }
