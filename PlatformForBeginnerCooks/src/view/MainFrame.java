@@ -1,79 +1,122 @@
 package view;
 
+import net.miginfocom.swing.MigLayout;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
 
 public class MainFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 
-	public MainFrame() {
+	public MainFrame() throws IOException {
 		
-		setLayout(new GridBagLayout());
-        GridBagConstraints con = new GridBagConstraints();
+		setSize(700,700);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
 		
-		JTextArea ta=new JTextArea(200,200);
-	    JPanel p1=new JPanel();
-	    p1.add(ta);
-	    JPanel p2=new JPanel();
-	    JPanel p3=new JPanel();
-	    JTabbedPane tp=new JTabbedPane();
-	    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    tp.setBounds(10,50,(int) screenSize.getWidth(), (int)screenSize.getHeight());
-	    tp.add("home",p1);
-	    tp.add("recipes",p2);
-	    tp.add("cookbook",p3);
-	     
-	    Font f = new Font("Serif", Font.PLAIN, 20);
+		JPanel pan = new JPanel();
+		pan.setLayout(new BorderLayout());
+        
+		RecipeWindow rw = new RecipeWindow();
+		
+        JTabbedPane tabbedPane = new JTabbedPane();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        tabbedPane.setBounds(10,50,(int) screenSize.getWidth(), (int)screenSize.getHeight());
+        tabbedPane.addTab( "", createPage1() );
+        tabbedPane.addTab( "", rw.createRecipePage(1) );
+        tabbedPane.addTab( "", createPage2() );
+        pan.add( tabbedPane, BorderLayout.CENTER );
+        Font f = new Font("Serif", Font.PLAIN, 20);
 	    Dimension d = new Dimension(150,30);
 	    
 	    JLabel lab1 = new JLabel("          Home");
 	    lab1.setFont(f);
 	    lab1.setPreferredSize(d);
-	    tp.setTabComponentAt(0, lab1);
+	    tabbedPane.setTabComponentAt(0, lab1);
 	    
 	    JLabel lab2 = new JLabel("          Recipes");
 	    lab2.setFont(f);
 	    lab2.setPreferredSize(d);
-	    tp.setTabComponentAt(1, lab2);
+	    tabbedPane.setTabComponentAt(1, lab2);
 	    
-	    JLabel lab3 = new JLabel("          Cookbooks");
+	    JLabel lab3 = new JLabel("        Cookbooks");
 	    lab3.setFont(f);
 	    lab3.setPreferredSize(d);
-	    tp.setTabComponentAt(2, lab3);
+	    tabbedPane.setTabComponentAt(2, lab3);
 	    
 	    JButton logInBttn = new JButton("Log in");
 	    logInBttn.setSize(50,30);
 	    JButton signUpBttn = new JButton("Sign up");
+	    signUpBttn.setSize(50,30);	    
 	    
-	    con.insets = new Insets(10, 10, 10, 10);
-	    con.gridx = 0;
-        con.gridy = 0;
-        con.gridwidth = 2;
-        con.fill = GridBagConstraints.BOTH;
-        add(logInBttn, con);
+	    JLabel title = new JLabel("         ToiToi");
+	    title.setFont(new Font("Serif", Font.ITALIC, 50));
+	    title.setPreferredSize(new Dimension(100,40));
 	    
-        con.gridy = 1;
-        add(signUpBttn, con);
-	    //add(tp);
+	    JPanel pan1 = new JPanel(new MigLayout("", "[][grow][]"));
+	    pan1.add(title, "skip 1, center");
+	    pan1.add(signUpBttn, "split");
+	    pan1.add(logInBttn,"right");
 	    
+	    
+	    JPanel masterPan = new JPanel();
+	    masterPan.setLayout(new BorderLayout());
+	    masterPan.add(pan, BorderLayout.CENTER);
+	    masterPan.add(pan1, BorderLayout.NORTH);
+	    getContentPane().add(masterPan);
+	    	    
 	    setVisible(true);
-	    
-	    setSize(screenSize);
+		
 	}
 	
+	public JPanel createPage1() {
+		JPanel panel = new JPanel(new GridBagLayout());
+		
+		JLabel label = new JLabel("Form");
+
+        JPanel tableButtonPanel = new JPanel();
+        tableButtonPanel.add(new JButton("Add Thing"));
+        tableButtonPanel.add(new JRadioButton("Delete Thing"));
+        tableButtonPanel.add(new JButton("Modify Thing"));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(label, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(tableButtonPanel, gbc);
+		
+		return panel;
+	}
 	
+	 public JPanel createPage2() throws IOException
+	    {
+		 
+		 	JPanel breakfast = new JPanel();
+	        breakfast.setLayout( new BorderLayout() );
+	        breakfast.add( new JButton( "North" ), BorderLayout.NORTH );
+	        breakfast.add( new JButton( "South" ), BorderLayout.SOUTH );
+	        breakfast.add( new JButton( "East" ), BorderLayout.EAST );
+	        breakfast.add( new JButton( "West" ), BorderLayout.WEST );
+	        breakfast.add( new JButton( "Center" ), BorderLayout.CENTER );
+	        return breakfast;
+	    }
 
 }

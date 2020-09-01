@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 /** @pdOid a478c37f-e225-412d-9b63-7e0bf797efba */
@@ -23,8 +24,8 @@ public class Moderator extends User implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Moderator(String name, String surname, String username, String password, String mail, Date birthday,
-			String address, String telephone, int points, List<Product> availableGroceries, List<Product> alergies,
+	public Moderator(String name, String surname, String username, String password, String mail, LocalDate birthday,
+			String address, String telephone, int points, List<ProductInfo> availableGroceries, List<Product> alergies,
 			List<Equipment> equipment) {
 		super(name, surname, username, password, mail, birthday, address, telephone, points, availableGroceries, alergies,
 				equipment);
