@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 /** @pdOid 61c4ae9a-2e7d-44ab-960a-23ec0093c458 */
@@ -18,15 +19,15 @@ public class ProductInfo implements Serializable{
 	/** @pdOid f04e608d-14fd-4302-8d92-8fd48a803451 */
 	   private java.lang.Double quantity;
 	   /** @pdOid c2201182-f1c3-4dea-a43a-022dfc74adb4 */
-	   private java.util.Date expires;
+	   private LocalDate expires;
 	   
-	   public Product ingredients;
+	   public Product ingredient;
 
-	public ProductInfo(Double quantity, Date expires, Product ingredients) {
+	public ProductInfo(Double quantity, LocalDate expires, Product ingredients) {
 		super();
 		this.quantity = quantity;
 		this.expires = expires;
-		this.ingredients = ingredients;
+		this.ingredient = ingredients;
 	}
 
 	public ProductInfo() {
@@ -41,25 +42,25 @@ public class ProductInfo implements Serializable{
 		this.quantity = quantity;
 	}
 
-	public java.util.Date getExpires() {
+	public LocalDate getExpires() {
 		return expires;
 	}
 
-	public void setExpires(java.util.Date expires) {
+	public void setExpires(LocalDate expires) {
 		this.expires = expires;
 	}
 
-	public Product getIngredients() {
-		return ingredients;
+	public Product getIngredient() {
+		return ingredient;
 	}
 
-	public void setIngredients(Product ingredients) {
-		this.ingredients = ingredients;
+	public void setIngredient(Product ingredient) {
+		this.ingredient = ingredient;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductInfo [quantity=" + quantity + ", expires=" + expires + ", ingredients=" + ingredients + "]";
+		return "ProductInfo [quantity=" + quantity + ", expires=" + expires + ", ingredient=" + ingredient + "]";
 	}
 	   
 	

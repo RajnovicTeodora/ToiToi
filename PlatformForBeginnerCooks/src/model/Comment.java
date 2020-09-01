@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Comment implements Serializable{
@@ -17,7 +18,7 @@ public class Comment implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 private String text;
-   private java.util.Date date;
+   private LocalDate date;
    
    public java.util.List<Comment> child;
    public User commentator;
@@ -37,11 +38,11 @@ private String text;
 		this.text = text;
    }
 
-	public java.util.Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(java.util.Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 	
@@ -72,4 +73,13 @@ public void addChild(Comment newComment) {
          child.clear();
    }
 
+public User getCommentator() {
+	return commentator;
+}
+
+public void setCommentator(User commentator) {
+	this.commentator = commentator;
+}
+
+   
 }

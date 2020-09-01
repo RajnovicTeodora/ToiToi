@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 public class CookBook implements Serializable{
@@ -17,7 +18,7 @@ public class CookBook implements Serializable{
 
 	private String name;
    
-	private java.util.Date date;
+	private LocalDate date;
    
 	private int likes;
    
@@ -33,11 +34,11 @@ public class CookBook implements Serializable{
 		this.name = name;
 	}
 
-	public java.util.Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(java.util.Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

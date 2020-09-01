@@ -7,27 +7,29 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
-/** @pdOid b695a9ee-5175-4cf8-bd76-a37d0f496653 */
+
 public class User extends Akter implements Serializable{
    /**
 	 * 
 	 */
+	//yyyy-mm-dd
 	private static final long serialVersionUID = -6052040809605270549L;
-/** @pdOid 6194bb1e-4af0-4ffd-9298-e40de0815c91 */
-   private java.util.Date birthday;
-   /** @pdOid af39f67c-94c0-4066-827f-000442131c75 */
+
+   private LocalDate birthday;
+
    private String address;
-   /** @pdOid aba2cebe-740c-462f-af27-ce64f7937c63 */
+
    private String telephone;
-   /** @pdOid bbeb87af-bbe0-4ae3-82b9-cecd7507dc63 */
+ 
    private int points = 0;
    
-   public java.util.List<Product> availableGroceries;
-   /** @pdRoleInfo migr=no name=Product assc=association7 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+   public java.util.List<ProductInfo> availableGroceries;
+ 
    public java.util.List<Product> alergies;
-   /** @pdRoleInfo migr=no name=Equipment assc=association9 coll=java.util.List impl=java.util.ArrayList mult=0..* */
+
    public java.util.List<Equipment> equipment;
    
       
@@ -35,8 +37,8 @@ public class User extends Akter implements Serializable{
 		super();
 	}
 
-	public User(String name, String surname, String username, String password, String mail, Date birthday, String address,
-		String telephone, int points, List<Product> availableGroceries, List<Product> alergies, List<Equipment> equipment) {
+	public User(String name, String surname, String username, String password, String mail, LocalDate birthday, String address,
+		String telephone, int points, List<ProductInfo> availableGroceries, List<Product> alergies, List<Equipment> equipment) {
 		super(name, surname, username, password, mail);
 			this.birthday = birthday;
 			this.address = address;
@@ -214,8 +216,8 @@ public class User extends Akter implements Serializable{
 				+ ", availableGroceries=" ;
 		
 		if(availableGroceries != null) {
-			for(Product p : availableGroceries) {
-				retval += p.getProductID() + ", ";
+			for(ProductInfo p : availableGroceries) {
+				retval += p.getIngredient().getName() + ", ";
 			}
 		}
 		

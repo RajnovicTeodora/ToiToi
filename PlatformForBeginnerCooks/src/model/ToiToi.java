@@ -129,7 +129,8 @@ public class ToiToi {
    
    /** @pdGenerated default setter
      * @param newRecipe */
-   public void setRecipe(java.util.List<Recipe> newRecipe) {
+   @SuppressWarnings("rawtypes")
+public void setRecipe(java.util.List<Recipe> newRecipe) {
       removeAllRecipe();
       for (java.util.Iterator iter = newRecipe.iterator(); iter.hasNext();)
          addRecipe((Recipe)iter.next());

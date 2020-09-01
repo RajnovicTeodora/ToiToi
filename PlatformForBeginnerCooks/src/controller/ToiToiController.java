@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,7 +11,9 @@ import model.Akter;
 import model.Comment;
 import model.CookBook;
 import model.Equipment;
+import model.NeededQuantity;
 import model.Product;
+import model.ProductInfo;
 import model.Recipe;
 import model.Tag;
 import model.Taste;
@@ -20,29 +23,32 @@ public class ToiToiController {
 
 	private ToiToi toiToi = new ToiToi();
 
-	private static final String equipmentFile = "./src/data/equipment";
+	private static final String equipmentFile = "./data/equipment";
 	private EquipmentController equipmentController = new EquipmentController(equipmentFile);
 
-	private static final String productFile = "./src/data/products";
+	private static final String productFile = "./data/products";
 	private ProductController productController = new ProductController(productFile);
 
-	private static final String tagFile = "./src/data/tags";
+	private static final String tagFile = "./data/tags";
 	private TagController tagController = new TagController(tagFile);
 	
-	private static final String userFile = "./src/data/users";
+	private static final String userFile = "./data/users";
 	private UserController userController = new UserController(userFile);
 
-	private static final String akterFile = "./src/data/akters";
+	private static final String akterFile = "./data/akters";
 	private AkterController akterController = new AkterController(akterFile);
 	
-	private static final String commentFile = "./src/data/comments";
+	private static final String commentFile = "./data/comments";
 	private CommentController commentController = new CommentController(commentFile);
 	
-	private static final String recipeFile = "./src/data/recipes";
+	private static final String recipeFile = "./data/recipes";
 	private RecipeController recipeController = new RecipeController(recipeFile);
 	
-	private static final String cbFile = "./src/data/cookbook";
+	private static final String cbFile = "./data/cookbook";
 	private CookBookController cbController = new CookBookController(cbFile);
+	
+	private static final String nqFile = "./data/neededQuantity";
+	private NeededQuantityController nqController = new NeededQuantityController(nqFile);
 	
 	public ToiToiController() {
 		super();
@@ -89,10 +95,15 @@ public class ToiToiController {
 		tagList.add(t2);
 		
 		@SuppressWarnings("deprecation")
-		Date d1 = new Date(1999,12,12);
-		ArrayList<Product>peraProducts = new ArrayList<Product>();
-		peraProducts.add(p3);
-		peraProducts.add(p2);
+		
+		DateTimeFormatter x = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate d1 = LocalDate.parse("1999-12-12", x);
+		
+		ArrayList<ProductInfo>peraProducts = new ArrayList<ProductInfo>();
+		ProductInfo pi3 = new ProductInfo(11.1, LocalDate.parse("2020-12-12"), p3);
+		ProductInfo pi2 = new ProductInfo(10.1, LocalDate.parse("2020-12-10"), p2);
+		peraProducts.add(pi3);
+		peraProducts.add(pi2);
 		ArrayList<Product>peraAlergies = new ArrayList<Product>();
 		peraAlergies.add(p1);
 		ArrayList<Equipment>peraEq = new ArrayList<Equipment>();
@@ -106,31 +117,52 @@ public class ToiToiController {
 		com.setText("Prelepo!");
 		com.commentator = u1;
 		Comment dete = new Comment();
-		dete.setDate(new Date());
+		dete.setDate(d1);
 		dete.setText("<3");
 		dete.commentator = u1;
 		com.addChild(dete);
 		ArrayList<Comment> commentList = new ArrayList<Comment>();
 		commentList.add(com);
+			
 		
 		Recipe recipe = new Recipe();
+		recipe.setRecipeID(1);
 		recipe.setDescription("Najlepsi milkshake koji cete ikada probati!");
 		recipe.setLikes(12);
 		recipe.setName("Milkshake");
 		recipe.addComment(com);
 		recipe.addTags(t2);
-		recipe.addProducts(p1);
-		recipe.addProducts(p4);
-		recipe.addProducts(p5);
 		recipe.addTastes(Taste.sweet);
 		recipe.addTastes(Taste.tangy);
 		recipe.addEquipment(e1);
+		recipe.setImage("./data/RecipeImage/milkshake.png");
+		
+		ArrayList<NeededQuantity>nqList = new ArrayList<NeededQuantity>();
+		NeededQuantity nq1 = new NeededQuantity();
+		nq1.setIngredient(p1);
+		nq1.setQuantity(2.0);
+		nq1.setEssential(true);
+		NeededQuantity nq2 = new NeededQuantity();
+		nq2.setIngredient(p4);
+		nq2.setQuantity(1.0);
+		nq2.setEssential(true);
+		NeededQuantity nq3 = new NeededQuantity();
+		nq3.setIngredient(p5);
+		nq3.setQuantity(1.0);
+		nq3.setEssential(false);
+		nqList.add(nq1);
+		nqList.add(nq2);
+		nqList.add(nq3);
+		
+		recipe.addNeededQuantity(nq1);
+		recipe.addNeededQuantity(nq2);
+		recipe.addNeededQuantity(nq3);
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		recipeList.add(recipe);
 		
 		CookBook cb = new CookBook();
 		cb.setName("Slatki recepti");
-		cb.setDate(new Date());
+		cb.setDate(d1);
 		cb.setLikes(100);
 		cb.setRecipes(recipeList);
 		cb.setComments(commentList);
@@ -147,6 +179,8 @@ public class ToiToiController {
 			this.commentController.writeComments(commentList);
 			this.recipeController.writeRecipes(recipeList);
 			this.cbController.writeCookBook(cbList);
+			this.nqController.writeNQ(nqList);
+			
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -176,5 +210,23 @@ public class ToiToiController {
 		}
 
 	}
+
+	public ToiToi getToiToi() {
+		return toiToi;
+	}
+
+	public void setToiToi(ToiToi toiToi) {
+		this.toiToi = toiToi;
+	}
+
+	public UserController getUserController() {
+		return userController;
+	}
+
+	public void setUserController(UserController userController) {
+		this.userController = userController;
+	}
+	
+	
 
 }
