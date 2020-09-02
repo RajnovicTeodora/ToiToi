@@ -8,12 +8,11 @@ import javax.swing.table.AbstractTableModel;
 import model.NeededQuantity;
 
 public class RecipeIngredientsTable extends AbstractTableModel{
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 6786717170579562972L;
+
 	private String[] columns = {"Ingredient", "Quantity", "Essential"};
 	
 	private Collection<NeededQuantity> nqs = new ArrayList<NeededQuantity>();
@@ -83,4 +82,7 @@ public class RecipeIngredientsTable extends AbstractTableModel{
 		this.columns = columns;
 	}
 
+	public String getColumnName(int col) {
+		return this.columns[col];
+	}
 }

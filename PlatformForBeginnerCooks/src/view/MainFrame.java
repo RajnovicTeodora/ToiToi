@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
-
+		ToiToiController toiToiController = new ToiToiController();
 		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
 		try {
-			tabbedPane.addTab("", rw.createRecipePage(1));
+			tabbedPane.addTab("", rw.createUserRecipePage(1,"peraa", toiToiController) );
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -165,7 +165,6 @@ public class MainFrame extends JFrame {
 		getContentPane().add(masterPan);
 
 		setVisible(true);
-
 	}
 
 	public JPanel createPage1() {
