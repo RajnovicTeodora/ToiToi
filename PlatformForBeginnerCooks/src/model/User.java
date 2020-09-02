@@ -32,6 +32,7 @@ public class User extends Akter implements Serializable{
 
    public java.util.List<Equipment> equipment;
    
+   private ArrayList<Recipe> likedRecipes;
       
 	public User() {
 		super();
@@ -237,6 +238,14 @@ public class User extends Akter implements Serializable{
 		retval = retval.substring(0, retval.length()-2) + "]";
 				
 		return retval;
+	}
+
+	public ArrayList<Recipe> getLikedRecipes() {
+		return likedRecipes;
+	}
+
+	public void setLikedRecipes(ArrayList<Recipe> likedRecipes) {
+		this.likedRecipes = likedRecipes;
 	}
 
    

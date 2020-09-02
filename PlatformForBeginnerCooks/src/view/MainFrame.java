@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
 
+import controller.ToiToiController;
+
 public class MainFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
@@ -31,13 +33,14 @@ public class MainFrame extends JFrame{
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
         
+		ToiToiController toiToiController = new ToiToiController();
 		RecipeWindow rw = new RecipeWindow();
 		
         JTabbedPane tabbedPane = new JTabbedPane();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         tabbedPane.setBounds(10,50,(int) screenSize.getWidth(), (int)screenSize.getHeight());
         tabbedPane.addTab( "", createPage1() );
-        tabbedPane.addTab( "", rw.createRecipePage(1) );
+        tabbedPane.addTab( "", rw.createUserRecipePage(1,"peraa", toiToiController) );
         tabbedPane.addTab( "", createPage2() );
         pan.add( tabbedPane, BorderLayout.CENTER );
         Font f = new Font("Serif", Font.PLAIN, 20);

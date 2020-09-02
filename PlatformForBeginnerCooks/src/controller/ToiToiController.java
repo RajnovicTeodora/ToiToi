@@ -102,8 +102,10 @@ public class ToiToiController {
 		ArrayList<ProductInfo>peraProducts = new ArrayList<ProductInfo>();
 		ProductInfo pi3 = new ProductInfo(11.1, LocalDate.parse("2020-12-12"), p3);
 		ProductInfo pi2 = new ProductInfo(10.1, LocalDate.parse("2020-12-10"), p2);
+		ProductInfo pi5 = new ProductInfo(5.1, LocalDate.parse("2020-12-25"), p5);
 		peraProducts.add(pi3);
 		peraProducts.add(pi2);
+		peraProducts.add(pi5);
 		ArrayList<Product>peraAlergies = new ArrayList<Product>();
 		peraAlergies.add(p1);
 		ArrayList<Equipment>peraEq = new ArrayList<Equipment>();
@@ -201,9 +203,9 @@ public class ToiToiController {
 			toiToi.setUsers(this.akterController.readAkters());
 			//System.out.println(toiToi.getUsers());
 			toiToi.setRecipe(this.recipeController.readRecipes());
-			System.out.println(toiToi.getRecipe());
+			//System.out.println(toiToi.getRecipe());
 			toiToi.setCookBooks(this.cbController.readCookBook());
-			System.out.println(toiToi.getCookBooks());
+			//System.out.println(toiToi.getCookBooks());
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -225,6 +227,70 @@ public class ToiToiController {
 
 	public void setUserController(UserController userController) {
 		this.userController = userController;
+	}
+
+	public EquipmentController getEquipmentController() {
+		return equipmentController;
+	}
+
+	public void setEquipmentController(EquipmentController equipmentController) {
+		this.equipmentController = equipmentController;
+	}
+
+	public ProductController getProductController() {
+		return productController;
+	}
+
+	public void setProductController(ProductController productController) {
+		this.productController = productController;
+	}
+
+	public TagController getTagController() {
+		return tagController;
+	}
+
+	public void setTagController(TagController tagController) {
+		this.tagController = tagController;
+	}
+
+	public AkterController getAkterController() {
+		return akterController;
+	}
+
+	public void setAkterController(AkterController akterController) {
+		this.akterController = akterController;
+	}
+
+	public CommentController getCommentController() {
+		return commentController;
+	}
+
+	public void setCommentController(CommentController commentController) {
+		this.commentController = commentController;
+	}
+
+	public RecipeController getRecipeController() {
+		return recipeController;
+	}
+
+	public void setRecipeController(RecipeController recipeController) {
+		this.recipeController = recipeController;
+	}
+
+	public CookBookController getCbController() {
+		return cbController;
+	}
+
+	public void setCbController(CookBookController cbController) {
+		this.cbController = cbController;
+	}
+
+	public NeededQuantityController getNqController() {
+		return nqController;
+	}
+
+	public void setNqController(NeededQuantityController nqController) {
+		this.nqController = nqController;
 	}
 	
 	
