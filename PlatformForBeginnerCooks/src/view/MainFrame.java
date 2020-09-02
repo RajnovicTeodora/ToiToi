@@ -31,6 +31,9 @@ public class MainFrame extends JFrame {
 	private ToiToiController toiToiController;
 	private Akter akter = null;
 
+	protected SignUpForm signUp = null;
+	protected SignInForm signIn = null;
+
 	public MainFrame(ToiToiController tc) throws IOException {
 
 		this.toiToiController = tc;
@@ -89,7 +92,10 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SignInForm signIn = new SignInForm(toiToiController);
+				if (!(signIn == null))
+					signIn.dispose();
+
+				signIn = new SignInForm(toiToiController);
 				signIn.setVisible(true);
 				signIn.addWindowListener(new WindowListener() {
 
@@ -103,18 +109,14 @@ public class MainFrame extends JFrame {
 
 					@Override
 					public void windowDeiconified(WindowEvent e) {
-
 					}
 
 					@Override
 					public void windowDeactivated(WindowEvent e) {
-
 					}
 
 					@Override
 					public void windowClosing(WindowEvent e) {
-						// TODO Auto-generated method stub
-
 					}
 
 					@Override
@@ -122,18 +124,29 @@ public class MainFrame extends JFrame {
 						akter = signIn.getAkter();
 						System.out.println();
 						System.out.println(akter);
+
+						// OVDJE DODATI AKCIJU KAD SE KORISNIK ULOGUJE
 					}
 
 					@Override
 					public void windowActivated(WindowEvent e) {
-						// TODO Auto-generated method stub
-
 					}
 				});
 
 			}
 		});
 		JButton signUpBttn = new JButton("Sign up");
+		signUpBttn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!(signUp == null))
+					signUp.dispose();
+				signUp = new SignUpForm(toiToiController);
+				signUp.setVisible(true);
+
+			}
+		});
 		signUpBttn.setSize(50, 30);
 
 		JLabel title = new JLabel("         ToiToi");

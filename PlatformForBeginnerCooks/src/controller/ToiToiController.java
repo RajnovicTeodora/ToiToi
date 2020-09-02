@@ -301,4 +301,28 @@ public class ToiToiController {
 
 	}
 
+	public User createUser(String name, String surname, String password, String username, String mail, String telephone,
+			String address, LocalDate birthday) throws Exception {
+
+		if (name.equals("") || surname.equals("") || password.equals("") || username.equals("") || telephone.equals("")
+				|| address.equals("") || mail.equals("") || birthday.equals(null))
+			throw new Exception("Not all fields were filled out!");
+
+		if (birthday.isAfter(LocalDate.now()) || birthday.isEqual(LocalDate.now())) {
+			throw new Exception("Birthday isnt valid!");
+		}
+		for (Akter akter : toiToi.getUsers()) {
+			if (akter.getUsername().equals(username))
+				throw new Exception("Username is already taken!");
+		}
+		if (password.length() < 8) {
+			throw new Exception("Password must be atleast 8 characters long!");
+		} else {
+			User user = new User(name, surname, username, password, mail, birthday, address, telephone, 0, null, null,
+					null);
+			return user;
+		}
+
+	}
+
 }
