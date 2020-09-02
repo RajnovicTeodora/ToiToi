@@ -42,6 +42,14 @@ public class Product implements Serializable {
 		this.productID = productID;
 		this.part = part;
 	}
+	
+
+	public Product(String name, String producedBy, List<Product> part) {
+		super();
+		this.name = name;
+		this.producedBy = producedBy;
+		this.part = part;
+	}
 
 	public String getName() {
 		return name;

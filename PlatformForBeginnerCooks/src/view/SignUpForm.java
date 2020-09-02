@@ -1,12 +1,21 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -23,7 +34,7 @@ import controller.ToiToiController;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 
-public class SignUpForm extends JFrame{
+public class SignUpForm extends JFrame {
 
 	/**
 	 * 
@@ -38,22 +49,28 @@ public class SignUpForm extends JFrame{
 	protected JTextField surnameField;
 	protected JTextField usernameField;
 	protected JPasswordField passwordField;
+
+	protected JPanel panel_2;
 	protected JTextField addressField;
 	protected JTextField telephoneField;
 	protected JTextField emailField;
 
 	UtilDateModel model;
-	JDatePanelImpl panel1;
+	JDatePanelImpl panel_2_date;
 	protected JDatePickerImpl date;
 
+	protected JPanel panel_4;
 	protected JButton confirm;
 	protected JButton cancel;
 
 	protected JPanel ingredientPanel;
-
 	protected JPanel equipmentPanel;
-
 	protected JPanel alergiesPanel;
+
+	// FOR IMAGE
+	private BufferedImage image = null;
+	private ImageIcon icon = null;
+	private File file = null;
 
 	public SignUpForm(ToiToiController toiToi) {
 		this.toiToiController = toiToi;
@@ -69,55 +86,141 @@ public class SignUpForm extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setResizable(false);
+		this.setLayout(new MigLayout());
 
 		initialize();
+
 	}
 
 	private void initialize() {
 
-		panel_1 = new JPanel(new MigLayout("wrap 4", "[] 5 [] [] 5 []", ""));
+		panel_1 = new JPanel(new MigLayout("", "[] 20 []", " "));
 
+		// =========IMAGE (TOP LEFT) PANEL=========================
+		JPanel panel_1_img = new JPanel(new MigLayout("", "20[][]20", "20[][]20"));
+
+		Image dimg1 = new ImageIcon("img/addimg.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon addIcon = new ImageIcon(dimg1);
+		JButton buttonAdd = new JButton(addIcon);
+		buttonAdd.setContentAreaFilled(false);
+		// buttonAdd.setFocusPainted(false);
+		buttonAdd.setBorderPainted(false);
+		buttonAdd.setToolTipText("Add profile picture");
+
+		Image dimg2 = new ImageIcon("img/removeimg.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		ImageIcon removeIcon = new ImageIcon(dimg2);
+		JButton buttonRemove = new JButton(removeIcon);
+		buttonRemove.setContentAreaFilled(false);
+		// buttonRemove.setFocusPainted(false);
+		buttonRemove.setBorderPainted(false);
+		buttonRemove.setToolTipText("Remove profile picture");
+
+		JPanel image_panel = new JPanel();
+		image_panel.setPreferredSize(new Dimension(200, 200));
+
+		Border border = BorderFactory.createTitledBorder("Profile picture");
+		image_panel.setBorder(border);
+
+		JLabel label = new JLabel();
+		image_panel.add(label);
+
+		buttonAdd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.addChoosableFileFilter(new ImageFilter());
+				fileChooser.setAcceptAllFileFilterUsed(false);
+
+				int option = fileChooser.showOpenDialog(panel_1_img);
+
+				if (option == JFileChooser.APPROVE_OPTION) {
+					file = fileChooser.getSelectedFile();
+
+					try {
+						if (file.exists()) {
+							image = ImageIO.read(file);
+							Image dimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+							icon = new ImageIcon(dimg);
+							label.setIcon(icon);
+						} else {
+							JOptionPane.showMessageDialog(null, "No image was found!", "Error!",
+									JOptionPane.ERROR_MESSAGE);
+
+						}
+					} catch (IOException ex) {
+
+						ex.printStackTrace();
+					}
+				} else {
+					label.setIcon(null);
+				}
+			}
+		});
+
+		buttonRemove.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				image = null;
+				icon = null;
+				label.setIcon(null);
+			}
+		});
+
+		panel_1_img.add(image_panel, "north");
+		panel_1_img.add(buttonAdd, "center, left");
+		panel_1_img.add(buttonRemove, "center, right");
+
+		panel_1.add(panel_1_img, "top, left");
+		// ==========TOP RIGHT INFORMATION=========================
+
+		JPanel panel_1_1 = new JPanel(new MigLayout("", "", "[]30[]30[]30[]"));
 		JLabel nameLabel = new JLabel("Name : ");
 		nameField = new JTextField(20);
 		nameField.setToolTipText("Enter name");
-		panel_1.add(nameLabel, "cell 0 0");
-		panel_1.add(nameField, "cell 1 0");
+		panel_1_1.add(nameLabel, "cell 0 0");
+		panel_1_1.add(nameField, "cell 1 0");
 
 		JLabel surnameLabel = new JLabel("Surname :");
 		surnameField = new JTextField(20);
 		surnameField.setToolTipText("Enter surname");
-		panel_1.add(surnameLabel, "cell 2 0");
-		panel_1.add(surnameField, "cell 3 0");
+		panel_1_1.add(surnameLabel, "cell 0 1");
+		panel_1_1.add(surnameField, "cell 1 1");
 
 		JLabel usernameLabel = new JLabel("Username :");
 		usernameField = new JTextField(20);
 		usernameField.setToolTipText("Enter username");
-		panel_1.add(usernameLabel, "cell 0 1");
-		panel_1.add(usernameField, "cell 1 1");
+		panel_1_1.add(usernameLabel, "cell 0 2");
+		panel_1_1.add(usernameField, "cell 1 2");
 
 		JLabel passwordLabel = new JLabel("Password :");
 		passwordField = new JPasswordField(20);
 		passwordField.setToolTipText("Enter password");
-		panel_1.add(passwordLabel, "cell 2 1");
-		panel_1.add(passwordField, "cell 3 1");
+		panel_1_1.add(passwordLabel, "cell 0 3");
+		panel_1_1.add(passwordField, "cell 1 3");
 
+		panel_1.add(panel_1_1, "east");
+
+		// ==============MIDLE PANEL=================
+		panel_2 = new JPanel(new MigLayout("", "", "[]10[]10[]10[]10[]"));
 		JLabel addressLabel = new JLabel("Address :");
 		addressField = new JTextField(40);
 		addressField.setToolTipText("Enter address");
-		panel_1.add(addressLabel, "cell 0 2");
-		panel_1.add(addressField, "cell 1 2");
+		panel_2.add(addressLabel, "cell 0 0");
+		panel_2.add(addressField, "cell 1 0");
 
 		JLabel telephoneLabel = new JLabel("Telephone :");
 		telephoneField = new JTextField(40);
 		telephoneField.setToolTipText("Enter telephone");
-		panel_1.add(telephoneLabel, "cell 0 3");
-		panel_1.add(telephoneField, "cell 1 3");
+		panel_2.add(telephoneLabel, "cell 0 1");
+		panel_2.add(telephoneField, "cell 1 1");
 
 		JLabel emailLabel = new JLabel("Email :");
 		emailField = new JTextField(40);
 		emailField.setToolTipText("Enter email");
-		panel_1.add(emailLabel, "cell 0 4");
-		panel_1.add(emailField, "cell 1 4");
+		panel_2.add(emailLabel, "cell 0 2");
+		panel_2.add(emailField, "cell 1 2");
 
 		JLabel dat = new JLabel("Birthday :");
 		Properties prop = new Properties();
@@ -126,12 +229,12 @@ public class SignUpForm extends JFrame{
 		prop.put("text.year", "Year");
 
 		model = new UtilDateModel();
-		panel1 = new JDatePanelImpl(model, prop);
-		date = new JDatePickerImpl(panel1, new DataLabelFormatter());
-		panel_1.add(dat);
-		panel_1.add(date, "span 3");
+		panel_2_date = new JDatePanelImpl(model, prop);
+		date = new JDatePickerImpl(panel_2_date, new DataLabelFormatter());
+		panel_2.add(dat, "cell 0 3");
+		panel_2.add(date, "cell 1 3");
 
-		this.add(panel_1);
+		// =========================================
 
 		confirm = new JButton("Confirm");
 		cancel = new JButton("Cancel");
@@ -152,8 +255,13 @@ public class SignUpForm extends JFrame{
 			}
 		});
 
-		panel_1.add(confirm);
-		panel_1.add(cancel);
+		panel_4 = new JPanel(new MigLayout());
+		panel_4.add(confirm);
+		panel_4.add(cancel);
+
+		add(panel_1, "top, right, wrap");
+		add(panel_2, "center, wrap");
+		add(panel_4, "bottom");
 	}
 
 	private void confirmPressed() {
@@ -194,7 +302,6 @@ public class SignUpForm extends JFrame{
 						JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
 					panel_1.setVisible(false);
-					pickIngredients();
 				}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
@@ -203,17 +310,6 @@ public class SignUpForm extends JFrame{
 		} else {
 			JOptionPane.showMessageDialog(null, "The birthday wasnt selected!", "Error!", JOptionPane.ERROR_MESSAGE);
 		}
-	}
-
-	private void pickIngredients() {
-
-	}
-
-	private void pickAlergies() {
-
-	}
-
-	private void pickEquipment() {
 
 	}
 
