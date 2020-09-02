@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import model.User;
+import model.Admin;
 import model.Akter;
 import model.Comment;
 import model.CookBook;
@@ -31,25 +31,25 @@ public class ToiToiController {
 
 	private static final String tagFile = "./data/tags";
 	private TagController tagController = new TagController(tagFile);
-	
+
 	private static final String userFile = "./data/users";
 	private UserController userController = new UserController(userFile);
 
 	private static final String akterFile = "./data/akters";
 	private AkterController akterController = new AkterController(akterFile);
-	
+
 	private static final String commentFile = "./data/comments";
 	private CommentController commentController = new CommentController(commentFile);
-	
+
 	private static final String recipeFile = "./data/recipes";
 	private RecipeController recipeController = new RecipeController(recipeFile);
-	
+
 	private static final String cbFile = "./data/cookbook";
 	private CookBookController cbController = new CookBookController(cbFile);
-	
+
 	private static final String nqFile = "./data/neededQuantity";
 	private NeededQuantityController nqController = new NeededQuantityController(nqFile);
-	
+
 	public ToiToiController() {
 		super();
 
@@ -57,7 +57,8 @@ public class ToiToiController {
 
 	public void writteData() {
 
-		// PRAVLJENJE OBJEKATA PA IH UPISEM PA TEK ONDA UCITAM, OVAKO ZA POCETAK PA CE KASNIJE ICI DRUGACIJE
+		// PRAVLJENJE OBJEKATA PA IH UPISEM PA TEK ONDA UCITAM, OVAKO ZA POCETAK PA CE
+		// KASNIJE ICI DRUGACIJE
 		Equipment e1 = new Equipment(1, "Serpa", "Metalac", "Duboka serpa, precnik 5cm");
 		Equipment e2 = new Equipment(2, "Tanjir", "Home", "Beli tanjir, precnik 10, keramika");
 
@@ -87,31 +88,31 @@ public class ToiToiController {
 		ingredients1.add(p5);
 		ingredients1.add(p6);
 
-		
 		Tag t1 = new Tag("Kineska kuhinja");
 		Tag t2 = new Tag("Vegan");
 		ArrayList<Tag> tagList = new ArrayList<Tag>();
 		tagList.add(t1);
 		tagList.add(t2);
-		
-		@SuppressWarnings("deprecation")
-		
+
 		DateTimeFormatter x = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate d1 = LocalDate.parse("1999-12-12", x);
-		
-		ArrayList<ProductInfo>peraProducts = new ArrayList<ProductInfo>();
+
+		ArrayList<ProductInfo> peraProducts = new ArrayList<ProductInfo>();
 		ProductInfo pi3 = new ProductInfo(11.1, LocalDate.parse("2020-12-12"), p3);
 		ProductInfo pi2 = new ProductInfo(10.1, LocalDate.parse("2020-12-10"), p2);
 		peraProducts.add(pi3);
 		peraProducts.add(pi2);
-		ArrayList<Product>peraAlergies = new ArrayList<Product>();
+		ArrayList<Product> peraAlergies = new ArrayList<Product>();
 		peraAlergies.add(p1);
-		ArrayList<Equipment>peraEq = new ArrayList<Equipment>();
+		ArrayList<Equipment> peraEq = new ArrayList<Equipment>();
 		peraEq.add(e1);
-		User u1 = new User("Pera", "Peric", "peraa","pera123","pera@gmail.com",d1,"Glavna 73 NS","123456",0,peraProducts,peraAlergies,peraEq);
-		ArrayList<Akter>userList = new ArrayList<Akter>();
+		User u1 = new User("Pera", "Peric", "peraa", "pera123", "pera@gmail.com", d1, "Glavna 73 NS", "123456", 0,
+				peraProducts, peraAlergies, peraEq);
+		Admin a1 = new Admin("MILIVOJE", "MILIVOJEVIC", "m", "m", "MAIL");
+		ArrayList<Akter> userList = new ArrayList<Akter>();
 		userList.add(u1);
-		
+		userList.add(a1);
+
 		Comment com = new Comment();
 		com.setDate(d1);
 		com.setText("Prelepo!");
@@ -123,8 +124,7 @@ public class ToiToiController {
 		com.addChild(dete);
 		ArrayList<Comment> commentList = new ArrayList<Comment>();
 		commentList.add(com);
-			
-		
+
 		Recipe recipe = new Recipe();
 		recipe.setRecipeID(1);
 		recipe.setDescription("Najlepsi milkshake koji cete ikada probati!");
@@ -136,8 +136,8 @@ public class ToiToiController {
 		recipe.addTastes(Taste.tangy);
 		recipe.addEquipment(e1);
 		recipe.setImage("./data/RecipeImage/milkshake.png");
-		
-		ArrayList<NeededQuantity>nqList = new ArrayList<NeededQuantity>();
+
+		ArrayList<NeededQuantity> nqList = new ArrayList<NeededQuantity>();
 		NeededQuantity nq1 = new NeededQuantity();
 		nq1.setIngredient(p1);
 		nq1.setQuantity(2.0);
@@ -153,13 +153,13 @@ public class ToiToiController {
 		nqList.add(nq1);
 		nqList.add(nq2);
 		nqList.add(nq3);
-		
+
 		recipe.addNeededQuantity(nq1);
 		recipe.addNeededQuantity(nq2);
 		recipe.addNeededQuantity(nq3);
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		recipeList.add(recipe);
-		
+
 		CookBook cb = new CookBook();
 		cb.setName("Slatki recepti");
 		cb.setDate(d1);
@@ -168,8 +168,7 @@ public class ToiToiController {
 		cb.setComments(commentList);
 		ArrayList<CookBook> cbList = new ArrayList<CookBook>();
 		cbList.add(cb);
-		
-		
+
 		// OVDJE IDU POZIVI KONTROLERA ZA UPIS
 		try {
 			this.equipmentController.writeEquipment(equipmentList);
@@ -180,7 +179,7 @@ public class ToiToiController {
 			this.recipeController.writeRecipes(recipeList);
 			this.cbController.writeCookBook(cbList);
 			this.nqController.writeNQ(nqList);
-			
+
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -195,15 +194,15 @@ public class ToiToiController {
 			toiToi.setEquipment(this.equipmentController.readEquipment());
 			// System.out.println(toiToi.getEquipment());
 			toiToi.setProducts(this.productController.readProducts());
-			//System.out.println(toiToi.getProducts());
+			// System.out.println(toiToi.getProducts());
 			toiToi.setTags(this.tagController.readTags());
-			//System.out.println(toiToi.getTags());
+			// System.out.println(toiToi.getTags());
 			toiToi.setUsers(this.akterController.readAkters());
-			//System.out.println(toiToi.getUsers());
+			System.out.println(toiToi.getUsers());
 			toiToi.setRecipe(this.recipeController.readRecipes());
-			System.out.println(toiToi.getRecipe());
+			// System.out.println(toiToi.getRecipe());
 			toiToi.setCookBooks(this.cbController.readCookBook());
-			System.out.println(toiToi.getCookBooks());
+			// System.out.println(toiToi.getCookBooks());
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -226,7 +225,80 @@ public class ToiToiController {
 	public void setUserController(UserController userController) {
 		this.userController = userController;
 	}
-	
-	
+
+	public EquipmentController getEquipmentController() {
+		return equipmentController;
+	}
+
+	public void setEquipmentController(EquipmentController equipmentController) {
+		this.equipmentController = equipmentController;
+	}
+
+	public ProductController getProductController() {
+		return productController;
+	}
+
+	public void setProductController(ProductController productController) {
+		this.productController = productController;
+	}
+
+	public TagController getTagController() {
+		return tagController;
+	}
+
+	public void setTagController(TagController tagController) {
+		this.tagController = tagController;
+	}
+
+	public AkterController getAkterController() {
+		return akterController;
+	}
+
+	public void setAkterController(AkterController akterController) {
+		this.akterController = akterController;
+	}
+
+	public CommentController getCommentController() {
+		return commentController;
+	}
+
+	public void setCommentController(CommentController commentController) {
+		this.commentController = commentController;
+	}
+
+	public RecipeController getRecipeController() {
+		return recipeController;
+	}
+
+	public void setRecipeController(RecipeController recipeController) {
+		this.recipeController = recipeController;
+	}
+
+	public CookBookController getCbController() {
+		return cbController;
+	}
+
+	public void setCbController(CookBookController cbController) {
+		this.cbController = cbController;
+	}
+
+	public NeededQuantityController getNqController() {
+		return nqController;
+	}
+
+	public void setNqController(NeededQuantityController nqController) {
+		this.nqController = nqController;
+	}
+
+	// returns the user if pass and username match with an existing user
+	public Akter checkUser(String password, String username) {
+		for (Akter akter : toiToi.getUsers()) {
+			if (akter.getUsername().equals(username) && akter.getPassword().equals(password)) {
+				return akter;
+			}
+		}
+		return null;
+
+	}
 
 }

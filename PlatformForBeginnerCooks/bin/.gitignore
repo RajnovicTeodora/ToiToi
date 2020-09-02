@@ -1,5 +1,5 @@
-/view/
-/controller/
-/model/
-/data/
 /TableModel/
+/controller/
+/lib/
+/model/
+/view/
