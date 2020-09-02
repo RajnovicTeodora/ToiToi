@@ -4,27 +4,25 @@
  * Purpose: Defines the Class Akter
  ***********************************************************************/
 package model;
-import java.io.Serializable;
-import java.util.*;
 
-/** @pdOid 9be181c7-00da-4267-b5a6-afe96046afa0 */
-public class Akter implements Serializable{
-   /**
+import java.io.Serializable;
+
+public class Akter implements Serializable {
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2395483226508813675L;
-/** @pdOid be4a80a9-b656-4a13-a14d-2cc51b12938e */
-   protected String name;
-   /** @pdOid a07764ec-0cad-4fa0-90b1-c59cbba46ea5 */
-   protected String surname;
-   /** @pdOid ad965317-dcf9-44bd-9b5a-3500cd4da6d7 */
-   protected String username;
-   /** @pdOid d89806fd-9cb8-43bf-a67f-80c3d7ca7a39 */
-   protected String password;
-   /** @pdOid b10c4b15-80b1-4689-9173-c894fa260644 */
-   protected String mail;
-   
-    
+
+	protected String name;
+
+	protected String surname;
+
+	protected String username;
+
+	protected String password;
+
+	protected String mail;
+
 	public Akter() {
 		super();
 	}
@@ -84,5 +82,4 @@ public class Akter implements Serializable{
 				+ ", mail=" + mail + "]";
 	}
 
-	
 }

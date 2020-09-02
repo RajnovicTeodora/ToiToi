@@ -24,10 +24,10 @@ public class Moderator extends User implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Moderator(String name, String surname, String username, String password, String mail, LocalDate birthday,
+	public Moderator(String name, String surname, String username, String password, String mail, Gender gender, LocalDate birthday,
 			String address, String telephone, int points, List<ProductInfo> availableGroceries, List<Product> alergies,
 			List<Equipment> equipment) {
-		super(name, surname, username, password, mail, birthday, address, telephone, points, availableGroceries, alergies,
+		super(name, surname, username, password, mail, gender, birthday, address, telephone, points, availableGroceries, alergies,
 				equipment);
 		// TODO Auto-generated constructor stub
 	}

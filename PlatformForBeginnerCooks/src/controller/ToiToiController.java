@@ -11,6 +11,7 @@ import model.Akter;
 import model.Comment;
 import model.CookBook;
 import model.Equipment;
+import model.Gender;
 import model.NeededQuantity;
 import model.Product;
 import model.ProductInfo;
@@ -106,7 +107,7 @@ public class ToiToiController {
 		peraAlergies.add(p1);
 		ArrayList<Equipment> peraEq = new ArrayList<Equipment>();
 		peraEq.add(e1);
-		User u1 = new User("Pera", "Peric", "peraa", "pera123", "pera@gmail.com", d1, "Glavna 73 NS", "123456", 0,
+		User u1 = new User("Pera", "Peric", "peraa", "pera123", "pera@gmail.com", Gender.MALE, d1, "Glavna 73 NS", "123456", 0,
 				peraProducts, peraAlergies, peraEq);
 		Admin a1 = new Admin("MILIVOJE", "MILIVOJEVIC", "m", "m", "MAIL");
 		ArrayList<Akter> userList = new ArrayList<Akter>();
@@ -301,7 +302,7 @@ public class ToiToiController {
 
 	}
 
-	public User createUser(String name, String surname, String password, String username, String mail, String telephone,
+	public User createUser(String name, String surname, String password, String username, String mail, String gender, String telephone,
 			String address, LocalDate birthday) throws Exception {
 
 		if (name.equals("") || surname.equals("") || password.equals("") || username.equals("") || telephone.equals("")
@@ -318,7 +319,9 @@ public class ToiToiController {
 		if (password.length() < 8) {
 			throw new Exception("Password must be atleast 8 characters long!");
 		} else {
-			User user = new User(name, surname, username, password, mail, birthday, address, telephone, 0, null, null,
+			gender = gender.toUpperCase();
+			Gender g = Gender.valueOf(gender);
+			User user = new User(name, surname, username, password, mail, g , birthday, address, telephone, 0, null, null,
 					null);
 			return user;
 		}
