@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.Akter;
+import model.Recipe;
 import model.User;
 
 public class AkterController {
@@ -15,6 +17,12 @@ public class AkterController {
 	private Akter akter;
 
 	private String akterFile;
+
+	
+	
+	public AkterController() {
+		super();
+	}
 
 	public AkterController(String akterFile) {
 		super();
@@ -71,5 +79,17 @@ public class AkterController {
 				}
 		}
 		return akterList;
+	}
+	
+	public HashMap<String, Akter> getHashMapAkter() throws IOException{
+		ToiToiController toiToiController = new ToiToiController();
+		toiToiController.writteData();
+		toiToiController.readData();
+		
+		HashMap<String, Akter> retval = new HashMap<String, Akter>();
+		for (Akter akter : toiToiController.getToiToi().getUsers()) {
+			retval.put(akter.getUsername(), akter);
+		}
+		return retval;
 	}
 }

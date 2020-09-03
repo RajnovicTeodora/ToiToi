@@ -35,6 +35,8 @@ public class User extends Akter implements Serializable {
 
 	public String image;
 	
+	public ArrayList<Recipe> likedRecipes;
+	
 	public User() {
 		super();
 	}
@@ -270,4 +272,13 @@ public class User extends Akter implements Serializable {
 		return retval;
 	}
 
+	public ArrayList<Recipe> getLikedRecipes() {
+		return likedRecipes;
+	}
+
+	public void setLikedRecipes(ArrayList<Recipe> likedRecipes) {
+		this.likedRecipes = likedRecipes;
+	}
+
+   
 }

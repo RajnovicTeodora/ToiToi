@@ -101,9 +101,11 @@ public class ToiToiController {
 		ArrayList<ProductInfo> peraProducts = new ArrayList<ProductInfo>();
 		ProductInfo pi3 = new ProductInfo(11.1, LocalDate.parse("2020-12-12"), p3);
 		ProductInfo pi2 = new ProductInfo(10.1, LocalDate.parse("2020-12-10"), p2);
+		ProductInfo pi5 = new ProductInfo(5.1, LocalDate.parse("2020-12-25"), p5);
 		peraProducts.add(pi3);
 		peraProducts.add(pi2);
-		ArrayList<Product> peraAlergies = new ArrayList<Product>();
+		peraProducts.add(pi5);
+		ArrayList<Product>peraAlergies = new ArrayList<Product>();
 		peraAlergies.add(p1);
 		ArrayList<Equipment> peraEq = new ArrayList<Equipment>();
 		peraEq.add(e1);
