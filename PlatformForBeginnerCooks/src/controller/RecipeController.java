@@ -11,16 +11,15 @@ import java.util.HashMap;
 
 import model.Recipe;
 
-
 public class RecipeController {
-	
+
 	private Recipe recipe;
 	private String recipeFile;
-	
+
 	public RecipeController() {
 		super();
 	}
-	
+
 	public RecipeController(String file) {
 		super();
 		this.recipeFile = file;
@@ -41,7 +40,7 @@ public class RecipeController {
 	public void setRecipeFile(String recipeFile) {
 		this.recipeFile = recipeFile;
 	}
-	
+
 	public void writeRecipes(ArrayList<Recipe> recipeList) throws IOException {
 		FileOutputStream fileOut = null;
 		ObjectOutputStream objectOut = null;
@@ -78,12 +77,13 @@ public class RecipeController {
 
 	}
 
-	public HashMap<Integer, Recipe> getHashMapRecipe() throws IOException{
+	// TO DO OLJA POPRAVI DA NE PRAVI NOVI TOI TOI
+	public HashMap<Integer, Recipe> getHashMapRecipe() throws IOException {
 		ToiToiController toiToiController = new ToiToiController();
 		toiToiController.writteData();
 		toiToiController.readData();
-				
-		//ArrayList<Recipe> recipes = readRecipes();
+
+		// ArrayList<Recipe> recipes = readRecipes();
 		HashMap<Integer, Recipe> retval = new HashMap<Integer, Recipe>();
 		for (Recipe recipe : toiToiController.getToiToi().getRecipe()) {
 			retval.put(recipe.getRecipeID(), recipe);
@@ -91,6 +91,24 @@ public class RecipeController {
 		return retval;
 	}
 
-	
-	
+	// the function returns the first available recepie ID
+	public int findRecipieID(ArrayList<Recipe> recipes) {
+		int i = 1;
+		boolean found = true;
+		while (true) {
+			for (Recipe recipe : recipes) {
+				if (recipe.getRecipeID() == i) {
+					found = false;
+					break;
+				}
+			}
+			if (!found) {
+				found = true;
+				i++;
+			} else {
+				return i;
+			}
+		}
+
+	}
 }

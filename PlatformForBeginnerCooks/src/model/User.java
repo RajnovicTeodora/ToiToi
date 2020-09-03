@@ -33,6 +33,8 @@ public class User extends Akter implements Serializable {
 
 	public java.util.List<Equipment> equipment;
 
+	public String image;
+	
 	public User() {
 		super();
 	}
@@ -117,6 +119,15 @@ public class User extends Akter implements Serializable {
 	public void setMail(String mail) {
 
 		super.setMail(mail);
+	}
+	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	/** @pdGenerated default getter */

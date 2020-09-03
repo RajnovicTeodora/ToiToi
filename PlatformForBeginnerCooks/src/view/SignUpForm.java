@@ -52,7 +52,7 @@ public class SignUpForm extends JFrame {
 	protected JTextField surnameField;
 	protected JTextField usernameField;
 	protected JPasswordField passwordField;
-	protected JComboBox genderBox;
+	protected JComboBox<String> genderBox;
 
 	protected JPanel panel_2;
 	protected JTextField addressField;
