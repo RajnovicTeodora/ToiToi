@@ -1,7 +1,8 @@
 package view.SignUpForm;
 
 import java.awt.Color;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,11 +50,10 @@ public class SignUpForm extends JFrame {
 	private SignUpStepOne stepOne;
 	private SignUpStepTwo stepTwo;
 
-	
 	protected JPanel panel_buttons;
 	protected JButton confirm = new JButton("Continue");
 	protected JButton cancel = new JButton("Cancel");
-	
+
 	public SignUpForm(ToiToiController toiToi) {
 
 		this.toiToiController = toiToi;
@@ -76,19 +77,56 @@ public class SignUpForm extends JFrame {
 
 	public void run() {
 		mainPanel = new JPanel(new MigLayout());
+		mainPanel.setBackground(Color.white);
 		JScrollPane sp = new JScrollPane(mainPanel);
 		add(sp);
-		
+
 		stepOne = new SignUpStepOne(toiToiController);
 		stepTwo = new SignUpStepTwo(toiToiController);
 
-		mainPanel.add(stepOne, "wrap");
-		mainPanel.add(stepTwo);
+		mainPanel.add(stepOne, "center, top, wrap");
+		mainPanel.add(stepTwo, "wrap");
 
+		JPanel buttons = new JPanel();
+		buttons.add(confirm);
+		buttons.add(cancel);
+		buttons.setBackground(Color.white);
 
+		mainPanel.add(buttons, "bottom, right");
+
+		confirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				confirm();
+			}
+		});
+		cancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int option = JOptionPane.showConfirmDialog(null, "All made progress will be lost.",
+						"Are you sure you want to cancel?", JOptionPane.YES_NO_OPTION);
+				if (option == JOptionPane.YES_OPTION)
+					dispose();
+
+			}
+		});
 	}
+
 	public void confirm() {
 		stepOne.confirmPressed();
+		stepTwo.confirmPressed();
+		// TODO
+		newUser = stepOne.getUser();
+		if (newUser != null) {
+
+			// newUser.setAlergies(stepTwo.getAlergies());
+			newUser.setEquipment(stepTwo.getEquipment());
+			toiToiController.getToiToi().addUsers(newUser);
+			System.out.println(toiToiController.getToiToi().getUsers());
+			dispose();
+		}
 	}
 
 	public User getNewUser() {

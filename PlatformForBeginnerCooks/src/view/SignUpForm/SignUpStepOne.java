@@ -71,11 +71,12 @@ class SignUpStepOne extends JPanel {
 
 	public SignUpStepOne(ToiToiController ttc) {
 		this.toiToiController = ttc;
+		setBackground(Color.white);
 		initialize();
 	}
 
 	private void initialize() {
-
+	
 		informationPanel.setBackground(Color.WHITE);
 
 		panel_1 = new JPanel(new MigLayout("", "[] 20 []", " "));
@@ -293,26 +294,20 @@ class SignUpStepOne extends JPanel {
 			birthday = LocalDate.parse(date, format);
 
 			try {
-				setUser(toiToiController.createUser(name, surname, password, username, email, gender, telephone,
-						address, birthday));
+				
+				user = toiToiController.createUser(name, surname, password, username, email, gender, telephone,
+						address, birthday);
 				if (file != null) {
 					// TODO ADD IMAGE FILE
 				}
-				int choice = JOptionPane.showConfirmDialog(null, "Do you want to continue to the next step?", "Confirm",
-						JOptionPane.YES_NO_OPTION);
-
-				if (choice == JOptionPane.YES_OPTION) {
-					panel_1.setVisible(false);
-					setVisible(false);
-
-				}
+				
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
-
+				user = null;
 			}
 
 		} else {
-			JOptionPane.showMessageDialog(null, "Not all field were selected!", "Error!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Not all fields were selected!", "Error!", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}

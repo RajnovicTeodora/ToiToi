@@ -48,7 +48,8 @@ public class AddEquipmentFrame extends JFrame {
 		setLayout(new MigLayout());
 
 		getContentPane().setBackground(Color.WHITE);
-
+		setBackground(Color.white);
+		
 		p1.setBackground(Color.white);
 		p1.add(new JLabel("Product name: "));
 		p1.add(tf1);
@@ -72,7 +73,7 @@ public class AddEquipmentFrame extends JFrame {
 
 				} else {
 					name = tryName;
-					producer = tf2.getText();
+					setProducer(tf2.getText());
 					setDescription(tf3.getText());
 					dispose();
 				}

@@ -1,7 +1,9 @@
 package view.SignUpForm;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -25,10 +27,11 @@ public class AlergieList extends JPanel implements ActionListener {
 	protected JButton buttonIn, buttonOut;
 	protected JTextField alergyField = new JTextField(10);
 	protected DefaultListModel<String> alergies;
-	//TODO add private conainer
-	
+
+	private ArrayList<String> alergieAL = new ArrayList<String>();
+
 	public AlergieList() {
-		
+		setBackground(Color.white);
 		setLayout(new MigLayout());
 		alergies = new DefaultListModel<String>();
 
@@ -42,9 +45,10 @@ public class AlergieList extends JPanel implements ActionListener {
 
 		// We create the buttons to be placed between the lists.
 		JPanel buttonPanel = new JPanel();
-		
+
 		buttonPanel.add(alergyField);
-		
+		buttonPanel.setBackground(Color.white);
+
 		buttonIn = new JButton("Add");
 		buttonIn.addActionListener(this);
 		buttonPanel.add(buttonIn);
@@ -54,7 +58,7 @@ public class AlergieList extends JPanel implements ActionListener {
 		buttonPanel.add(buttonOut);
 
 		add(list, "center, wrap");
-		
+
 		add(buttonPanel);
 
 		setOpaque(true);
@@ -77,7 +81,7 @@ public class AlergieList extends JPanel implements ActionListener {
 				}
 			}
 			if (!copy) {
-
+				alergieAL.add(alergySelected);
 				alergies.addElement(alergySelected);
 			}
 
@@ -86,11 +90,20 @@ public class AlergieList extends JPanel implements ActionListener {
 		else if (e.getSource() == buttonOut) {
 			if (alergieList.getSelectedIndex() != -1) {
 				int toindex = alergieList.getSelectedIndex();
-
+				alergieAL.remove(alergieList.getSelectedValue());
 				alergies.remove(toindex);
 
 			}
 
 		}
 	}
+
+	public ArrayList<String> getAlergieAL() {
+		return alergieAL;
+	}
+
+	public void setAlergieAL(ArrayList<String> alergieAL) {
+		this.alergieAL = alergieAL;
+	}
+
 }

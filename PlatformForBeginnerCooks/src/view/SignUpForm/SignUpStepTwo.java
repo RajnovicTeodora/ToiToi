@@ -25,16 +25,15 @@ import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
 import TableModel.IngredientsFormTable;
 import TableModel.JTableButtonMouseListener;
-import TableModel.JTableButtonRenderer;
 import TableModel.MyEquipmentTable;
 import controller.ToiToiController;
 import model.Equipment;
 import model.Product;
+import model.ProductInfo;
 import net.miginfocom.swing.MigLayout;
 
 public class SignUpStepTwo extends JPanel {
@@ -50,6 +49,7 @@ public class SignUpStepTwo extends JPanel {
 	protected JScrollPane scrollPane1;
 
 	protected JPanel myAlergiesPanel = new JPanel(new MigLayout());
+	protected AlergieList alergieList;
 
 	protected JPanel myEquipmentPanel = new JPanel(new MigLayout());
 	protected JTable myEquipmentTable;
@@ -58,20 +58,19 @@ public class SignUpStepTwo extends JPanel {
 
 	private ToiToiController toiToiController;
 	private Object[][] productInfo;
-	private ArrayList<Product> products;
+	private ArrayList<ProductInfo> products;
 	private Object[][] equipmentObj;
 	private ArrayList<Equipment> equipment;
+	private ArrayList<String> alergies;
 
 	public SignUpStepTwo(ToiToiController toiToiController) {
 
 		this.toiToiController = toiToiController;
-
+		setBackground(Color.white);
 		setLayout(new MigLayout());
 		// =====MY FRIDGE PANEL========================
 
-		products = (ArrayList<Product>) toiToiController.getToiToi().getProducts();
-
-		createInfo(products);
+		createInfo((ArrayList<Product>) toiToiController.getToiToi().getProducts());
 		IngredientsFormTable ift = new IngredientsFormTable(productInfo);
 
 		tableMyFridge = new JTable(ift);
@@ -81,7 +80,7 @@ public class SignUpStepTwo extends JPanel {
 		tableSorter.setModel((AbstractTableModel) tableMyFridge.getModel());
 		tableMyFridge.setRowSorter(tableSorter);
 
-		myFridgePanel.setBackground(Color.cyan);
+		myFridgePanel.setBackground(Color.white);
 
 		JScrollPane sp = new JScrollPane(tableMyFridge);
 		sp.setPreferredSize(new Dimension(500, 200));
@@ -92,7 +91,7 @@ public class SignUpStepTwo extends JPanel {
 
 		bottomTable1.add(new JLabel("Search:"));
 		bottomTable1.add(tfSearch1);
-		bottomTable1.setBackground(Color.cyan);
+		bottomTable1.setBackground(Color.white);
 
 		// BUTTONS
 		JButton edit1 = new JButton("Edit");
@@ -189,36 +188,35 @@ public class SignUpStepTwo extends JPanel {
 			}
 
 		});
-		add(myFridgePanel, "wrap");
+		add(myFridgePanel, "center, wrap");
 
 		JPanel bottom = new JPanel(new MigLayout());
+		bottom.setBackground(Color.white);
 		// =============ALERGIES PANEL===========================
 
-		AlergieList alergieList = new AlergieList();
+		alergieList = new AlergieList();
 		myAlergiesPanel.add(new JLabel("Enter present alergies:"), "wrap");
 		myAlergiesPanel.add(alergieList);
-		myAlergiesPanel.setBackground(Color.pink);
+		myAlergiesPanel.setBackground(Color.white);
 		bottom.add(myAlergiesPanel);
 
 		// ================EQUIPMENT TABLE=========================
 
-		equipment = (ArrayList<Equipment>) toiToiController.getToiToi().getEquipment();
-
-		createInfoEquipment(equipment);
+		createInfoEquipment((ArrayList<Equipment>) toiToiController.getToiToi().getEquipment());
 
 		MyEquipmentTable met = new MyEquipmentTable(equipmentObj);
 
 		myEquipmentTable = new JTable(met);
-		myEquipmentTable.setBackground(new Color(192, 229, 250));
+		myEquipmentTable.setBackground(Color.white);
 		myEquipmentTable.addMouseListener(new JTableButtonMouseListener(myEquipmentTable));
 		myEquipmentTable.getTableHeader().setReorderingAllowed(false);
 		tableSorter2.setModel((AbstractTableModel) myEquipmentTable.getModel());
 		myEquipmentTable.setRowSorter(tableSorter2);
 
-		myEquipmentPanel.setBackground(Color.cyan);
+		myEquipmentPanel.setBackground(Color.white);
 
 		JScrollPane sp2 = new JScrollPane(myEquipmentTable);
-		sp2.setPreferredSize(new Dimension(300, 200));
+		sp2.setPreferredSize(new Dimension(300, 150));
 
 		JPanel bottomTable2 = new JPanel();
 		myEquipmentPanel.add(new JLabel("Please select available tools : "), "top, wrap");
@@ -226,7 +224,7 @@ public class SignUpStepTwo extends JPanel {
 
 		bottomTable2.add(new JLabel("Search:"));
 		bottomTable2.add(tfSearch2);
-		bottomTable2.setBackground(Color.cyan);
+		bottomTable2.setBackground(Color.white);
 
 		// BUTTONS
 		JButton edit2 = new JButton("Add tool");
@@ -255,24 +253,39 @@ public class SignUpStepTwo extends JPanel {
 					@Override
 					public void windowDeactivated(WindowEvent e) {
 						String name = addEquipment.getName();
-						String producer = addEquipment.getProducer();
-						String description = addEquipment.getDescription();
+						String prod = addEquipment.getProducer();
+						String desc = addEquipment.getDescription();
 
+						Boolean c1 = false;
+						Boolean c2 = false;
+						Boolean c3 = false;
 						ArrayList<Equipment> equip = (ArrayList<Equipment>) toiToiController.getToiToi().getEquipment();
 						for (Equipment tool : equip) {
-							if ((name.toLowerCase().compareTo(tool.getName().toLowerCase()) == 0)
-									&& (producer.toLowerCase().compareTo(tool.getCompany().toLowerCase()) == 0)
-									&& (description.toLowerCase()
-											.compareTo(tool.getDescription().toLowerCase()) == 0)) {
-								JOptionPane.showMessageDialog(null, "The product already exists!", "Error!",
-										JOptionPane.ERROR_MESSAGE);
+							c1 = false;
+							c2 = false;
+							c3 = false;
+
+							String n = tool.getName().toLowerCase();
+							String p = tool.getCompany().toLowerCase();
+							String d = tool.getDescription().toLowerCase();
+
+							if (name.toLowerCase().compareTo(n) == 0)
+								c1 = true;
+							if (prod.toLowerCase().compareTo(p) == 0)
+								c2 = true;
+							if (desc.toLowerCase().compareTo(d) == 0)
+								c3 = true;
+							if (c1 && c2 && c3)
 								break;
-							} else {
-								Equipment newEquipment = new Equipment(-1, name, producer, description);
-								toiToiController.getToiToi().addEquipment(newEquipment);
-								refreshEquipment();
-								break;
-							}
+						}
+						if (c1 && c2 && c3) {
+							JOptionPane.showMessageDialog(null, "The product already exists!", "Error!",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							Equipment newEquipment = new Equipment(-1, name, prod, desc);
+							toiToiController.getToiToi().addEquipment(newEquipment);
+							refreshEquipment();
+
 						}
 
 					}
@@ -350,11 +363,11 @@ public class SignUpStepTwo extends JPanel {
 	}
 
 	private void createInfoEquipment(ArrayList<Equipment> e) {
-		equipment = (ArrayList<Equipment>) toiToiController.getToiToi().getEquipment();
-		equipmentObj = new Object[equipment.size()][4];
 
-		for (int i = 0; i < equipment.size(); i++) {
-			Equipment eq = equipment.get(i);
+		equipmentObj = new Object[e.size()][4];
+
+		for (int i = 0; i < e.size(); i++) {
+			Equipment eq = e.get(i);
 			equipmentObj[i][0] = eq.getName();
 			equipmentObj[i][1] = eq.getCompany();
 			equipmentObj[i][2] = eq.getDescription();
@@ -442,10 +455,71 @@ public class SignUpStepTwo extends JPanel {
 	}
 
 	public void refreshEquipment() {
-		System.out.println(((ArrayList<Equipment>) toiToiController.getToiToi().getEquipment()));
+
 		createInfoEquipment((ArrayList<Equipment>) toiToiController.getToiToi().getEquipment());
 		MyEquipmentTable met = (MyEquipmentTable) this.myEquipmentTable.getModel();
 		met.setEquipment(equipmentObj);
 		met.fireTableDataChanged();
+	}
+
+	public void confirmPressed() {
+		products = new ArrayList<ProductInfo>();
+		for (int i = 0; i < productInfo.length; i++) {
+			if ((Boolean) productInfo[i][4] == true) {
+
+				Product foundProd = null;
+				for (Product p : toiToiController.getToiToi().getProducts()) {
+					if ((p.getName().compareTo((String) productInfo[i][0]) == 0)
+							&& (p.getProducedBy().compareTo((String) productInfo[i][1]) == 0)) {
+						foundProd = p;
+						break;
+					}
+				}
+				ProductInfo pi = new ProductInfo((Double) productInfo[i][2], (LocalDate) productInfo[i][3], foundProd);
+				products.add(pi);
+			}
+		}
+
+		equipment = new ArrayList<Equipment>();
+		for (int i = 0; i < equipmentObj.length; i++) {
+			if ((Boolean) equipmentObj[i][3] == true) {
+				String n = (String) equipmentObj[i][0];
+				String c = (String) equipmentObj[i][1];
+				String d = (String) equipmentObj[i][2];
+				for (Equipment e : toiToiController.getToiToi().getEquipment()) {
+					if ((e.getName().compareTo(n) == 0) && (e.getCompany().compareTo(c) == 0)
+							&& (e.getDescription().compareTo(d) == 0)) {
+						equipment.add(e);
+						break;
+					}
+				}
+			}
+		}
+		alergies = alergieList.getAlergieAL();
+
+	}
+
+	public ArrayList<Equipment> getEquipment() {
+		return equipment;
+	}
+
+	public void setEquipment(ArrayList<Equipment> equipment) {
+		this.equipment = equipment;
+	}
+
+	public ArrayList<ProductInfo> getProducts() {
+		return products;
+	}
+
+	public void setProducts(ArrayList<ProductInfo> products) {
+		this.products = products;
+	}
+
+	public ArrayList<String> getAlergies() {
+		return alergies;
+	}
+
+	public void setAlergies(ArrayList<String> alergies) {
+		this.alergies = alergies;
 	}
 }
