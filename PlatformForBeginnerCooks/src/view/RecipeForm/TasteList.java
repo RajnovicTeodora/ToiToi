@@ -33,7 +33,7 @@ public class TasteList extends JPanel implements ActionListener {
 		tastes = new DefaultListModel<String>();
 
 		tasteList = new JList<String>(tastes);
-		tasteList.setVisibleRowCount(5);
+		tasteList.setVisibleRowCount(7);
 		tasteList.setFixedCellHeight(20);
 		tasteList.setFixedCellWidth(180);
 		tasteList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

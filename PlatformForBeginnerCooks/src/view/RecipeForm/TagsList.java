@@ -52,8 +52,8 @@ public class TagsList extends JPanel implements ActionListener {
 
 		add(list, "wrap");
 		
-		JPanel helper = new JPanel();
-		helper.add(tagField);
+		JPanel helper = new JPanel(new MigLayout());
+		helper.add(tagField, "wrap");
 		helper.add(buttonPanel);
 
 		add(helper);

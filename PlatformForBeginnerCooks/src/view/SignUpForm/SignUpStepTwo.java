@@ -68,6 +68,7 @@ public class SignUpStepTwo extends JPanel {
 		this.toiToiController = toiToiController;
 		setBackground(Color.white);
 		setLayout(new MigLayout());
+		
 		// =====MY FRIDGE PANEL========================
 
 		createInfo((ArrayList<Product>) toiToiController.getToiToi().getProducts());

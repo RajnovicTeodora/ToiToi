@@ -8,14 +8,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+
+import net.miginfocom.swing.MigLayout;
 
 public class TextEdit extends JPanel implements ActionListener {
 	/**
@@ -29,12 +31,15 @@ public class TextEdit extends JPanel implements ActionListener {
 	private JScrollPane scpane;
 	private JMenuItem cutI, copyI, pasteI, selectI;
 	private String pad;
-	private JToolBar toolBar;
+
+	//TODO CONTAINER
 
 	public TextEdit() {
 
 		setCount(0);
+		setLayout(new MigLayout());
 		setBackground(Color.white);
+		setSize(260, 200);
 		pad = " ";
 		ta = new JTextArea(); // textarea
 		ta.setSize(250, 150);
@@ -51,13 +56,14 @@ public class TextEdit extends JPanel implements ActionListener {
 		pasteI = new JMenuItem("Paste");
 		selectI = new JMenuItem("Select All"); // menuitems
 
-		toolBar = new JToolBar();
-
 		ta.setLineWrap(true);
 		ta.setWrapStyleWord(true);
-
-		add(menuBar);
-
+		
+		JPanel temp = new JPanel();
+		temp.add(new JLabel("Description:                                    "));
+		temp.add(menuBar, " wrap");
+		temp.setBackground(Color.white);
+		add(temp, "wrap");
 		menuBar.add(editM);
 
 		editM.add(cutI);
@@ -70,7 +76,6 @@ public class TextEdit extends JPanel implements ActionListener {
 		pasteI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
 		selectI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
 		add(scpane, BorderLayout.CENTER);
-		add(toolBar, BorderLayout.SOUTH);
 
 		cutI.addActionListener(this);
 		copyI.addActionListener(this);
