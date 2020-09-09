@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +24,6 @@ import javax.swing.JTabbedPane;
 
 import controller.ToiToiController;
 import model.Akter;
-import model.User;
 
 public class MainFrame extends JFrame {
 
@@ -45,10 +45,12 @@ public class MainFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
+		ImageIcon icon = new ImageIcon("./img/logo.png");
+		this.setIconImage(icon.getImage());
+		
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
-		ToiToiController toiToiController = new ToiToiController();
 		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -69,19 +71,19 @@ public class MainFrame extends JFrame {
 		}
 		pan.add(tabbedPane, BorderLayout.CENTER);
 		Font f = new Font("Serif", Font.PLAIN, 20);
-		Dimension d = new Dimension(150, 30);
+		Dimension d = new Dimension(100, 30);
 
-		JLabel lab1 = new JLabel("          Home");
+		JLabel lab1 = new JLabel("Home");
 		lab1.setFont(f);
 		lab1.setPreferredSize(d);
 		tabbedPane.setTabComponentAt(0, lab1);
 
-		JLabel lab2 = new JLabel("          Recipes");
+		JLabel lab2 = new JLabel("Recipes");
 		lab2.setFont(f);
 		lab2.setPreferredSize(d);
 		tabbedPane.setTabComponentAt(1, lab2);
 
-		JLabel lab3 = new JLabel("        Cookbooks");
+		JLabel lab3 = new JLabel("Cookbooks");
 		lab3.setFont(f);
 		lab3.setPreferredSize(d);
 		tabbedPane.setTabComponentAt(2, lab3);
@@ -122,10 +124,17 @@ public class MainFrame extends JFrame {
 					@Override
 					public void windowClosed(WindowEvent e) {
 						akter = signIn.getAkter();
-						System.out.println();
-						System.out.println(akter);
-
-						// OVDJE DODATI AKCIJU KAD SE KORISNIK ULOGUJE
+						ProfileWindow pw = new ProfileWindow(akter);
+						try {
+							tabbedPane.addTab("", pw.createMyProfilePage());
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						JLabel lab4 = new JLabel("My profile");
+						lab4.setFont(f);
+						lab4.setPreferredSize(d);
+						tabbedPane.setTabComponentAt(3, lab4);
+						
 					}
 
 					@Override

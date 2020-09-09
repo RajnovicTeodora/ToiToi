@@ -312,6 +312,7 @@ public class SignUpForm extends JFrame {
 	private void confirmPressed() {
 
 		String username = usernameField.getText();
+		@SuppressWarnings("deprecation")
 		String password = passwordField.getText();
 		String name = nameField.getText();
 		String surname = surnameField.getText();
