@@ -1,6 +1,8 @@
 package view;
 
 import net.miginfocom.swing.MigLayout;
+import view.RecipeForm.RecipeForm;
+import view.SignUpForm.SignUpForm;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,7 +25,6 @@ import javax.swing.JTabbedPane;
 
 import controller.ToiToiController;
 import model.Akter;
-import model.User;
 
 public class MainFrame extends JFrame {
 
@@ -36,7 +37,7 @@ public class MainFrame extends JFrame {
 
 	public MainFrame(ToiToiController tc) throws IOException {
 
-		this.toiToiController = tc;
+		this.setToiToiController(tc);
 		initialize();
 	}
 
@@ -48,7 +49,7 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
-		ToiToiController toiToiController = new ToiToiController();
+		
 		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -92,6 +93,9 @@ public class MainFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				RecipeForm rf = new RecipeForm(toiToiController);
+				rf.setVisible(true);
+				/*
 				if (!(signIn == null))
 					signIn.dispose();
 
@@ -131,7 +135,7 @@ public class MainFrame extends JFrame {
 					@Override
 					public void windowActivated(WindowEvent e) {
 					}
-				});
+				});*/
 
 			}
 		});
@@ -200,6 +204,14 @@ public class MainFrame extends JFrame {
 		breakfast.add(new JButton("West"), BorderLayout.WEST);
 		breakfast.add(new JButton("Center"), BorderLayout.CENTER);
 		return breakfast;
+	}
+
+	public ToiToiController getToiToiController() {
+		return toiToiController;
+	}
+
+	public void setToiToiController(ToiToiController toiToiController) {
+		this.toiToiController = toiToiController;
 	}
 
 }

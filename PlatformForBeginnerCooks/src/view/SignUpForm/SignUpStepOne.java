@@ -1,4 +1,4 @@
-package view;
+package view.SignUpForm;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,15 +15,13 @@ import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -34,18 +32,17 @@ import org.jdatepicker.impl.UtilDateModel;
 import controller.ToiToiController;
 import model.User;
 import net.miginfocom.swing.MigLayout;
+import view.DataLabelFormatter;
+import view.ImageFilter;
 
-public class SignUpForm extends JFrame {
+class SignUpStepOne extends JPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ToiToiController toiToiController;
-	private User newUser = null;
-
-	protected JScrollPane scrollPane;
+	protected JPanel informationPanel = new JPanel(new MigLayout());
 
 	protected JPanel panel_1;
 	protected JTextField nameField;
@@ -60,46 +57,25 @@ public class SignUpForm extends JFrame {
 	protected JTextField emailField;
 
 	UtilDateModel model;
-	JDatePanelImpl panel_2_date;
+	protected JDatePanelImpl panel_2_date;
 	protected JDatePickerImpl date;
-
-	protected JPanel panel_4;
-	protected JButton confirm;
-	protected JButton cancel;
-
-	protected JPanel informationPanel;
-	protected JPanel ingredientPanel;
-	protected JPanel equipmentPanel;
-	protected JPanel alergiesPanel;
 
 	// FOR IMAGE
 	private BufferedImage image = null;
 	private ImageIcon icon = null;
 	private File file = null;
 
-	public SignUpForm(ToiToiController toiToi) {
-		this.toiToiController = toiToi;
-		signupFrame();
+	private User user;
 
-	}
+	private ToiToiController toiToiController;
 
-	private void signupFrame() {
-
-		this.setSize(700, 700);
-		this.setTitle("Sign up");
-		this.setIconImage(new ImageIcon("img/signup.png").getImage());
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setResizable(false);
-		// this.setLayout(new MigLayout());
-
-		getContentPane().setBackground(Color.WHITE);
+	public SignUpStepOne(ToiToiController ttc) {
+		this.toiToiController = ttc;
 		initialize();
-
 	}
 
 	private void initialize() {
-		informationPanel = new JPanel(new MigLayout());
+
 		informationPanel.setBackground(Color.WHITE);
 
 		panel_1 = new JPanel(new MigLayout("", "[] 20 []", " "));
@@ -178,6 +154,7 @@ public class SignUpForm extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				image = null;
 				icon = null;
+				file = null;
 				label.setIcon(profileIcon);
 			}
 		});
@@ -277,42 +254,16 @@ public class SignUpForm extends JFrame {
 
 		// =========================================
 
-		confirm = new JButton("Continue");
-
-		cancel = new JButton("Cancel");
-
-		confirm.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				confirmPressed();
-
-			}
-		});
-		cancel.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		});
-
-		panel_4 = new JPanel(new MigLayout());
-		panel_4.setBackground(Color.WHITE);
-
-		panel_4.add(confirm);
-		panel_4.add(cancel);
-
 		informationPanel.add(panel_1, "top, right, wrap");
 		informationPanel.add(panel_2, "center, wrap");
-		informationPanel.add(panel_4, "bottom");
+
 		add(informationPanel);
 	}
 
-	private void confirmPressed() {
+	public void confirmPressed() {
 
 		String username = usernameField.getText();
-		String password = passwordField.getText();
+		String password = String.copyValueOf(passwordField.getPassword()); // TODO
 		String name = nameField.getText();
 		String surname = surnameField.getText();
 		String telephone = telephoneField.getText();
@@ -342,15 +293,18 @@ public class SignUpForm extends JFrame {
 			birthday = LocalDate.parse(date, format);
 
 			try {
-				setNewUser(toiToiController.createUser(name, surname, password, username, email, gender, telephone,
+				setUser(toiToiController.createUser(name, surname, password, username, email, gender, telephone,
 						address, birthday));
+				if (file != null) {
+					// TODO ADD IMAGE FILE
+				}
 				int choice = JOptionPane.showConfirmDialog(null, "Do you want to continue to the next step?", "Confirm",
 						JOptionPane.YES_NO_OPTION);
 
 				if (choice == JOptionPane.YES_OPTION) {
 					panel_1.setVisible(false);
-					informationPanel.setVisible(false);
-					myFridge();
+					setVisible(false);
+
 				}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
@@ -363,16 +317,12 @@ public class SignUpForm extends JFrame {
 
 	}
 
-	private void myFridge() {
-
+	public User getUser() {
+		return user;
 	}
 
-	public User getNewUser() {
-		return newUser;
-	}
-
-	public void setNewUser(User newUser) {
-		this.newUser = newUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
