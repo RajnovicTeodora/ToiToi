@@ -72,7 +72,7 @@ public class RecipeForm extends JFrame {
 
 	public RecipeForm(ToiToiController toiToiCntroller) {
 		this.toiToiController = toiToiCntroller;
-		this.setSize(700, 600);
+		this.setSize(600, 700);
 		this.setTitle("Create recipe");
 		this.setIconImage(new ImageIcon("img/create-new.png").getImage());
 		this.setLocationRelativeTo(null);
@@ -213,7 +213,6 @@ public class RecipeForm extends JFrame {
 		
 		JPanel panel_3_desc = new JPanel(new MigLayout("", "[]20[]", "[]20[]"));
 
-		panel_3_desc.add(new JLabel("Description:"), "wrap");
 		panel_3_desc.add(textEdit);
 		panel_3_desc.setBackground(Color.white);
 		
@@ -234,6 +233,9 @@ public class RecipeForm extends JFrame {
 		equipmentPanel = new EquipmentPanel(toiToiController);
 		panel_4.add(equipmentPanel);
 		
+		
+		JPanel extraInfo = new JPanel(new MigLayout());
+		//TODO
 		mainPanel.add(panel_4, "wrap");
 	}
 

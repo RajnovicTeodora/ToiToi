@@ -1,6 +1,5 @@
 package TableModel;
 
-import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
 // TABLE CLASS for ingredients in recipe
@@ -10,7 +9,7 @@ public class RecipeIngredientForm extends AbstractTableModel {
 
 	private String[] columns = { "Ingredient", "Producer", "Quantity", "Essential", "in MyRecipe" };
 	private static final Class<?>[] COLUMN_TYPES = new Class<?>[] { String.class, String.class, Double.class,
-			Boolean.class, Boolean.class, JButton.class };
+			Boolean.class, Boolean.class};
 
 	private Object[][] ingredients;
 
@@ -25,6 +24,10 @@ public class RecipeIngredientForm extends AbstractTableModel {
 
 	public void setIngredients(Object[][] ingredients) {
 		this.ingredients = ingredients;
+	}
+	@Override
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		ingredients[rowIndex][columnIndex] = aValue;
 	}
 
 	@Override

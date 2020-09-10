@@ -1,5 +1,6 @@
 package view.RecipeForm;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,6 +31,8 @@ public class TasteList extends JPanel implements ActionListener {
 
 	public TasteList() {
 		setLayout(new MigLayout());
+		setBackground(Color.white);
+		
 		tastes = new DefaultListModel<String>();
 
 		tasteList = new JList<String>(tastes);
@@ -42,7 +45,8 @@ public class TasteList extends JPanel implements ActionListener {
 
 		// We create the buttons to be placed between the lists.
 		JPanel buttonPanel = new JPanel();
-
+		buttonPanel.setBackground(Color.white);
+		
 		buttonIn = new JButton("Add");
 		buttonIn.addActionListener(this);
 		buttonPanel.add(buttonIn);
@@ -63,7 +67,7 @@ public class TasteList extends JPanel implements ActionListener {
 		JPanel helper = new JPanel();
 		helper.add(tasteBox);
 		helper.add(buttonPanel);
-
+		helper.setBackground(Color.white);
 		add(helper);
 
 		setOpaque(true);

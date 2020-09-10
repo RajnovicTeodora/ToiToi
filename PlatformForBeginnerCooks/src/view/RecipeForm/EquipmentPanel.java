@@ -8,7 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -27,15 +26,13 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableRowSorter;
 
-import TableModel.IngredientsFormTable;
 import TableModel.JTableButtonMouseListener;
 import TableModel.MyEquipmentTable;
 import controller.ToiToiController;
 import model.Equipment;
-import model.Product;
 import net.miginfocom.swing.MigLayout;
 import view.SignUpForm.AddEquipmentFrame;
-import view.SignUpForm.MyFridgeProductDialog;
+
 
 public class EquipmentPanel extends JPanel {
 

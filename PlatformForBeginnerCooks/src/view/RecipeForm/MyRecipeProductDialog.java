@@ -34,7 +34,7 @@ public class MyRecipeProductDialog extends JFrame {
 	private Boolean essential;
 	private Boolean checked;
 
-	public MyRecipeProductDialog(Double v, Boolean c, Boolean e) {
+	public MyRecipeProductDialog(Double v, Boolean e, Boolean c) {
 		value = v;
 		checked = c;
 		essential = e;
@@ -98,9 +98,11 @@ public class MyRecipeProductDialog extends JFrame {
 						value = Double.parseDouble(quantField.getText());
 
 					}
-					essential = false;
 					if (essentialCheck.isSelected())
 						essential = true;
+					else {
+						essential = false;
+					}
 					checked = true;
 
 				} else {
