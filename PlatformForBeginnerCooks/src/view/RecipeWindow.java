@@ -41,14 +41,14 @@ import net.miginfocom.swing.MigLayout;
 
 public class RecipeWindow {
 
-	private RecipeController rc;
+	private ToiToiController toiToiController = null;
 
-	public RecipeWindow(RecipeController rc) {
+	public RecipeWindow(ToiToiController toiToiController) {
 		super();
-		this.rc = rc;
+		this.toiToiController = toiToiController;
 	}
 
-	public JPanel createVisitorRecipePage(Integer recipeID, ToiToiController ttc) throws IOException {
+	public JPanel createVisitorRecipePage(Integer recipeID) throws IOException {
 		JPanel mainPanel = new JPanel(new MigLayout());
 		JPanel centerPanel = new JPanel(new MigLayout());
 		JPanel rightPanel = new JPanel(new MigLayout());
@@ -56,7 +56,7 @@ public class RecipeWindow {
 		JPanel bottomPanel = new JPanel(new MigLayout());		
 		
 		
-		HashMap<Integer, Recipe> recipes = ttc.getRecipeController().getHashMapRecipe();
+		HashMap<Integer, Recipe> recipes = toiToiController.getRecipeController().getHashMapRecipe();
 	    Recipe rec = recipes.get(recipeID);
 		
 		//////////////////////////LIKES/////////////////////////////////////////
@@ -159,7 +159,7 @@ public class RecipeWindow {
 	}
 
 		
-	public JPanel createUserRecipePage(Integer recipeID, String userID, ToiToiController ttc) throws IOException {
+	public JPanel createUserRecipePage(Integer recipeID, String userID) throws IOException {
 		JPanel mainPanel = new JPanel(new MigLayout());
 		JPanel centerPanel = new JPanel(new MigLayout());
 		JPanel rightPanel = new JPanel(new MigLayout());
@@ -167,10 +167,10 @@ public class RecipeWindow {
 		JPanel upperPanel = new JPanel(new MigLayout());
 		JPanel bottomPanel = new JPanel(new MigLayout());
 		
-		HashMap<String, Akter> akters = ttc.getAkterController().getHashMapAkter();
+		HashMap<String, Akter> akters = toiToiController.getAkterController().getHashMapAkter();
 		User user = (User) akters.get(userID);		
 				
-		HashMap<Integer, Recipe> recipes = ttc.getRecipeController().getHashMapRecipe();
+		HashMap<Integer, Recipe> recipes = toiToiController.getRecipeController().getHashMapRecipe();
 	    Recipe rec = recipes.get(recipeID);
 		
 		//////////////////////////LIKES/////////////////////////////////////////

@@ -25,7 +25,7 @@ public class Moderator extends User implements Serializable{
 	}
 
 	public Moderator(String name, String surname, String username, String password, String mail, Gender gender, LocalDate birthday,
-			String address, String telephone, int points, List<ProductInfo> availableGroceries, List<Product> alergies,
+			String address, String telephone, int points, List<ProductInfo> availableGroceries, List<String> alergies,
 			List<Equipment> equipment) {
 		super(name, surname, username, password, mail, gender, birthday, address, telephone, points, availableGroceries, alergies,
 				equipment);
@@ -33,25 +33,25 @@ public class Moderator extends User implements Serializable{
 	}
 
 	@Override
-	public List<Product> getAlergies() {
+	public List<String> getAlergies() {
 		// TODO Auto-generated method stub
 		return super.getAlergies();
 	}
 
 	@Override
-	public Iterator<Product> getIteratorAlergies() {
+	public Iterator<String> getIteratorAlergies() {
 		// TODO Auto-generated method stub
 		return super.getIteratorAlergies();
 	}
 
 	@Override
-	public void setAlergies(List<Product> newAlergies) {
+	public void setAlergies(List<String> newAlergies) {
 		// TODO Auto-generated method stub
 		super.setAlergies(newAlergies);
 	}
 
 	@Override
-	public void addAlergies(Product newProduct) {
+	public void addAlergies(String newProduct) {
 		// TODO Auto-generated method stub
 		super.addAlergies(newProduct);
 	}

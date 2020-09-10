@@ -16,7 +16,7 @@ public class MissingEquipmentTable extends AbstractTableModel{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String[] columns = {"Tool", "In MyTools"};
+	private String[] columns = {"Tool","Description", "In MyTools"};
 	
 	private Collection<Equipment> eqs = new ArrayList<Equipment>();
 	
@@ -64,6 +64,8 @@ public class MissingEquipmentTable extends AbstractTableModel{
 		case 0:
 			return eq.getName();
 		case 1:
+			return eq.getDescription();
+		case 2:
 			if(isInMyTools(eq)) {
 				ImageIcon tick=new ImageIcon("./img/tick.png");
 				return tick;
