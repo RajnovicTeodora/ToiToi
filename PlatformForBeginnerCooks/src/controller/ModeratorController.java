@@ -57,7 +57,7 @@ public class ModeratorController {
 				try {
 					objectOut.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 		}
@@ -79,7 +79,7 @@ public class ModeratorController {
 				try {
 					objectIn.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 		}

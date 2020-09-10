@@ -6,9 +6,6 @@
 
 package model;
 
-import java.util.*;
-
-/** @pdOid 98ba51ca-89d2-456c-aaa0-a93ebb23de54 */
 public enum Taste {
    sweet,
    sour,
