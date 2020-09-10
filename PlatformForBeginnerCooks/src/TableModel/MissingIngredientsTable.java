@@ -26,7 +26,7 @@ public class MissingIngredientsTable extends AbstractTableModel{
 	
 	private Collection<Product> myFridge = new ArrayList<Product>();
 	
-	private Collection<Product> alergies = new ArrayList<Product>();
+	private Collection<String> alergies = new ArrayList<String>();
 	
 	private List<Color> rowColours = Arrays.asList(
 			new Color(255, 0, 0, 100),
@@ -66,7 +66,7 @@ public class MissingIngredientsTable extends AbstractTableModel{
 		super.fireTableRowsUpdated(firstRow, lastRow);
 	}
 
-	public MissingIngredientsTable( Collection<NeededQuantity> nqs, Collection<ProductInfo> myFridge,Collection<Product> alergies ) {
+	public MissingIngredientsTable( Collection<NeededQuantity> nqs, Collection<ProductInfo> myFridge,Collection<String> alergies ) {
 		super();
 		this.nqs = nqs;
 		this.alergies = alergies;
@@ -78,10 +78,25 @@ public class MissingIngredientsTable extends AbstractTableModel{
 	
 	public boolean isAlergie(String productName) {
 		boolean retval = false;
-		for (Product it : alergies) {
-			if(productName.equals(it.getName())) {
-				retval = true;
+		Product p = null;
+		for (NeededQuantity nq : this.nqs) {
+			if(nq.getIngredient().getName().equals(productName)) {
+				p = nq.getIngredient();
 				break;
+			}
+		}
+		if(p!=null) {
+			for (String it : alergies) {
+				if((it.toLowerCase()).equals(productName.toLowerCase()) ) {
+					retval = true;
+					break;
+				}
+				for (Product product : p.getPart()) {
+					if((it.toLowerCase()).equals(product.getName().toLowerCase())) {
+						retval = true;
+						break;
+					}
+				}
 			}
 		}
 		
@@ -161,11 +176,11 @@ public class MissingIngredientsTable extends AbstractTableModel{
 		return this.columns[col];
 	}
 
-	public Collection<Product> getAlergies() {
+	public Collection<String> getAlergies() {
 		return alergies;
 	}
 
-	public void setAlergies(Collection<Product> alergies) {
+	public void setAlergies(Collection<String> alergies) {
 		this.alergies = alergies;
 	}
 	

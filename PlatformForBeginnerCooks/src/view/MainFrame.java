@@ -48,15 +48,15 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
-		ToiToiController toiToiController = new ToiToiController();
-		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
+		RecipeWindow rw = new RecipeWindow(toiToiController);
+		RecipesTab recipesTab = new RecipesTab(toiToiController);
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
 		try {
-			tabbedPane.addTab("", rw.createUserRecipePage(1,"peraa", toiToiController) );
+			tabbedPane.addTab("", recipesTab.createMainPanel() );
 		} catch (IOException e) {
 
 			e.printStackTrace();

@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Recipe implements Serializable {
@@ -21,7 +22,8 @@ public class Recipe implements Serializable {
 	private String description;
 	private int likes;
 	private String image;
-
+	private LocalDate dateCreated;
+	
 	private ArrayList<Taste> taste;
 
 	public java.util.List<Tag> tags;
@@ -245,6 +247,14 @@ public class Recipe implements Serializable {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public LocalDate getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(LocalDate dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 }

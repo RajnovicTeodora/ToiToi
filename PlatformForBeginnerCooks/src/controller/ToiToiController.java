@@ -105,8 +105,8 @@ public class ToiToiController {
 		peraProducts.add(pi3);
 		peraProducts.add(pi2);
 		peraProducts.add(pi5);
-		ArrayList<Product>peraAlergies = new ArrayList<Product>();
-		peraAlergies.add(p1);
+		ArrayList<String>peraAlergies = new ArrayList<String>();
+		peraAlergies.add(p1.getName());
 		ArrayList<Equipment> peraEq = new ArrayList<Equipment>();
 		peraEq.add(e1);
 		User u1 = new User("Pera", "Peric", "peraa", "pera123", "pera@gmail.com", Gender.MALE, d1, "Glavna 73 NS", "123456", 0,
@@ -127,6 +127,7 @@ public class ToiToiController {
 		com.addChild(dete);
 		ArrayList<Comment> commentList = new ArrayList<Comment>();
 		commentList.add(com);
+		LocalDate d2 = LocalDate.parse("2020-09-12", x);
 
 		Recipe recipe = new Recipe();
 		recipe.setRecipeID(1);
@@ -139,6 +140,7 @@ public class ToiToiController {
 		recipe.addTastes(Taste.tangy);
 		recipe.addEquipment(e1);
 		recipe.setImage("./data/RecipeImage/milkshake.png");
+		recipe.setDateCreated(d2);
 
 		ArrayList<NeededQuantity> nqList = new ArrayList<NeededQuantity>();
 		NeededQuantity nq1 = new NeededQuantity();

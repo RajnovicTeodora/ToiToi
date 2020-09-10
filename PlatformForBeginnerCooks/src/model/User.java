@@ -29,7 +29,7 @@ public class User extends Akter implements Serializable {
 
 	public java.util.List<ProductInfo> availableGroceries;
 
-	public java.util.List<Product> alergies;
+	public java.util.List<String> alergies;
 
 	public java.util.List<Equipment> equipment;
 
@@ -42,7 +42,7 @@ public class User extends Akter implements Serializable {
 	}
 
 	public User(String name, String surname, String username, String password, String mail, Gender gender, LocalDate birthday, String address,
-		String telephone, int points, List<ProductInfo> availableGroceries, List<Product> alergies, List<Equipment> equipment) {
+		String telephone, int points, List<ProductInfo> availableGroceries, List<String> alergies, List<Equipment> equipment) {
 		super(name, surname, username, password, mail);
 			this.birthday = birthday;
 			this.address = address;
@@ -133,16 +133,16 @@ public class User extends Akter implements Serializable {
 	}
 
 	/** @pdGenerated default getter */
-	public java.util.List<Product> getAlergies() {
+	public java.util.List<String> getAlergies() {
 		if (alergies == null)
-			alergies = new java.util.ArrayList<Product>();
+			alergies = new java.util.ArrayList<String>();
 		return alergies;
 	}
 
 	/** @pdGenerated default iterator getter */
-	public java.util.Iterator<Product> getIteratorAlergies() {
+	public java.util.Iterator<String> getIteratorAlergies() {
 		if (alergies == null)
-			alergies = new java.util.ArrayList<Product>();
+			alergies = new java.util.ArrayList<String>();
 		return alergies.iterator();
 	}
 
@@ -150,21 +150,21 @@ public class User extends Akter implements Serializable {
 	 * @pdGenerated default setter
 	 * @param newAlergies
 	 */
-	public void setAlergies(java.util.List<Product> newAlergies) {
+	public void setAlergies(java.util.List<String> newAlergies) {
 		removeAllAlergies();
-		for (Iterator<Product> iter = newAlergies.iterator(); iter.hasNext();)
-			addAlergies((Product) iter.next());
+		for (Iterator<String> iter = newAlergies.iterator(); iter.hasNext();)
+			addAlergies((String) iter.next());
 	}
 
 	/**
 	 * @pdGenerated default add
 	 * @param newProduct
 	 */
-	public void addAlergies(Product newProduct) {
+	public void addAlergies(String newProduct) {
 		if (newProduct == null)
 			return;
 		if (this.alergies == null)
-			this.alergies = new java.util.ArrayList<Product>();
+			this.alergies = new java.util.ArrayList<String>();
 		if (!this.alergies.contains(newProduct))
 			this.alergies.add(newProduct);
 	}
@@ -256,8 +256,8 @@ public class User extends Akter implements Serializable {
 
 		retval += " alergies=";
 		if (alergies != null) {
-			for (Product p : alergies) {
-				retval += p.getProductID() + ", ";
+			for (String p : alergies) {
+				retval += p + ", ";
 			}
 		}
 
