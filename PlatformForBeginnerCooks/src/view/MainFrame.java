@@ -31,7 +31,7 @@ public class MainFrame extends JFrame {
 	private ToiToiController toiToiController;
 	private Akter akter = null;
 
-	protected SignUpForm signUp = null;
+	protected SignUp signUp = null;
 	protected SignInForm signIn = null;
 
 	public MainFrame(ToiToiController tc) throws IOException {
@@ -142,7 +142,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!(signUp == null))
 					signUp.dispose();
-				signUp = new SignUpForm(toiToiController);
+				signUp = new SignUp(toiToiController);
 				signUp.setVisible(true);
 
 			}

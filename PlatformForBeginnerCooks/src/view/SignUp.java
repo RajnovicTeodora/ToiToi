@@ -35,7 +35,7 @@ import controller.ToiToiController;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 
-public class SignUpForm extends JFrame {
+public class SignUp extends JFrame {
 
 	/**
 	 * 
@@ -77,7 +77,7 @@ public class SignUpForm extends JFrame {
 	private ImageIcon icon = null;
 	private File file = null;
 
-	public SignUpForm(ToiToiController toiToi) {
+	public SignUp(ToiToiController toiToi) {
 		this.toiToiController = toiToi;
 		signupFrame();
 
