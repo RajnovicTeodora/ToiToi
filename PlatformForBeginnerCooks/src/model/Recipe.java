@@ -31,11 +31,17 @@ public class Recipe implements Serializable {
 
 	private LocalDate dateCreated;
 
+	private User creator;
+	private int servings;
+	private int difficulty; // 1-5 
+	private int prepTime; 
+	private int cookTime; 
+	
 	private ArrayList<Taste> taste;
 
-	private  java.util.List<Tag> tags;
+	private  List<Tag> tags;
 
-	private  java.util.List<Equipment> equipment;
+	private  List<Equipment> equipment;
 
 	private  List<Comment> comment;
 
@@ -44,6 +50,41 @@ public class Recipe implements Serializable {
 	public Recipe() {
 		super();
 	}
+	
+	
+	public int getPrepTime() {
+		return prepTime;
+	}
+
+	public void setPrepTime(int prepTime) {
+		this.prepTime = prepTime;
+	}
+
+	public int getCookTime() {
+		return cookTime;
+	}
+
+	public void setCookTime(int cookTime) {
+		this.cookTime = cookTime;
+	}
+
+	public int getServings() {
+		return servings;
+	}
+
+	public void setServings(int servings) {
+		this.servings = servings;
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
+
 
 	public Recipe(String name, String description, int likes, LocalDate dateCreated, ArrayList<Taste> taste,
 			List<Tag> tags, List<Equipment> equipment, List<Comment> comment,
@@ -75,6 +116,14 @@ public class Recipe implements Serializable {
 			this.neededProductQuantity = new java.util.ArrayList<NeededQuantity>();
 		if (!this.neededProductQuantity.contains(nq))
 			this.neededProductQuantity.add(nq);
+	}
+	
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
 	}
 
 	public String getName() {
@@ -116,11 +165,22 @@ public class Recipe implements Serializable {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
+	
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 
 	@Override
 	public String toString() {
 		return "Recipe [recipeID=" + recipeID + ", name=" + name + ", description=" + description + ", likes=" + likes
-				+ ", taste=" + taste + ", tags=" + tags + ", equipment=" + equipment + ", comment=" + comment + "]";
+				+ ", image=" + image + ", creator=" + creator + ", date=" + date + ", servings=" + servings
+				+ ", difficulty=" + difficulty  + ", prepTime=" + prepTime
+				+ ", cookTime=" + cookTime + ", taste=" + taste + ", tags=" + tags + ", equipment=" + equipment
+				+ ", comment=" + comment + ", neededProductQuantity=" + neededProductQuantity + "]";
 	}
 
 	public java.util.List<Tag> getTags() {

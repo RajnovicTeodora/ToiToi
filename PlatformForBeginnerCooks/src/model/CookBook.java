@@ -17,6 +17,7 @@ public class CookBook implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+	private String image;
    
 	private LocalDate date;
    
@@ -26,6 +27,18 @@ public class CookBook implements Serializable{
    
 	public java.util.List<Recipe> recipes;
 	
+	private User creator;
+	
+	
+	
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -50,10 +63,20 @@ public class CookBook implements Serializable{
 		this.likes = likes;
 	}
 	
+	
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public String toString() {
 		return "CookBook [name=" + name + ", date=" + date + ", likes=" + likes + ", comments=" + comments
-				+ ", recipes=" + recipes + "]";
+				+ ", recipes=" + recipes + ", creator=" + creator + "]";
 	}
 
 	public java.util.List<Comment> getComments() {

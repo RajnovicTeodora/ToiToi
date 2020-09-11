@@ -24,7 +24,7 @@ public class SignInForm extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private ToiToiController toiToi;
-	private Akter akter = null;
+	private Akter akter;
 
 	protected JPanel panel;
 	protected JLabel usernameLabel;
@@ -46,7 +46,7 @@ public class SignInForm extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setResizable(false);
 		this.setIconImage(new ImageIcon("./img/signin.png").getImage());
-		this.setTitle("Sing in");
+		this.setTitle("Sign in");
 
 		panel = new JPanel(new MigLayout("wrap 2", "", ""));
 
@@ -62,8 +62,8 @@ public class SignInForm extends JFrame {
 		panel.add(passwordLabel);
 		panel.add(passwordField);
 
-		panel.add(cancel);
 		panel.add(confirm);
+		panel.add(cancel);
 
 		this.add(panel);
 
@@ -87,12 +87,13 @@ public class SignInForm extends JFrame {
 
 	private void confirmPressed() {
 		String username = usernameField.getText();
+		@SuppressWarnings("deprecation")
 		String password = passwordField.getText();
-
+		
 		akter = toiToi.checkUser(password, username);
 
 		if (akter == null) {
-			JOptionPane.showMessageDialog(null, "The entered information isn correct!", "Error!",
+			JOptionPane.showMessageDialog(null, "The entered information isn't correct!", "Error!",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
 			this.setVisible(false);

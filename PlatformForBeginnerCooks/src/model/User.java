@@ -27,15 +27,20 @@ public class User extends Akter implements Serializable {
 
 	private int points = 0;
 
-	public java.util.List<ProductInfo> availableGroceries;
+	public List<ProductInfo> availableGroceries;
 
-	public java.util.List<String> alergies;
+	public List<String> alergies;
 
-	public java.util.List<Equipment> equipment;
+	public List<Equipment> equipment;
 
 	public String image;
 	
 	public ArrayList<Recipe> likedRecipes;
+	
+	public ArrayList<Recipe> recipes;
+	
+	public ArrayList<CookBook> cookBooks;
+	
 	
 	public User() {
 		super();
@@ -53,8 +58,15 @@ public class User extends Akter implements Serializable {
 			this.equipment = equipment;
 			this.gender = gender;
 	}
-
 	
+	public ArrayList<CookBook> getCookBooks() {
+		return cookBooks;
+	}
+
+	public void setCookBooks(ArrayList<CookBook> cookBooks) {
+		this.cookBooks = cookBooks;
+	}
+
 	public Gender getGender() {
 		return gender;
 	}
@@ -123,6 +135,14 @@ public class User extends Akter implements Serializable {
 		super.setMail(mail);
 	}
 	
+	
+	public ArrayList<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(ArrayList<Recipe> recipes) {
+		this.recipes = recipes;
+	}
 
 	public String getImage() {
 		return image;
@@ -134,33 +154,40 @@ public class User extends Akter implements Serializable {
 
 	/** @pdGenerated default getter */
 	public java.util.List<String> getAlergies() {
+
 		if (alergies == null)
 			alergies = new java.util.ArrayList<String>();
 		return alergies;
 	}
 
+
 	/** @pdGenerated default iterator getter */
 	public java.util.Iterator<String> getIteratorAlergies() {
+
 		if (alergies == null)
 			alergies = new java.util.ArrayList<String>();
 		return alergies.iterator();
 	}
+
 
 	/**
 	 * @pdGenerated default setter
 	 * @param newAlergies
 	 */
 	public void setAlergies(java.util.List<String> newAlergies) {
+
 		removeAllAlergies();
 		for (Iterator<String> iter = newAlergies.iterator(); iter.hasNext();)
 			addAlergies((String) iter.next());
 	}
+
 
 	/**
 	 * @pdGenerated default add
 	 * @param newProduct
 	 */
 	public void addAlergies(String newProduct) {
+
 		if (newProduct == null)
 			return;
 		if (this.alergies == null)
@@ -169,10 +196,6 @@ public class User extends Akter implements Serializable {
 			this.alergies.add(newProduct);
 	}
 
-	/**
-	 * @pdGenerated default remove
-	 * @param oldProduct
-	 */
 	public void removeAlergies(Product oldProduct) {
 		if (oldProduct == null)
 			return;
@@ -181,40 +204,29 @@ public class User extends Akter implements Serializable {
 				this.alergies.remove(oldProduct);
 	}
 
-	/** @pdGenerated default removeAll */
 	public void removeAllAlergies() {
 		if (alergies != null)
 			alergies.clear();
 	}
 
-	/** @pdGenerated default getter */
 	public java.util.List<Equipment> getEquipment() {
 		if (equipment == null)
 			equipment = new java.util.ArrayList<Equipment>();
 		return equipment;
 	}
 
-	/** @pdGenerated default iterator getter */
 	public java.util.Iterator<Equipment> getIteratorEquipment() {
 		if (equipment == null)
 			equipment = new java.util.ArrayList<Equipment>();
 		return equipment.iterator();
 	}
 
-	/**
-	 * @pdGenerated default setter
-	 * @param newEquipment
-	 */
 	public void setEquipment(java.util.List<Equipment> newEquipment) {
 		removeAllEquipment();
 		for (Iterator<Equipment> iter = newEquipment.iterator(); iter.hasNext();)
 			addEquipment((Equipment) iter.next());
 	}
 
-	/**
-	 * @pdGenerated default add
-	 * @param newEquipment
-	 */
 	public void addEquipment(Equipment newEquipment) {
 		if (newEquipment == null)
 			return;
@@ -224,10 +236,6 @@ public class User extends Akter implements Serializable {
 			this.equipment.add(newEquipment);
 	}
 
-	/**
-	 * @pdGenerated default remove
-	 * @param oldEquipment
-	 */
 	public void removeEquipment(Equipment oldEquipment) {
 		if (oldEquipment == null)
 			return;
@@ -236,7 +244,6 @@ public class User extends Akter implements Serializable {
 				this.equipment.remove(oldEquipment);
 	}
 
-	/** @pdGenerated default removeAll */
 	public void removeAllEquipment() {
 		if (equipment != null)
 			equipment.clear();
@@ -267,6 +274,18 @@ public class User extends Akter implements Serializable {
 				retval += e.getEquipmentID() + ", ";
 			}
 		}
+		retval += " recipes=";
+		if (recipes != null) {
+			for (Recipe e : recipes) {
+				retval += e.getRecipeID() + ", ";
+			}
+		}
+		retval += " cookbooks=";
+		if (recipes != null) {
+			for (CookBook e : cookBooks) {
+				retval += e.getName() + ", ";
+			}
+		}
 		retval = retval.substring(0, retval.length() - 2) + "]";
 
 		return retval;
@@ -279,6 +298,32 @@ public class User extends Akter implements Serializable {
 	public void setLikedRecipes(ArrayList<Recipe> likedRecipes) {
 		this.likedRecipes = likedRecipes;
 	}
+
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	
+	
 
    
 }
