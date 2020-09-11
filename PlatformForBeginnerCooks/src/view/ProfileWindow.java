@@ -119,7 +119,7 @@ public class ProfileWindow {
 	        panel2.add(br, "gapleft 10");
 	        panel2.add(dugmic, "gapleft 30, gaptop 30");
 	        panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
-	        
+	        brojac++;
 
 		}
 		panel.add(panel2, "span, wrap");

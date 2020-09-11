@@ -111,7 +111,7 @@ public class MainFrame extends JFrame {
 				RecipeForm rf = new RecipeForm(toiToiController);
 				rf.setVisible(true);
 				signIn = new SignInForm(toiToiController);
-				//signIn.setVisible(true);
+				signIn.setVisible(true);
 				signIn.addWindowListener(new WindowListener() {
 
 					@Override

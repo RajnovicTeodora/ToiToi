@@ -19,8 +19,6 @@ public class Recipe implements Serializable {
 
 	private int recipeID;
 
-	private User creator;
-
 	private String name;
 
 	private String description;
@@ -134,13 +132,6 @@ public class Recipe implements Serializable {
 		this.name = name;
 	}
 
-	public User getCreator() {
-		return creator;
-	}
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
 
 	public ArrayList<Taste> getTaste() {
 		return taste;
@@ -167,17 +158,17 @@ public class Recipe implements Serializable {
 	}
 	
 	public LocalDate getDate() {
-		return date;
+		return dateCreated;
 	}
 
 	public void setDate(LocalDate date) {
-		this.date = date;
+		this.dateCreated = date;
 	}
 
 	@Override
 	public String toString() {
 		return "Recipe [recipeID=" + recipeID + ", name=" + name + ", description=" + description + ", likes=" + likes
-				+ ", image=" + image + ", creator=" + creator + ", date=" + date + ", servings=" + servings
+				+ ", image=" + image + ", creator=" + creator + ", date=" + dateCreated + ", servings=" + servings
 				+ ", difficulty=" + difficulty  + ", prepTime=" + prepTime
 				+ ", cookTime=" + cookTime + ", taste=" + taste + ", tags=" + tags + ", equipment=" + equipment
 				+ ", comment=" + comment + ", neededProductQuantity=" + neededProductQuantity + "]";

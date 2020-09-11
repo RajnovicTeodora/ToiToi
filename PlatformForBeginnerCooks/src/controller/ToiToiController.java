@@ -202,12 +202,11 @@ public class ToiToiController {
 		recipe.addNeededQuantity(nq3);
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		recipeList.add(recipe);
-//<<<<<<< HEAD
+		u1.setRecipes(recipeList);
+
 		recipeList.add(recipe2);
 		recipeList.add(recipe3);
-//=======
-//		u1.setRecipes(recipeList);
-//>>>>>>> profile_branch
+
 
 		CookBook cb = new CookBook();
 		cb.setCreator(u1);
@@ -218,6 +217,7 @@ public class ToiToiController {
 		cb.setRecipes(recipeList);
 		cb.setComments(commentList);
 		ArrayList<CookBook> cbList = new ArrayList<CookBook>();
+		u1.setCookBooks(cbList);
 		cbList.add(cb);
 		u1.setCookBooks(cbList);
 
