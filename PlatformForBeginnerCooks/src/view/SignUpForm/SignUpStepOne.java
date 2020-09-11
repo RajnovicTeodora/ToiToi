@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -310,6 +311,12 @@ class SignUpStepOne extends JPanel {
 			JOptionPane.showMessageDialog(null, "Not all fields were selected!", "Error!", JOptionPane.ERROR_MESSAGE);
 		}
 
+	}
+	protected String imageCode() {
+		Random r = new Random();
+		int i = 100000 + r.nextInt(900000);
+		
+		return "data/RecipeImage/" + i + ".png";
 	}
 
 	public User getUser() {

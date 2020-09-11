@@ -50,7 +50,6 @@ public class IngredientsPanel extends JPanel {
 	private Object[][] productInfo;
 	private ArrayList<NeededQuantity> products;
 
-//TODO
 	public IngredientsPanel(ToiToiController toiToiController) {
 		this.toiToiController = toiToiController;
 		setBackground(Color.white);
@@ -62,24 +61,24 @@ public class IngredientsPanel extends JPanel {
 		RecipeIngredientForm rif = new RecipeIngredientForm(productInfo);
 
 		tableRecipeIngredients = new JTable(rif);
-		tableRecipeIngredients.setBackground(new Color(192, 229, 250));
+		tableRecipeIngredients.setBackground(Color.white);
 		tableRecipeIngredients.addMouseListener(new JTableButtonMouseListener(tableRecipeIngredients));
 		tableRecipeIngredients.getTableHeader().setReorderingAllowed(false);
 		tableSorter.setModel((AbstractTableModel) tableRecipeIngredients.getModel());
 		tableRecipeIngredients.setRowSorter(tableSorter);
 
-		ingredientsPanel.setBackground(Color.white);
+		ingredientsPanel.setBackground(new Color(255, 233, 248));
 
 		JScrollPane sp = new JScrollPane(tableRecipeIngredients);
 		sp.setPreferredSize(new Dimension(500, 200));
 
 		JPanel bottomTable1 = new JPanel();
-		ingredientsPanel.add(new JLabel("Please select available ingredients : "), "top, wrap");
+		ingredientsPanel.add(new JLabel("Please select required ingredients : "), "top, wrap");
 		ingredientsPanel.add(sp, "wrap");
 
 		bottomTable1.add(new JLabel("Search:"));
 		bottomTable1.add(tfSearch1);
-		bottomTable1.setBackground(Color.white);
+		bottomTable1.setBackground(new Color(255, 233, 248));
 
 		// BUTTONS
 		JButton edit1 = new JButton("Edit");
@@ -235,4 +234,25 @@ public class IngredientsPanel extends JPanel {
 
 		}
 	};
+	
+	public ArrayList<NeededQuantity> confirm(){
+		products = new ArrayList<NeededQuantity>();
+		for (int i = 0; i < productInfo.length; i++) {
+			if ((Boolean) productInfo[i][4] == true) {
+
+				Product foundProd = null;
+				for (Product p : toiToiController.getToiToi().getProducts()) {
+					if ((p.getName().compareTo((String) productInfo[i][0]) == 0)
+							&& (p.getProducedBy().compareTo((String) productInfo[i][1]) == 0)) {
+						foundProd = p;
+						break;
+					}
+				}
+				NeededQuantity nq = new NeededQuantity((Double) productInfo[i][2], (Boolean)productInfo[i][3], foundProd);
+				products.add(nq);
+			}
+		}
+		
+		return products;
+	}
 }

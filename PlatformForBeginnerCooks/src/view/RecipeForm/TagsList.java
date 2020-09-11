@@ -3,6 +3,7 @@ package view.RecipeForm;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import model.Tag;
 import net.miginfocom.swing.MigLayout;
 
 public class TagsList extends JPanel implements ActionListener {
@@ -26,8 +28,7 @@ public class TagsList extends JPanel implements ActionListener {
 	protected JButton buttonIn, buttonOut;
 	protected JTextField tagField = new JTextField(10);
 	protected DefaultListModel<String> tags;
-	//TODO add private conainer
-	
+
 	public TagsList() {
 		setLayout(new MigLayout());
 		setBackground(Color.white);
@@ -44,7 +45,7 @@ public class TagsList extends JPanel implements ActionListener {
 		// We create the buttons to be placed between the lists.
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.white);
-		
+
 		buttonIn = new JButton("Add");
 		buttonIn.addActionListener(this);
 		buttonPanel.add(buttonIn);
@@ -54,7 +55,7 @@ public class TagsList extends JPanel implements ActionListener {
 		buttonPanel.add(buttonOut);
 
 		add(list, "wrap");
-		
+
 		JPanel helper = new JPanel(new MigLayout());
 		helper.add(tagField, "wrap");
 		helper.add(buttonPanel);
@@ -95,5 +96,12 @@ public class TagsList extends JPanel implements ActionListener {
 			}
 
 		}
+	}
+
+	public ArrayList<Tag> confirm() {
+		ArrayList<Tag> returnT = new ArrayList<Tag>();
+		for (int i = 0; i < tags.size(); i++)
+			returnT.add(new Tag(tags.get(i)));
+		return returnT;
 	}
 }

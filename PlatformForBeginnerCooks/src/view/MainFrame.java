@@ -1,6 +1,9 @@
 package view;
 
 import net.miginfocom.swing.MigLayout;
+import view.HomePanel.HomePanel;
+import view.RecipeForm.RecipeForm;
+import view.SignUpForm.SignUpForm;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -31,7 +34,7 @@ public class MainFrame extends JFrame {
 	private ToiToiController toiToiController;
 	private Akter akter = null;
 
-	protected SignUp signUp = null;
+	protected SignUpForm signUp = null;
 	protected SignInForm signIn = null;
 
 	public MainFrame(ToiToiController tc) throws IOException {
@@ -94,9 +97,10 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!(signIn == null))
 					signIn.dispose();
-
+				RecipeForm rf = new RecipeForm(toiToiController);
+				rf.setVisible(true);
 				signIn = new SignInForm(toiToiController);
-				signIn.setVisible(true);
+				//signIn.setVisible(true);
 				signIn.addWindowListener(new WindowListener() {
 
 					@Override
@@ -142,7 +146,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!(signUp == null))
 					signUp.dispose();
-				signUp = new SignUp(toiToiController);
+				signUp = new SignUpForm(toiToiController);
 				signUp.setVisible(true);
 
 			}
@@ -168,6 +172,8 @@ public class MainFrame extends JFrame {
 	}
 
 	public JPanel createPage1() {
+		JPanel panel = new HomePanel(toiToiController);
+		/*
 		JPanel panel = new JPanel(new GridBagLayout());
 
 		JLabel label = new JLabel("Form");
@@ -186,7 +192,7 @@ public class MainFrame extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		panel.add(tableButtonPanel, gbc);
-
+		 */
 		return panel;
 	}
 

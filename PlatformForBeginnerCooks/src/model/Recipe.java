@@ -18,24 +18,46 @@ public class Recipe implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int recipeID;
+
+	private User creator;
+
 	private String name;
+
 	private String description;
+
 	private int likes;
+
 	private String image;
+
 	private LocalDate dateCreated;
-	
+
 	private ArrayList<Taste> taste;
 
-	public java.util.List<Tag> tags;
+	private  java.util.List<Tag> tags;
 
-	public java.util.List<Equipment> equipment;
+	private  java.util.List<Equipment> equipment;
 
-	public List<Comment> comment;
+	private  List<Comment> comment;
 
-	public ArrayList<NeededQuantity> neededProductQuantity;
+	private  ArrayList<NeededQuantity> neededProductQuantity;
 
 	public Recipe() {
 		super();
+	}
+
+	public Recipe(String name, String description, int likes, LocalDate dateCreated, ArrayList<Taste> taste,
+			List<Tag> tags, List<Equipment> equipment, List<Comment> comment,
+			ArrayList<NeededQuantity> neededProductQuantity) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.likes = likes;
+		this.dateCreated = dateCreated;
+		this.taste = taste;
+		this.tags = tags;
+		this.equipment = equipment;
+		this.comment = comment;
+		this.neededProductQuantity = neededProductQuantity;
 	}
 
 	public ArrayList<NeededQuantity> getNeededProductQuantity() {
@@ -61,6 +83,22 @@ public class Recipe implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+
+	public ArrayList<Taste> getTaste() {
+		return taste;
+	}
+
+	public void setTaste(ArrayList<Taste> taste) {
+		this.taste = taste;
 	}
 
 	public String getDescription() {

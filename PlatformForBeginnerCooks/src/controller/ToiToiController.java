@@ -142,6 +142,34 @@ public class ToiToiController {
 		recipe.setImage("./data/RecipeImage/milkshake.png");
 		recipe.setDateCreated(d2);
 
+		
+		Recipe recipe2 = new Recipe();
+		recipe2.setRecipeID(2);
+		recipe2.setDescription("Najlepsi milkshake koji cete ikada probati!");
+		recipe2.setLikes(15);
+		recipe2.setName("Milkshake");
+		recipe2.addComment(com);
+		recipe2.addTags(t2);
+		recipe2.addTastes(Taste.sweet);
+		recipe2.addTastes(Taste.tangy);
+		recipe2.addEquipment(e1);
+		recipe2.setImage("./data/RecipeImage/milkshake.png");
+		recipe2.setDateCreated(d2);
+		
+		Recipe recipe3 = new Recipe();
+		recipe3.setRecipeID(3);
+		recipe3.setDescription("Najlepsi milkshake koji cete ikada probati!");
+		recipe3.setLikes(1);
+		recipe3.setName("Milkshake");
+		recipe3.addComment(com);
+		recipe3.addTags(t2);
+		recipe3.addTastes(Taste.sweet);
+		recipe3.addTastes(Taste.tangy);
+		recipe3.addEquipment(e1);
+		recipe3.setImage("./data/RecipeImage/milkshake.png");
+		recipe3.setDateCreated(d2);
+
+
 		ArrayList<NeededQuantity> nqList = new ArrayList<NeededQuantity>();
 		NeededQuantity nq1 = new NeededQuantity();
 		nq1.setIngredient(p1);
@@ -164,6 +192,8 @@ public class ToiToiController {
 		recipe.addNeededQuantity(nq3);
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		recipeList.add(recipe);
+		recipeList.add(recipe2);
+		recipeList.add(recipe3);
 
 		CookBook cb = new CookBook();
 		cb.setName("Slatki recepti");

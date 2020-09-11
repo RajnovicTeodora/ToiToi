@@ -44,7 +44,7 @@ public class EquipmentPanel extends JPanel {
 	protected ToiToiController toiToiController;
 	
 	protected TableRowSorter<AbstractTableModel> tableSorter2 = new TableRowSorter<AbstractTableModel>();
-	protected JPanel myEquipmentPanel = new JPanel(new MigLayout());
+	protected JPanel myEquipmentPanel = new JPanel(new MigLayout("", "", "[] 10 []"));
 	protected JTable myEquipmentTable;
 	protected JTextField tfSearch2 = new JTextField(15);
 	protected JScrollPane sp2;
@@ -68,10 +68,10 @@ public class EquipmentPanel extends JPanel {
 		tableSorter2.setModel((AbstractTableModel) myEquipmentTable.getModel());
 		myEquipmentTable.setRowSorter(tableSorter2);
 
-		myEquipmentPanel.setBackground(Color.white);
+		myEquipmentPanel.setBackground(new Color(255, 233, 248));
 
 		sp2 = new JScrollPane(myEquipmentTable);
-		sp2.setPreferredSize(new Dimension(300, 150));
+		sp2.setPreferredSize(new Dimension(500, 100));
 
 		JPanel bottomTable2 = new JPanel();
 		myEquipmentPanel.add(new JLabel("Please select needed tools : "), "top, wrap");
@@ -79,7 +79,7 @@ public class EquipmentPanel extends JPanel {
 
 		bottomTable2.add(new JLabel("Search:"));
 		bottomTable2.add(tfSearch2);
-		bottomTable2.setBackground(Color.white);
+		bottomTable2.setBackground(new Color(255, 233, 248));
 
 		// BUTTONS
 		JButton edit2 = new JButton("Add tool");
@@ -270,6 +270,23 @@ public class EquipmentPanel extends JPanel {
 		this.equipment = equipment;
 	}
 
-	
+	public ArrayList<Equipment> confirm(){
+		equipment = new ArrayList<Equipment>();
+		for (int i = 0; i < equipmentObj.length; i++) {
+			if ((Boolean) equipmentObj[i][3] == true) {
+				String n = (String) equipmentObj[i][0];
+				String c = (String) equipmentObj[i][1];
+				String d = (String) equipmentObj[i][2];
+				for (Equipment e : toiToiController.getToiToi().getEquipment()) {
+					if ((e.getName().compareTo(n) == 0) && (e.getCompany().compareTo(c) == 0)
+							&& (e.getDescription().compareTo(d) == 0)) {
+						equipment.add(e);
+						break;
+					}
+				}
+			}
+		}
+		return equipment;
+	}
 	
 }

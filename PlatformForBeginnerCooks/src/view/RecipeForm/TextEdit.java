@@ -39,17 +39,17 @@ public class TextEdit extends JPanel implements ActionListener {
 		setCount(0);
 		setLayout(new MigLayout());
 		setBackground(Color.white);
-		setSize(260, 200);
+		setSize(450, 200);
 		pad = " ";
 		ta = new JTextArea(); // textarea
-		ta.setSize(250, 150);
+		ta.setPreferredSize(new Dimension(400, 150));
 		
 		menuBar = new JMenuBar(); // menubar
 		editM = new JMenu("Edit"); // edit menu
 		scpane = new JScrollPane(ta); // scrollpane and add textarea to scrollpane
 		
 		scpane.setPreferredSize(new Dimension(250,150));
-		scpane.setBorder(BorderFactory.createLineBorder(new Color(165, 220, 220)));
+		scpane.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		cutI = new JMenuItem("Cut");
 		copyI = new JMenuItem("Copy");
@@ -105,5 +105,10 @@ public class TextEdit extends JPanel implements ActionListener {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+	
+	public String confirm() {
+		String returnVal = ta.getText();
+		return returnVal;
 	}
 }

@@ -3,6 +3,7 @@ package view.RecipeForm;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -27,7 +28,6 @@ public class TasteList extends JPanel implements ActionListener {
 	protected JButton buttonIn, buttonOut;
 	protected JComboBox<String> tasteBox;
 	protected DefaultListModel<String> tastes;
-	// TODO add private conainer
 
 	public TasteList() {
 		setLayout(new MigLayout());
@@ -105,5 +105,13 @@ public class TasteList extends JPanel implements ActionListener {
 			}
 
 		}
+	}
+	public ArrayList<Taste> confirm(){
+		ArrayList<Taste> temp = new ArrayList<Taste>();
+		for(int i = 0; i < tastes.size(); i++) {
+			Taste t = Taste.valueOf(tastes.get(i));
+			temp.add(t);
+		}
+		return temp;
 	}
 }

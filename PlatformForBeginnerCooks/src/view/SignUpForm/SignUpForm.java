@@ -3,37 +3,15 @@ package view.SignUpForm;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableRowSorter;
 
-import TableModel.IngredientsFormTable;
-import TableModel.JTableButtonMouseListener;
-import TableModel.JTableButtonRenderer;
 import controller.ToiToiController;
-import model.Product;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 

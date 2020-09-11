@@ -6,10 +6,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
+import model.Comment;
+import model.Equipment;
+import model.NeededQuantity;
 import model.Recipe;
+import model.Tag;
+import model.Taste;
 
 public class RecipeController {
 
@@ -110,5 +117,55 @@ public class RecipeController {
 			}
 		}
 
+	}
+
+	// sorts recipes by likes
+	public ArrayList<Recipe> sortByLikes(ArrayList<Recipe> recipes) {
+		recipes.sort(new Comparator<Recipe>() {
+
+			@Override
+			public int compare(Recipe o1, Recipe o2) {
+				if (o1.getLikes() >= o2.getLikes())
+					return -1;
+				return 0;
+
+			}
+		});
+
+		return recipes;
+	}
+
+	public Recipe makeRecipe(String name, String description, ArrayList<Tag> tags, ArrayList<Taste> taste,
+			ArrayList<Equipment> equipment, ArrayList<NeededQuantity> neededProduct) throws Exception {
+		Recipe r = null;
+		// TODO add more mandatory fields?
+		if (name.equals("") || description.contentEquals("") || taste.size() == 0 || neededProduct.size() == 0
+				|| equipment.size() == 0)
+			throw new Exception("Not all fields were filled out!");
+		else {
+			r = new Recipe(name, description, 0, LocalDate.now(), taste, tags, equipment, new ArrayList<Comment>(),
+					neededProduct);
+		}
+		return r;
+	}
+
+	// find the first unused recipe id
+	public int freeId(ArrayList<Recipe> recipes) {
+		int i = 1;
+		Boolean copy = false;
+		while (true) {
+			for (Recipe r : recipes) {
+				if (r.getRecipeID() == i) {
+					copy = true;
+					break;
+				}
+			}
+			if (copy) {
+				i++;
+				copy = false;
+			} else {
+				return i;
+			}
+		}
 	}
 }
