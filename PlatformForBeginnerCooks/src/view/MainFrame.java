@@ -58,7 +58,7 @@ public class MainFrame extends JFrame {
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
 		try {
-			tabbedPane.addTab("", rw.createUserRecipePage(1,"peraa", toiToiController) );
+			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
 		} catch (IOException e) {
 
 			e.printStackTrace();

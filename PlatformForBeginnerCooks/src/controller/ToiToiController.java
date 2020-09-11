@@ -109,7 +109,9 @@ public class ToiToiController {
 		peraAlergies.add(p1);
 		ArrayList<Equipment> peraEq = new ArrayList<Equipment>();
 		peraEq.add(e1);
-		User u1 = new User("Pera", "Peric", "peraa", "pera123", "pera@gmail.com", Gender.MALE, d1, "Glavna 73 NS", "123456", 0,
+//		User u1 = new User("Pera", "Peric", "peraa", "pera123", "pera@gmail.com", Gender.MALE, d1, "Glavna 73 NS", "123456", 0,
+//				peraProducts, peraAlergies, peraEq);
+		User u1 = new User("Pera", "Peric", "p", "p", "pera@gmail.com", Gender.MALE, d1, "Glavna 73 NS", "123456", 0,
 				peraProducts, peraAlergies, peraEq);
 		
 		//promeniti profilnu peri
