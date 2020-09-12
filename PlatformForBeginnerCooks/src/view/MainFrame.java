@@ -29,13 +29,12 @@ import javax.swing.JTabbedPane;
 
 import controller.ToiToiController;
 import model.Akter;
-import model.User;
 
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static MainFrame instance;
-	private ToiToiController toiToiController;
+	public static ToiToiController toiToiController;
 	private Akter akter = null;
 	private RecipesTab recipesTab;
 	private RecipeWindow recipeWindow;
@@ -68,6 +67,12 @@ public class MainFrame extends JFrame {
 		recipesTab = new RecipesTab(toiToiController);
 
 		tabbedPane = new JTabbedPane();
+
+		RecipeWindow rw = new RecipeWindow(toiToiController);
+		RecipesTab recipesTab = new RecipesTab(toiToiController);
+
+
+		JTabbedPane tabbedPane = new JTabbedPane();
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
@@ -117,8 +122,6 @@ public class MainFrame extends JFrame {
 				if (!(signIn == null))
 					signIn.dispose();
 
-				RecipeForm rf = new RecipeForm(toiToiController);
-				rf.setVisible(true);
 
 				signIn = new SignInForm(toiToiController);
 				signIn.setVisible(true);
@@ -148,7 +151,7 @@ public class MainFrame extends JFrame {
 					public void windowClosed(WindowEvent e) {
 						akter = signIn.getAkter();
 
-						if (akter != null && akter instanceof User) {
+						if (akter != null) {
 							ProfileWindow pw = new ProfileWindow(akter, toiToiController);
 							try {
 								tabbedPane.addTab("", pw.createMyProfilePage());
@@ -159,14 +162,6 @@ public class MainFrame extends JFrame {
 							lab4.setFont(f);
 							lab4.setPreferredSize(d);
 							tabbedPane.setTabComponentAt(3, lab4);
-
-							try {
-								tabbedPane.addTab("", pw.createMyProfilePage());
-							} catch (IOException e1) {
-								e1.printStackTrace();
-	
-							}
-
 						}
 					}
 

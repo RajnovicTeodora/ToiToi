@@ -160,6 +160,7 @@ public class ProfileWindow {
 		int brojac = 1;
 		for (Recipe r : user.getRecipes()) {
 			
+		
 			BufferedImage img = ImageIO.read(new File(r.getImage()));
 			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 			ImageIcon icon = new ImageIcon(image);
@@ -172,6 +173,7 @@ public class ProfileWindow {
 				public void actionPerformed(ActionEvent e) {
 					// ovde se poziva funkcija za prikaz celog recepta!
 				}
+			
 			});
 
 			JLabel naziv = new JLabel(r.getName());
@@ -183,11 +185,13 @@ public class ProfileWindow {
 			panel2.add(dugmic, "gapleft 30, gaptop 30");
 			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
 			brojac++;
-
+			
 		}
+		
 		panel.add(panel2, "span, wrap");
 		return panel;
 	}
+
 
 	private JPanel createMyInfoPanel() throws IOException {
 		JPanel panel = new JPanel(null);
@@ -284,6 +288,7 @@ public class ProfileWindow {
 
 		JPanel panel2 = new JPanel(new MigLayout());
 		int brojac = 1;
+		
 		for (CookBook r : user.getCookBooks()) {
 			BufferedImage img = ImageIO.read(new File(r.getImage()));
 			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);

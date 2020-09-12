@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -18,6 +20,8 @@ import controller.RecipeController;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
+import view.MainFrame;
+import view.ProfileWindow;
 
 public class TopUserPanel extends JPanel {
 
@@ -107,7 +111,18 @@ public class TopUserPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (user != null) {
-					// TODO user exits, so link it here
+					//TODO ovo cu ja popravi <33
+					
+//					JDialog profil = new JDialog();
+//					profil.setSize(700, 700);
+//					ProfileWindow pw  = new ProfileWindow(user, MainFrame.toiToiController);
+//					try {
+//						profil.add(pw.createOtherUserProfilePage());
+//						profil.setVisible(true);
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 				}
 			}
 

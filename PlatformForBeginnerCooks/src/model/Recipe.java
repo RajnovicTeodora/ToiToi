@@ -47,23 +47,19 @@ public class Recipe implements Serializable {
 
 	private List<Comment> comment;
 
-	private List<NeededQuantity> neededProductQuantity;
+
+	private ArrayList<NeededQuantity> neededProductQuantity;
+
 
 	public Recipe() {
 		super();
 	}
 
-	public int getPrepTime() {
-		return prepTime;
-	}
 
 	public void setPrepTime(int prepTime) {
 		this.prepTime = prepTime;
 	}
 
-	public int getCookTime() {
-		return cookTime;
-	}
 
 	public void setCookTime(int cookTime) {
 		this.cookTime = cookTime;
@@ -77,9 +73,6 @@ public class Recipe implements Serializable {
 		this.servings = servings;
 	}
 
-	public int getDifficulty() {
-		return difficulty;
-	}
 
 	public void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
@@ -100,7 +93,7 @@ public class Recipe implements Serializable {
 		this.neededProductQuantity = neededProductQuantity;
 	}
 
-	public List<NeededQuantity> getNeededProductQuantity() {
+	public ArrayList<NeededQuantity> getNeededProductQuantity() {
 		return neededProductQuantity;
 	}
 
@@ -117,14 +110,6 @@ public class Recipe implements Serializable {
 			this.neededProductQuantity.add(nq);
 	}
 
-	public User getCreator() {
-		return creator;
-	}
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -133,10 +118,6 @@ public class Recipe implements Serializable {
 		this.name = name;
 	}
 
-
-	public void setTaste(ArrayList<Taste> taste) {
-		this.taste = taste;
-	}
 
 	public String getDescription() {
 		return description;
@@ -343,10 +324,38 @@ public class Recipe implements Serializable {
 		this.dateCreated = dateCreated;
 	}
 
-	public ArrayList<Taste> getTaste() {
-		return (ArrayList<Taste>) taste;
+
+	public List<Taste> getTaste() {
+		return this.taste;
 	}
 
+	public void setTaste(ArrayList<Taste> taste) {
+		this.taste = taste;
+	}
+
+	public Integer getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Integer difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public Integer getPrepTime() {
+		return prepTime;
+	}
+
+	public void setPrepTime(Integer prepTime) {
+		this.prepTime = prepTime;
+	}
+
+	public Integer getCookTime() {
+		return cookTime;
+	}
+
+	public void setCookTime(Integer cookTime) {
+		this.cookTime = cookTime;
+	}
 
 	public ArrayList<Integer> getProductIds(){
 		ArrayList<Integer> retval = new ArrayList<Integer>();
@@ -364,9 +373,22 @@ public class Recipe implements Serializable {
 		return retval;
 	}
 
+	public User getCreator() {
+		return creator;
+	}
 
-	public void setNeededProductQuantity(List<NeededQuantity> neededProductQuantity) {
-		this.neededProductQuantity = neededProductQuantity;
+	public void setCreator(User creator) {
+		this.creator = creator;
 	}
 	
+
+
+
+	public void setTaste(List<Taste> taste) {
+		this.taste = taste;
+	}
+	
+	
+	
+
 }
