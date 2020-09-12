@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 
+import model.Recipe;
 import model.User;
 
 public class UserController {
@@ -25,7 +27,7 @@ public class UserController {
 		super();
 		this.userFile = userFile;
 	}
-	
+
 	public UserController() {
 		super();
 	}
@@ -45,8 +47,8 @@ public class UserController {
 	public void setUserFile(String userFile) {
 		this.userFile = userFile;
 	}
-	
-	public void writeUsers(ArrayList<User> users)  {
+
+	public void writeUsers(ArrayList<User> users) {
 		FileOutputStream fileOut = null;
 		ObjectOutputStream objectOut = null;
 		try {
@@ -66,9 +68,9 @@ public class UserController {
 				}
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public ArrayList<User> readUsers(){
+	public ArrayList<User> readUsers() {
 		ObjectInputStream objectIn = null;
 		ArrayList<User> userList = null;
 		try {
@@ -89,5 +91,34 @@ public class UserController {
 		}
 		return userList;
 	}
-	
+
+	public void calculatePoints(User user) {
+		int points = 0;
+			for (Recipe r : user.getRecipe()) {
+				points += r.getLikes() * 2;
+			}
+			points += user.getLikedRecipes().size();
+			// TODO for cookbooks
+			if (!user.getImage().equals(""))
+				points += 5;
+		user.setPoints(points);
+			
+	}
+	public User topUser(ArrayList<User> users) {
+		for(User u : users)
+			calculatePoints(u);
+		users.sort(new Comparator<User>() {
+
+			@Override
+			public int compare(User o1, User o2) {
+				if (o1.getPoints() >= o2.getPoints())
+					return -1;
+				return 0;
+
+			}
+		});
+		if(users.size() > 0)
+			return users.get(0);
+		return null;
+	}
 }

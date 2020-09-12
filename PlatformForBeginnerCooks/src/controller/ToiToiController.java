@@ -111,6 +111,8 @@ public class ToiToiController {
 		peraEq.add(e1);
 		User u1 = new User("Pera", "Peric", "peraa", "pera123", "pera@gmail.com", Gender.MALE, d1, "Glavna 73 NS", "123456", 0,
 				peraProducts, peraAlergies, peraEq);
+		u1.setImage("");
+		u1.setLikedRecipes(new ArrayList<Recipe>());
 		Admin a1 = new Admin("MILIVOJE", "MILIVOJEVIC", "m", "m", "MAIL");
 		ArrayList<Akter> userList = new ArrayList<Akter>();
 		userList.add(u1);
@@ -129,6 +131,7 @@ public class ToiToiController {
 		commentList.add(com);
 		LocalDate d2 = LocalDate.parse("2020-09-12", x);
 
+		
 		Recipe recipe = new Recipe();
 		recipe.setRecipeID(1);
 		recipe.setDescription("Najlepsi milkshake koji cete ikada probati!");
@@ -141,9 +144,10 @@ public class ToiToiController {
 		recipe.addEquipment(e1);
 		recipe.setImage("./data/RecipeImage/milkshake.png");
 		recipe.setDateCreated(d2);
-
+		recipe.setCreator(u1);
 		
 		Recipe recipe2 = new Recipe();
+		recipe2.setCreator(u1);
 		recipe2.setRecipeID(2);
 		recipe2.setDescription("Najlepsi milkshake koji cete ikada probati!");
 		recipe2.setLikes(15);
@@ -157,6 +161,7 @@ public class ToiToiController {
 		recipe2.setDateCreated(d2);
 		
 		Recipe recipe3 = new Recipe();
+		recipe3.setCreator(u1);
 		recipe3.setRecipeID(3);
 		recipe3.setDescription("Najlepsi milkshake koji cete ikada probati!");
 		recipe3.setLikes(1);
@@ -169,7 +174,9 @@ public class ToiToiController {
 		recipe3.setImage("./data/RecipeImage/milkshake.png");
 		recipe3.setDateCreated(d2);
 
-
+		u1.addRecipes(recipe);
+		u1.addRecipes(recipe2);
+		u1.addRecipes(recipe3);
 		ArrayList<NeededQuantity> nqList = new ArrayList<NeededQuantity>();
 		NeededQuantity nq1 = new NeededQuantity();
 		nq1.setIngredient(p1);

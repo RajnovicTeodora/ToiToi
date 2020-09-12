@@ -6,6 +6,7 @@ import view.RecipeForm.RecipeForm;
 import view.SignUpForm.SignUpForm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -22,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import controller.ToiToiController;
@@ -173,6 +175,8 @@ public class MainFrame extends JFrame {
 
 	public JPanel createPage1() {
 		JPanel panel = new HomePanel(toiToiController);
+		panel.setBackground(new Color(200,221,242));
+		
 		/*
 		JPanel panel = new JPanel(new GridBagLayout());
 

@@ -37,6 +37,8 @@ public class User extends Akter implements Serializable {
 	
 	public ArrayList<Recipe> likedRecipes;
 	
+	private java.util.List<Recipe> recipes;
+	
 	public User() {
 		super();
 	}
@@ -242,6 +244,48 @@ public class User extends Akter implements Serializable {
 			equipment.clear();
 	}
 
+	
+	public java.util.List<Recipe> getRecipe() {
+		if (recipes == null)
+			recipes = new java.util.ArrayList<Recipe>();
+		return recipes;
+	}
+
+
+	public java.util.Iterator<Recipe> getIteratorRecipe() {
+		if (recipes == null)
+			recipes = new java.util.ArrayList<Recipe>();
+		return recipes.iterator();
+	}
+
+	
+	public void setRecipe(java.util.List<Recipe> newRecipe) {
+		removeAllRecipes();
+		for (Iterator<Recipe> iter = newRecipe.iterator(); iter.hasNext();)
+			addRecipes((Recipe) iter.next());
+	}
+
+	public void addRecipes(Recipe newRecipe) {
+		if (newRecipe == null)
+			return;
+		if (this.recipes == null)
+			this.recipes = new java.util.ArrayList<Recipe>();
+		if (!this.recipes.contains(newRecipe))
+			this.recipes.add(newRecipe);
+	}
+
+	public void removeRecipes(Recipe oldRecipe) {
+		if (oldRecipe == null)
+			return;
+		if (this.recipes != null)
+			if (this.recipes.contains(oldRecipe))
+				this.recipes.remove(oldRecipe);
+	}
+
+	public void removeAllRecipes() {
+		if (recipes != null)
+			recipes.clear();
+	}
 	@Override
 	public String toString() {
 		String retval = "User [name=" + name + ", surname=" + surname + ", username=" + username + ", password="
@@ -280,5 +324,29 @@ public class User extends Akter implements Serializable {
 		this.likedRecipes = likedRecipes;
 	}
 
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+	
    
 }

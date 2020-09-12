@@ -23,15 +23,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableRowSorter;
 
 import controller.ToiToiController;
-import model.Comment;
 import model.Equipment;
 import model.NeededQuantity;
 import model.Recipe;
