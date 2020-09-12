@@ -78,6 +78,7 @@ public class Product implements Serializable {
 		return part;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public java.util.Iterator getIteratorPart() {
 		if (part == null)
 			part = new java.util.ArrayList<Product>();

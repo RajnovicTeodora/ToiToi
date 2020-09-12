@@ -114,6 +114,7 @@ public class ToiToiController {
 		u1.setImage("");
 		u1.setLikedRecipes(new ArrayList<Recipe>());
 		Admin a1 = new Admin("MILIVOJE", "MILIVOJEVIC", "m", "m", "MAIL");
+		
 		ArrayList<Akter> userList = new ArrayList<Akter>();
 		userList.add(u1);
 		userList.add(a1);

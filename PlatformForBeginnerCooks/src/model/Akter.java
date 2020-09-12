@@ -7,10 +7,8 @@ package model;
 
 import java.io.Serializable;
 
-public class Akter implements Serializable {
-	/**
-	 * 
-	 */
+public abstract class Akter implements Serializable {
+
 	private static final long serialVersionUID = -2395483226508813675L;
 
 	protected String name;

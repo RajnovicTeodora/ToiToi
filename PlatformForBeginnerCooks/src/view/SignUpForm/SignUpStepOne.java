@@ -268,12 +268,7 @@ class SignUpStepOne extends JPanel {
 	public void confirmPressed() {
 
 		String username = usernameField.getText();
-//<<<<<<< HEAD:PlatformForBeginnerCooks/src/view/SignUpForm/SignUpStepOne.java
-		String password = String.copyValueOf(passwordField.getPassword()); // TODO
-//=======
-//		@SuppressWarnings("deprecation")
-//		String password = passwordField.getText();
-//>>>>>>> profile_branch:PlatformForBeginnerCooks/src/view/SignUpForm.java
+		String password = String.copyValueOf(passwordField.getPassword());
 		String name = nameField.getText();
 		String surname = surnameField.getText();
 		String telephone = telephoneField.getText();

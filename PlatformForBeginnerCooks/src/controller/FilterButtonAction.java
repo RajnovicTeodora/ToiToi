@@ -121,14 +121,14 @@ public class FilterButtonAction extends AbstractAction{
 						continue;
 					}
 					
-					if(!cookTime.isEmpty() && recipe.getCookTime()!=null && (recipe.getCookTime() <= Integer.parseInt(cookTime))) {
+					if(!cookTime.isEmpty() &&  (recipe.getCookTime() <= Integer.parseInt(cookTime))) {
 						searchResults = containsResult(recipe, searchResults);
 					}
 					
 					if(!prepTime.isEmpty() && (recipe.getPrepTime() > Integer.parseInt(prepTime))) {
 						continue;
 					}
-					if(!prepTime.isEmpty() && recipe.getPrepTime()!=null && (recipe.getPrepTime() <= Integer.parseInt(prepTime))) {
+					if(!prepTime.isEmpty() &&  (recipe.getPrepTime() <= Integer.parseInt(prepTime))) {
 						searchResults = containsResult(recipe, searchResults);
 					}
 					if(ChosenTaste.getChosenTaste()!=(null)) {

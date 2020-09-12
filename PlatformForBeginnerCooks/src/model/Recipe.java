@@ -47,19 +47,7 @@ public class Recipe implements Serializable {
 
 	private List<Comment> comment;
 
-<<<<<<< Updated upstream
-	public ArrayList<NeededQuantity> neededProductQuantity;
-	
-	private Integer difficulty;
-	
-	private Integer prepTime;
-	
-	private Integer cookTime;
-	
-	private User creator;
-=======
 	private List<NeededQuantity> neededProductQuantity;
->>>>>>> Stashed changes
 
 	public Recipe() {
 		super();
@@ -145,9 +133,6 @@ public class Recipe implements Serializable {
 		this.name = name;
 	}
 
-	public List<Taste> getTaste() {
-		return taste;
-	}
 
 	public void setTaste(ArrayList<Taste> taste) {
 		this.taste = taste;
@@ -358,38 +343,10 @@ public class Recipe implements Serializable {
 		this.dateCreated = dateCreated;
 	}
 
-<<<<<<< Updated upstream
 	public ArrayList<Taste> getTaste() {
-		return taste;
+		return (ArrayList<Taste>) taste;
 	}
 
-	public void setTaste(ArrayList<Taste> taste) {
-		this.taste = taste;
-	}
-
-	public Integer getDifficulty() {
-		return difficulty;
-	}
-
-	public void setDifficulty(Integer difficulty) {
-		this.difficulty = difficulty;
-	}
-
-	public Integer getPrepTime() {
-		return prepTime;
-	}
-
-	public void setPrepTime(Integer prepTime) {
-		this.prepTime = prepTime;
-	}
-
-	public Integer getCookTime() {
-		return cookTime;
-	}
-
-	public void setCookTime(Integer cookTime) {
-		this.cookTime = cookTime;
-	}
 
 	public ArrayList<Integer> getProductIds(){
 		ArrayList<Integer> retval = new ArrayList<Integer>();
@@ -407,25 +364,9 @@ public class Recipe implements Serializable {
 		return retval;
 	}
 
-	public User getCreator() {
-		return creator;
-	}
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
-	
-	
-	
-=======
-	public void setTaste(List<Taste> taste) {
-		this.taste = taste;
-	}
 
 	public void setNeededProductQuantity(List<NeededQuantity> neededProductQuantity) {
 		this.neededProductQuantity = neededProductQuantity;
 	}
 	
-
->>>>>>> Stashed changes
 }

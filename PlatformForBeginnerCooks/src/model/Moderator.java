@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-/** @pdOid a478c37f-e225-412d-9b63-7e0bf797efba */
 public class Moderator extends User implements Serializable {
 
 	/**

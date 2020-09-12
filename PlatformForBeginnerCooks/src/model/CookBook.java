@@ -10,27 +10,24 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
 
-public class CookBook implements Serializable{
-   /**
-	 * 
-	 */
+public class CookBook implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	private String name;
+
 	private String image;
-   
+
 	private LocalDate date;
-   
+
 	private int likes;
-   
-    public java.util.List<Comment> comments;
-   
+
+	public java.util.List<Comment> comments;
+
 	public java.util.List<Recipe> recipes;
-	
+
 	private User creator;
-	
-	
-	
+
 	public User getCreator() {
 		return creator;
 	}
@@ -62,9 +59,7 @@ public class CookBook implements Serializable{
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	
-	
-	
+
 	public String getImage() {
 		return image;
 	}
@@ -84,78 +79,79 @@ public class CookBook implements Serializable{
 			comments = new java.util.ArrayList<Comment>();
 		return comments;
 	}
-   
-   public Iterator<Comment> getIteratorComments() {
-      if (comments == null)
-         comments = new java.util.ArrayList<Comment>();
-      return comments.iterator();
-   }
-   
-   public void setComments(java.util.List<Comment> newComments) {
-      removeAllComments();
-      for (Iterator<Comment> iter = newComments.iterator(); iter.hasNext();)
-         addComments((Comment)iter.next());
-   }
-   
-   public void addComments(Comment newComment) {
-      if (newComment == null)
-         return;
-      if (this.comments == null)
-         this.comments = new java.util.ArrayList<Comment>();
-      if (!this.comments.contains(newComment))
-         this.comments.add(newComment);
-   }
-   
-   public void removeComments(Comment oldComment) {
-      if (oldComment == null)
-         return;
-      if (this.comments != null)
-         if (this.comments.contains(oldComment))
-            this.comments.remove(oldComment);
-   }
-   
-   public void removeAllComments() {
-      if (comments != null)
-         comments.clear();
-   }
-   public java.util.List<Recipe> getRecipes() {
-      if (recipes == null)
-         recipes = new java.util.ArrayList<Recipe>();
-      return recipes;
-   }
-   
-   public Iterator<Recipe> getIteratorRecipes() {
-      if (recipes == null)
-         recipes = new java.util.ArrayList<Recipe>();
-      return recipes.iterator();
-   }
-   
-   public void setRecipes(java.util.List<Recipe> newRecipes) {
-      removeAllRecipes();
-      for (Iterator<Recipe> iter = newRecipes.iterator(); iter.hasNext();)
-         addRecipes((Recipe)iter.next());
-   }
-   
-   public void addRecipes(Recipe newRecipe) {
-      if (newRecipe == null)
-         return;
-      if (this.recipes == null)
-         this.recipes = new java.util.ArrayList<Recipe>();
-      if (!this.recipes.contains(newRecipe))
-         this.recipes.add(newRecipe);
-   }
-   
-   public void removeRecipes(Recipe oldRecipe) {
-      if (oldRecipe == null)
-         return;
-      if (this.recipes != null)
-         if (this.recipes.contains(oldRecipe))
-            this.recipes.remove(oldRecipe);
-   }
-   
-   public void removeAllRecipes() {
-      if (recipes != null)
-         recipes.clear();
-   }
+
+	public Iterator<Comment> getIteratorComments() {
+		if (comments == null)
+			comments = new java.util.ArrayList<Comment>();
+		return comments.iterator();
+	}
+
+	public void setComments(java.util.List<Comment> newComments) {
+		removeAllComments();
+		for (Iterator<Comment> iter = newComments.iterator(); iter.hasNext();)
+			addComments((Comment) iter.next());
+	}
+
+	public void addComments(Comment newComment) {
+		if (newComment == null)
+			return;
+		if (this.comments == null)
+			this.comments = new java.util.ArrayList<Comment>();
+		if (!this.comments.contains(newComment))
+			this.comments.add(newComment);
+	}
+
+	public void removeComments(Comment oldComment) {
+		if (oldComment == null)
+			return;
+		if (this.comments != null)
+			if (this.comments.contains(oldComment))
+				this.comments.remove(oldComment);
+	}
+
+	public void removeAllComments() {
+		if (comments != null)
+			comments.clear();
+	}
+
+	public java.util.List<Recipe> getRecipes() {
+		if (recipes == null)
+			recipes = new java.util.ArrayList<Recipe>();
+		return recipes;
+	}
+
+	public Iterator<Recipe> getIteratorRecipes() {
+		if (recipes == null)
+			recipes = new java.util.ArrayList<Recipe>();
+		return recipes.iterator();
+	}
+
+	public void setRecipes(java.util.List<Recipe> newRecipes) {
+		removeAllRecipes();
+		for (Iterator<Recipe> iter = newRecipes.iterator(); iter.hasNext();)
+			addRecipes((Recipe) iter.next());
+	}
+
+	public void addRecipes(Recipe newRecipe) {
+		if (newRecipe == null)
+			return;
+		if (this.recipes == null)
+			this.recipes = new java.util.ArrayList<Recipe>();
+		if (!this.recipes.contains(newRecipe))
+			this.recipes.add(newRecipe);
+	}
+
+	public void removeRecipes(Recipe oldRecipe) {
+		if (oldRecipe == null)
+			return;
+		if (this.recipes != null)
+			if (this.recipes.contains(oldRecipe))
+				this.recipes.remove(oldRecipe);
+	}
+
+	public void removeAllRecipes() {
+		if (recipes != null)
+			recipes.clear();
+	}
 
 }

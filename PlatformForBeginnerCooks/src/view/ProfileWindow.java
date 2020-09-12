@@ -160,7 +160,6 @@ public class ProfileWindow {
 		int brojac = 1;
 		for (Recipe r : user.getRecipes()) {
 			
-		}
 			BufferedImage img = ImageIO.read(new File(r.getImage()));
 			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 			ImageIcon icon = new ImageIcon(image);

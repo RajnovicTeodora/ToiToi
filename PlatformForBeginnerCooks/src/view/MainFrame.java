@@ -29,6 +29,7 @@ import javax.swing.JTabbedPane;
 
 import controller.ToiToiController;
 import model.Akter;
+import model.User;
 
 public class MainFrame extends JFrame {
 
@@ -41,7 +42,7 @@ public class MainFrame extends JFrame {
 	private JTabbedPane tabbedPane;
 	
 	
-	protected SignUp signUp = null;
+	protected SignUpForm signUp = null;
 	protected SignInForm signIn = null;
 
 	@SuppressWarnings("static-access")
@@ -68,16 +69,6 @@ public class MainFrame extends JFrame {
 
 		tabbedPane = new JTabbedPane();
 
-
-		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
-
-
-//		RecipeWindow rw = new RecipeWindow(toiToiController);
-		RecipesTab recipesTab = new RecipesTab(toiToiController);
-
-
-		JTabbedPane tabbedPane = new JTabbedPane();
-
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
@@ -87,11 +78,6 @@ public class MainFrame extends JFrame {
 			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
 			tabbedPane.addTab("", recipesTab.createMainPanel() );
 
-
-
-			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
-
-			tabbedPane.addTab("", recipesTab.createMainPanel() );
 
 		} catch (IOException e) {
 
@@ -162,7 +148,7 @@ public class MainFrame extends JFrame {
 					public void windowClosed(WindowEvent e) {
 						akter = signIn.getAkter();
 
-						if (akter != null) {
+						if (akter != null && akter instanceof User) {
 							ProfileWindow pw = new ProfileWindow(akter, toiToiController);
 							try {
 								tabbedPane.addTab("", pw.createMyProfilePage());

@@ -9,14 +9,15 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+public class ProductInfo implements Serializable {
 
-public class ProductInfo implements Serializable{
-	
 	private static final long serialVersionUID = 7563701281802226438L;
-	
-		private java.lang.Double quantity;
-		private LocalDate expires;
-		public Product ingredient;
+
+	private java.lang.Double quantity;
+
+	private LocalDate expires;
+
+	private Product ingredient;
 
 	public ProductInfo(Double quantity, LocalDate expires, Product ingredients) {
 		super();
@@ -28,8 +29,6 @@ public class ProductInfo implements Serializable{
 	public ProductInfo() {
 		super();
 	}
-	
-
 
 	public java.lang.Double getQuantity() {
 		return quantity;
@@ -59,12 +58,5 @@ public class ProductInfo implements Serializable{
 	public String toString() {
 		return "ProductInfo [quantity=" + quantity + ", expires=" + expires + ", ingredient=" + ingredient + "]";
 	}
-
-	
-
-
-	
-	
-	   
 
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Equipment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int equipmentID;
 
 	private String name;
@@ -32,8 +32,6 @@ public class Equipment implements Serializable {
 		this.equipmentID = equipmentID;
 	}
 
-	
-	
 	public String getName() {
 		return name;
 	}
@@ -71,6 +69,5 @@ public class Equipment implements Serializable {
 		return "Equipment [equipmentID=" + equipmentID + ", name=" + name + ", company=" + company + ", description="
 				+ description + "]";
 	}
-	
-	
+
 }
