@@ -34,14 +34,14 @@ public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static MainFrame instance;
-	private ToiToiController toiToiController;
+	public static ToiToiController toiToiController;
 	private Akter akter = null;
 	private RecipesTab recipesTab;
 	private RecipeWindow recipeWindow;
 	private JTabbedPane tabbedPane;
 	
 	
-	protected SignUp signUp = null;
+	protected SignUpForm signUp = null;
 	protected SignInForm signIn = null;
 
 	@SuppressWarnings("static-access")
@@ -68,11 +68,7 @@ public class MainFrame extends JFrame {
 
 		tabbedPane = new JTabbedPane();
 
-
-		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
-
-
-//		RecipeWindow rw = new RecipeWindow(toiToiController);
+		RecipeWindow rw = new RecipeWindow(toiToiController);
 		RecipesTab recipesTab = new RecipesTab(toiToiController);
 
 
@@ -87,11 +83,6 @@ public class MainFrame extends JFrame {
 			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
 			tabbedPane.addTab("", recipesTab.createMainPanel() );
 
-
-
-			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
-
-			tabbedPane.addTab("", recipesTab.createMainPanel() );
 
 		} catch (IOException e) {
 
@@ -131,8 +122,6 @@ public class MainFrame extends JFrame {
 				if (!(signIn == null))
 					signIn.dispose();
 
-				RecipeForm rf = new RecipeForm(toiToiController);
-				rf.setVisible(true);
 
 				signIn = new SignInForm(toiToiController);
 				signIn.setVisible(true);
@@ -173,14 +162,6 @@ public class MainFrame extends JFrame {
 							lab4.setFont(f);
 							lab4.setPreferredSize(d);
 							tabbedPane.setTabComponentAt(3, lab4);
-
-							try {
-								tabbedPane.addTab("", pw.createMyProfilePage());
-							} catch (IOException e1) {
-								e1.printStackTrace();
-	
-							}
-
 						}
 					}
 
