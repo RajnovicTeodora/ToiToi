@@ -9,7 +9,6 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -21,20 +20,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
-
 import TableModel.MissingEquipmentTable;
 import TableModel.MissingIngredientsTable;
 import TableModel.RecipeIngredientsTable;
-import controller.AkterController;
 import controller.RecipeController;
 import controller.ToiToiController;
-import controller.UserController;
 import model.Akter;
 import model.Comment;
 import model.Equipment;
-import model.NeededQuantity;
-import model.Product;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;

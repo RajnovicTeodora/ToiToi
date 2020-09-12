@@ -174,9 +174,12 @@ public class ToiToiController {
 		recipe3.setImage("./data/RecipeImage/milkshake.png");
 		recipe3.setDateCreated(d2);
 
-		u1.addRecipes(recipe);
-		u1.addRecipes(recipe2);
-		u1.addRecipes(recipe3);
+		recipe.setCreator(u1);
+		recipe.setServings(2);
+		recipe.setCookTime(0);
+		recipe.setPrepTime(30);
+		recipe.setDifficulty(1);
+
 		ArrayList<NeededQuantity> nqList = new ArrayList<NeededQuantity>();
 		NeededQuantity nq1 = new NeededQuantity();
 		nq1.setIngredient(p1);
@@ -199,17 +202,24 @@ public class ToiToiController {
 		recipe.addNeededQuantity(nq3);
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		recipeList.add(recipe);
+		u1.setRecipes(recipeList);
+
 		recipeList.add(recipe2);
 		recipeList.add(recipe3);
 
+
 		CookBook cb = new CookBook();
+		cb.setCreator(u1);
 		cb.setName("Slatki recepti");
+		cb.setImage("./data/RecipeImage/sweetsCB.jpg");
 		cb.setDate(d1);
 		cb.setLikes(100);
 		cb.setRecipes(recipeList);
 		cb.setComments(commentList);
 		ArrayList<CookBook> cbList = new ArrayList<CookBook>();
+		u1.setCookBooks(cbList);
 		cbList.add(cb);
+		u1.setCookBooks(cbList);
 
 		// OVDJE IDU POZIVI KONTROLERA ZA UPIS
 		try {
@@ -335,7 +345,7 @@ public class ToiToiController {
 	// returns the user if pass and username match with an existing user
 	public Akter checkUser(String password, String username) {
 		for (Akter akter : toiToi.getUsers()) {
-			if (akter.getUsername().equals(username) && akter.getPassword().equals(password)) {
+			if (akter.getUsername().equalsIgnoreCase(username) && akter.getPassword().equalsIgnoreCase(password)) {
 				return akter;
 			}
 		}
