@@ -1,7 +1,5 @@
 package view;
 
-
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -27,35 +25,47 @@ import javax.swing.table.DefaultTableCellRenderer;
 import model.Akter;
 import model.CookBook;
 import model.Equipment;
+import model.Gender;
 import model.ProductInfo;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 
 public class ProfileWindow {
-	
+
 	private User user;
-	
+
 	public ProfileWindow(Akter a) {
 		super();
-		this.user = (User)a;
+		if (a instanceof User)
+			this.user = (User) a;
 	}
-	
+
 	public JPanel createMyProfilePage() throws IOException {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		
-		BufferedImage img=ImageIO.read(new File(user.getImage()));
-	    Image image = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        ImageIcon icon=new ImageIcon(image);   
-		
+
+		BufferedImage img = null;
+		if (!user.getImage().equals("")) {
+			img = ImageIO.read(new File(user.getImage()));
+		} else {
+			if (user.getGender() == Gender.FEMALE)
+				img = ImageIO.read(new File("./img/user-female.png"));
+			else if (user.getGender() == Gender.MALE)
+				img = ImageIO.read(new File("./img/user.png"));
+			else
+				img = ImageIO.read(new File("./img/accessibility2.png"));
+		}
+		Image image = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(image);
+
 		JLabel profilePhoto = new JLabel(icon);
 		profilePhoto.setBounds(30, 30, 50, 50);
-		
-		JLabel imePrezime = new JLabel(user.getName()+" "+user.getSurname());
+
+		JLabel imePrezime = new JLabel(user.getName() + " " + user.getSurname());
 		imePrezime.setFont(new Font("Serif", Font.PLAIN, 40));
 		imePrezime.setBounds(100, 30, 200, 50);
-		
+
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(10, 90, 650, 600);
 		tabbedPane.addTab("Recipes", createRecipesPanel());
@@ -63,17 +73,17 @@ public class ProfileWindow {
 		tabbedPane.addTab("My Fridge", createMyFridgePanel());
 		tabbedPane.addTab("My Equipment", createMyEquipmentPanel());
 		tabbedPane.addTab("My info", createMyInfoPanel());
-		
+
 		panel.add(profilePhoto);
 		panel.add(imePrezime);
 		panel.add(tabbedPane);
 		return panel;
-		
+
 	}
-	
-	private JPanel createRecipesPanel() throws IOException{
+
+	private JPanel createRecipesPanel() throws IOException {
 		JPanel panel = new JPanel(new MigLayout());
-		
+
 		ImageIcon recipeIcon = new ImageIcon("./img/recipe.png");
 		JLabel naslov = new JLabel("My Recipes");
 		naslov.setIcon(recipeIcon);
@@ -82,69 +92,69 @@ public class ProfileWindow {
 
 		ArrayList<JButton> dugmici = new ArrayList<JButton>();
 		Font f = new Font("Serif", Font.ITALIC, 20);
-		Color c = new Color(255, 233,  255);
-		
-		ImageIcon addIcon = new ImageIcon("./img/add.png");  
+		Color c = new Color(255, 233, 255);
+
+		ImageIcon addIcon = new ImageIcon("./img/add.png");
 		JButton dodaj = new JButton("Add recipe", addIcon);
 		dodaj.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//ovde se poziva funkcija za dodavanje recepta
-        	}
-        });
+			public void actionPerformed(ActionEvent e) {
+				// ovde se poziva funkcija za dodavanje recepta
+			}
+		});
 		panel.add(dodaj, "gapleft 100, wrap");
-		
+
 		JPanel panel2 = new JPanel(new MigLayout());
-		
+
 		int brojac = 1;
-		for(Recipe r : user.getRecipes()) {
-			BufferedImage img=ImageIO.read(new File(r.getImage()));
-		    Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-	        ImageIcon icon=new ImageIcon(image);   
-	        
-	        JButton dugmic = new JButton(icon);
-	        dugmici.add(dugmic); //mozda nece trebati
-	        dugmic.setBackground(c);
-	        
-	        dugmic.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		//ovde se poziva funkcija za prikaz celog recepta!
-	        	}
-	        });
-	        
-	        JLabel naziv = new JLabel(r.getName());
-	        naziv.setFont(f);
-	        
-	        JLabel br = new JLabel(brojac+".");
-	        br.setFont(f);
-	        panel2.add(br, "gapleft 10");
-	        panel2.add(dugmic, "gapleft 30, gaptop 30");
-	        panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
-	        brojac++;
+		for (Recipe r : user.getRecipes()) {
+			BufferedImage img = ImageIO.read(new File(r.getImage()));
+			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+			ImageIcon icon = new ImageIcon(image);
+
+			JButton dugmic = new JButton(icon);
+			dugmici.add(dugmic); // mozda nece trebati
+			dugmic.setBackground(c);
+
+			dugmic.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// ovde se poziva funkcija za prikaz celog recepta!
+				}
+			});
+
+			JLabel naziv = new JLabel(r.getName());
+			naziv.setFont(f);
+
+			JLabel br = new JLabel(brojac + ".");
+			br.setFont(f);
+			panel2.add(br, "gapleft 10");
+			panel2.add(dugmic, "gapleft 30, gaptop 30");
+			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
+			brojac++;
 
 		}
 		panel.add(panel2, "span, wrap");
 		return panel;
 	}
-	
+
 	private JPanel createMyInfoPanel() throws IOException {
 		JPanel panel = new JPanel(null);
-		
+
 		JLabel naslov = new JLabel("My Profile");
 		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
 		naslov.setBounds(250, 0, 200, 50);
 		panel.add(naslov);
-		
-		ImageIcon icon = new ImageIcon("./img/editProfile.png");  
+
+		ImageIcon icon = new ImageIcon("./img/editProfile.png");
 		JButton edit = new JButton("Edit profile", icon);
 		edit.setBounds(500, 10, 130, 40);
 		edit.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//ovde se poziva funkcija za edit profila
-        	}
-        });
-		
+			public void actionPerformed(ActionEvent e) {
+				// ovde se poziva funkcija za edit profila
+			}
+		});
+
 		ArrayList<JLabel> labels = new ArrayList<JLabel>();
-		
+
 		JLabel ime = new JLabel("Name:  " + user.getName());
 		labels.add(ime);
 		JLabel prezime = new JLabel("Surname:  " + user.getSurname());
@@ -161,18 +171,28 @@ public class ProfileWindow {
 		labels.add(adresa);
 		JLabel brTel = new JLabel("Phone number:  " + user.getTelephone());
 		labels.add(brTel);
-		
+
 		Font f = new Font("Serif", Font.PLAIN, 20);
-		
-		for(int i = 0; i < labels.size(); i++) {
+
+		for (int i = 0; i < labels.size(); i++) {
 			labels.get(i).setFont(f);
-			labels.get(i).setBounds(50, 70+(i*40), 200, 40);
+			labels.get(i).setBounds(50, 70 + (i * 40), 200, 40);
 			panel.add(labels.get(i));
 		}
 
 		panel.add(edit);
-		
-		BufferedImage img=ImageIO.read(new File(user.getImage()));
+
+		BufferedImage img = null;
+		if (!user.getImage().equals("")) {
+			img = ImageIO.read(new File(user.getImage()));
+		} else {
+			if (user.getGender() == Gender.FEMALE)
+				img = ImageIO.read(new File("./img/user-female.png"));
+			else if (user.getGender() == Gender.MALE)
+				img = ImageIO.read(new File("./img/user.png"));
+			else
+				img = ImageIO.read(new File("./img/accessibility2.png"));
+		}
 		Image image = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		ImageIcon im = new ImageIcon(image);
 		JLabel profilna = new JLabel(im);
@@ -180,10 +200,10 @@ public class ProfileWindow {
 		panel.add(profilna);
 		return panel;
 	}
-	
-	private  JPanel createCookBookPanel() throws IOException {
+
+	private JPanel createCookBookPanel() throws IOException {
 		JPanel panel = new JPanel(new MigLayout());
-		
+
 		ImageIcon recipeIcon = new ImageIcon("./img/cookbook.png");
 		JLabel naslov = new JLabel("My CookBooks");
 		naslov.setIcon(recipeIcon);
@@ -192,43 +212,43 @@ public class ProfileWindow {
 
 		ArrayList<JButton> dugmici = new ArrayList<JButton>();
 		Font f = new Font("Serif", Font.ITALIC, 20);
-		Color c = new Color(204, 204,  255);
-		
-		ImageIcon addIcon = new ImageIcon("./img/add.png");  
+		Color c = new Color(204, 204, 255);
+
+		ImageIcon addIcon = new ImageIcon("./img/add.png");
 		JButton dodaj = new JButton("Add cookbook", addIcon);
 		dodaj.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//ovde se poziva funkcija za dodavanje cb
-        	}
-        });
+			public void actionPerformed(ActionEvent e) {
+				// ovde se poziva funkcija za dodavanje cb
+			}
+		});
 		panel.add(dodaj, "gapleft 30, wrap");
-		
+
 		JPanel panel2 = new JPanel(new MigLayout());
 		int brojac = 1;
-		for(CookBook r : user.getCookBooks()) {
-			BufferedImage img=ImageIO.read(new File(r.getImage()));
-		    Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-	        ImageIcon icon=new ImageIcon(image);   
-	        
-	        JButton dugmic = new JButton(icon);
-	        dugmici.add(dugmic); //mozda nece trebati
-	        dugmic.setBackground(c);
-	        
-	        dugmic.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		//ovde se poziva funkcija za prikaz celog recepta!
-	        	}
-	        });
-	        
-	        JLabel naziv = new JLabel(r.getName());
-	        naziv.setFont(f);
-	        
-	        JLabel br = new JLabel(brojac+".");
-	        br.setFont(f);
-	        panel2.add(br, "gapleft 10");
-	        panel2.add(dugmic, "gapleft 30, gaptop 30");
-	        panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
-	        brojac++;
+		for (CookBook r : user.getCookBooks()) {
+			BufferedImage img = ImageIO.read(new File(r.getImage()));
+			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+			ImageIcon icon = new ImageIcon(image);
+
+			JButton dugmic = new JButton(icon);
+			dugmici.add(dugmic); // mozda nece trebati
+			dugmic.setBackground(c);
+
+			dugmic.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// ovde se poziva funkcija za prikaz celog recepta!
+				}
+			});
+
+			JLabel naziv = new JLabel(r.getName());
+			naziv.setFont(f);
+
+			JLabel br = new JLabel(brojac + ".");
+			br.setFont(f);
+			panel2.add(br, "gapleft 10");
+			panel2.add(dugmic, "gapleft 30, gaptop 30");
+			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
+			brojac++;
 
 		}
 		panel.add(panel2, "span, wrap");
@@ -237,61 +257,61 @@ public class ProfileWindow {
 
 	private JPanel createMyFridgePanel() {
 		JPanel panel = new JPanel(new MigLayout());
-		
+
 		ImageIcon icon = new ImageIcon("./img/myFridge.png");
 		JLabel naslov = new JLabel("My Fridge");
 		naslov.setIcon(icon);
 		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
 		panel.add(naslov, "gapleft 200");
-		
-		ImageIcon addIcon = new ImageIcon("./img/add.png");  
+
+		ImageIcon addIcon = new ImageIcon("./img/add.png");
 		JButton dodaj = new JButton("Add product", addIcon);
 		dodaj.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//ovde se poziva funkcija za dodavanje proizvoda u frizider
-        	}
-        });
+			public void actionPerformed(ActionEvent e) {
+				// ovde se poziva funkcija za dodavanje proizvoda u frizider
+			}
+		});
 		panel.add(dodaj, "gapleft 100, wrap");
-		
+
 		Font f = new Font("Serif", Font.PLAIN, 15);
 		Color c1 = new Color(255, 51, 153);
 		Color c2 = new Color(255, 234, 255);
 		JPanel panel2 = new JPanel(new MigLayout());
 		int brojac = 1;
-		String [][] lista = new String[user.availableGroceries.size()][5];
-		
-		for(ProductInfo e : user.availableGroceries) {
-			
-			lista[brojac-1][0] = brojac+"";
-			lista[brojac-1][1] = e.getIngredient().getName();
-			lista[brojac-1][2] = e.getIngredient().getProducedBy();
-			lista[brojac-1][3] = e.getQuantity()+"";
-			lista[brojac-1][4] = e.getExpires().format(DateTimeFormatter.ofPattern("dd.MM.YYYY."));
+		String[][] lista = new String[user.availableGroceries.size()][5];
+
+		for (ProductInfo e : user.availableGroceries) {
+
+			lista[brojac - 1][0] = brojac + "";
+			lista[brojac - 1][1] = e.getIngredient().getName();
+			lista[brojac - 1][2] = e.getIngredient().getProducedBy();
+			lista[brojac - 1][3] = e.getQuantity() + "";
+			lista[brojac - 1][4] = e.getExpires().format(DateTimeFormatter.ofPattern("dd.MM.YYYY."));
 			brojac++;
-			
+
 		}
-		String[] kolone = {"", "Name", "Produced by", "Quantity", "Expire date"};
+		String[] kolone = { "", "Name", "Produced by", "Quantity", "Expire date" };
 		JTable tabela = new JTable(lista, kolone);
-		
+
 		tabela.getColumn("").setPreferredWidth(3);
 		tabela.getColumn("Name").setPreferredWidth(200);
 		tabela.getColumn("Produced by").setPreferredWidth(100);
 		tabela.getColumn("Quantity").setPreferredWidth(100);
 		tabela.getColumn("Expire date").setPreferredWidth(100);
-		
+
 		tabela.setGridColor(c1);
 		tabela.setFont(f);
 		tabela.getTableHeader().setFont(f);
 		tabela.getTableHeader().setBackground(c2);
-		
+
 		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-	    cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-	    tabela.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
-	    tabela.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
-	    tabela.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
-	    tabela.getColumnModel().getColumn(3).setCellRenderer(cellRenderer);
-	    tabela.getColumnModel().getColumn(4).setCellRenderer(cellRenderer);
-		
+		cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+		tabela.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+		tabela.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
+		tabela.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
+		tabela.getColumnModel().getColumn(3).setCellRenderer(cellRenderer);
+		tabela.getColumnModel().getColumn(4).setCellRenderer(cellRenderer);
+
 		JScrollPane jsp = new JScrollPane(tabela);
 		jsp.setPreferredSize(new Dimension(700, 500));
 		panel2.add(jsp, "span");
@@ -302,58 +322,58 @@ public class ProfileWindow {
 	private JPanel createMyEquipmentPanel() {
 
 		JPanel panel = new JPanel(new MigLayout());
-		
+
 		ImageIcon icon = new ImageIcon("./img/myTools.png");
 		JLabel naslov = new JLabel("My Equipment");
 		naslov.setIcon(icon);
 		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
 		panel.add(naslov, "gapleft 200");
-		
-		ImageIcon addIcon = new ImageIcon("./img/add.png");  
+
+		ImageIcon addIcon = new ImageIcon("./img/add.png");
 		JButton dodaj = new JButton("Add equipment", addIcon);
 		dodaj.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//ovde se poziva funkcija za dodavanje alata
-        	}
-        });
+			public void actionPerformed(ActionEvent e) {
+				// ovde se poziva funkcija za dodavanje alata
+			}
+		});
 		panel.add(dodaj, "gapleft 50, wrap");
-		
+
 		Font f = new Font("Serif", Font.PLAIN, 15);
 		Color c1 = new Color(255, 51, 153);
 		Color c2 = new Color(255, 234, 255);
 		JPanel panel2 = new JPanel(new MigLayout());
 		int brojac = 1;
-		String [][] lista = new String[user.getEquipment().size()][5];
-		
-		for(Equipment e : user.getEquipment()) {
-			
-			lista[brojac-1][0] = brojac+"";
-			lista[brojac-1][1] = e.getName();
-			lista[brojac-1][2] = e.getCompany();
-			lista[brojac-1][3] = e.getDescription();
+		String[][] lista = new String[user.getEquipment().size()][5];
+
+		for (Equipment e : user.getEquipment()) {
+
+			lista[brojac - 1][0] = brojac + "";
+			lista[brojac - 1][1] = e.getName();
+			lista[brojac - 1][2] = e.getCompany();
+			lista[brojac - 1][3] = e.getDescription();
 			brojac++;
-			
+
 		}
-		String[] kolone = {"", "Name", "Produced by", "Description"};
+		String[] kolone = { "", "Name", "Produced by", "Description" };
 		JTable tabela = new JTable(lista, kolone);
-		
+
 		tabela.getColumn("").setPreferredWidth(3);
 		tabela.getColumn("Name").setPreferredWidth(150);
 		tabela.getColumn("Produced by").setPreferredWidth(150);
 		tabela.getColumn("Description").setPreferredWidth(200);
-		
+
 		tabela.setGridColor(c1);
 		tabela.setFont(f);
 		tabela.getTableHeader().setFont(f);
 		tabela.getTableHeader().setBackground(c2);
-		
+
 		DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-	    cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-	    tabela.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
-	    tabela.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
-	    tabela.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
-	    tabela.getColumnModel().getColumn(3).setCellRenderer(cellRenderer);
-		
+		cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+		tabela.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+		tabela.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
+		tabela.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
+		tabela.getColumnModel().getColumn(3).setCellRenderer(cellRenderer);
+
 		JScrollPane jsp = new JScrollPane(tabela);
 		jsp.setPreferredSize(new Dimension(700, 500));
 		panel2.add(jsp, "span");
