@@ -33,6 +33,14 @@ public class Recipe implements Serializable {
 	public List<Comment> comment;
 
 	public ArrayList<NeededQuantity> neededProductQuantity;
+	
+	private Integer difficulty;
+	
+	private Integer prepTime;
+	
+	private Integer cookTime;
+	
+	private User creator;
 
 	public Recipe() {
 		super();
@@ -257,4 +265,62 @@ public class Recipe implements Serializable {
 		this.dateCreated = dateCreated;
 	}
 
+	public ArrayList<Taste> getTaste() {
+		return taste;
+	}
+
+	public void setTaste(ArrayList<Taste> taste) {
+		this.taste = taste;
+	}
+
+	public Integer getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Integer difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public Integer getPrepTime() {
+		return prepTime;
+	}
+
+	public void setPrepTime(Integer prepTime) {
+		this.prepTime = prepTime;
+	}
+
+	public Integer getCookTime() {
+		return cookTime;
+	}
+
+	public void setCookTime(Integer cookTime) {
+		this.cookTime = cookTime;
+	}
+
+	public ArrayList<Integer> getProductIds(){
+		ArrayList<Integer> retval = new ArrayList<Integer>();
+		for (NeededQuantity nq : getNeededProductQuantity()) {
+			retval.add(nq.getIngredient().getProductID());
+		}
+		return retval;
+	}
+	
+	public ArrayList<Integer> getEquipmentIds(){
+		ArrayList<Integer> retval = new ArrayList<Integer>();
+		for (Equipment eq : getEquipment()) {
+			retval.add(eq.getEquipmentID());
+		}
+		return retval;
+	}
+
+	public User getCreator() {
+		return creator;
+	}
+
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
+	
+	
+	
 }

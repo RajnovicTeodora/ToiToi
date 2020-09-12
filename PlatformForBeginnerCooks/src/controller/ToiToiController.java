@@ -141,6 +141,9 @@ public class ToiToiController {
 		recipe.addEquipment(e1);
 		recipe.setImage("./data/RecipeImage/milkshake.png");
 		recipe.setDateCreated(d2);
+		recipe.setDifficulty(1);
+		recipe.setCookTime(5);
+		recipe.setCreator(u1);
 
 		ArrayList<NeededQuantity> nqList = new ArrayList<NeededQuantity>();
 		NeededQuantity nq1 = new NeededQuantity();

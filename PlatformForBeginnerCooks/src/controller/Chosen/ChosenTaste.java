@@ -1,10 +1,10 @@
-package model;
+package controller.Chosen;
 
 import java.util.ArrayList;
 
 public class ChosenTaste {
 
-	private static ArrayList<String> chosenTaste;
+	private static ArrayList<String> chosenTaste = new ArrayList<String>();
 
 	public static ArrayList<String> getChosenTaste() {
 		return chosenTaste;
@@ -17,11 +17,12 @@ public class ChosenTaste {
 	public static void add_taste(String t) {
 		if(chosenTaste == null) {
 			chosenTaste = new ArrayList<String>();
-			if(chosenTaste.contains(t)) {
-				return;
-			}
-			chosenTaste.add(t);
 		}
+		if(chosenTaste.contains(t)) {
+			return;
+		}
+		chosenTaste.add(t);
+		
 	}
 	
 	public static void remove_taste(String t) {

@@ -1,10 +1,10 @@
-package model;
+package controller.Chosen;
 
 import java.util.ArrayList;
 
 public class ChosenEquipment {
 
-	private static ArrayList<Integer> chosenEqs;
+	private static ArrayList<Integer> chosenEqs = new ArrayList<Integer>();
 
 	public static ArrayList<Integer> getChosenEqs() {
 		return chosenEqs;
@@ -17,11 +17,12 @@ public class ChosenEquipment {
 	public static void add_product(Integer pId) {
 		if(chosenEqs == null) {
 			chosenEqs = new ArrayList<Integer>();
-			if(chosenEqs.contains(pId)) {
-				return;
-			}
-			chosenEqs.add(pId);
 		}
+		if(chosenEqs.contains(pId)) {
+			return;
+		}
+		chosenEqs.add(pId);
+		
 	}
 	
 	public static void remove_product(Integer pId) {

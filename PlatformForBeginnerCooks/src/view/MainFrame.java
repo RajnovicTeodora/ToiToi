@@ -28,17 +28,24 @@ import model.User;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static MainFrame instance;
 	private ToiToiController toiToiController;
 	private Akter akter = null;
-
+	private RecipesTab recipesTab;
+	private RecipeWindow recipeWindow;
+	private JTabbedPane tabbedPane;
+	
+	
 	protected SignUp signUp = null;
 	protected SignInForm signIn = null;
 
+	@SuppressWarnings("static-access")
 	public MainFrame(ToiToiController tc) throws IOException {
-
+		this.instance = this;
 		this.toiToiController = tc;
 		initialize();
 	}
+
 
 	private void initialize() {
 		this.setSize(700, 700);
@@ -48,14 +55,16 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
-		RecipeWindow rw = new RecipeWindow(toiToiController);
-		RecipesTab recipesTab = new RecipesTab(toiToiController);
+		recipeWindow = new RecipeWindow(toiToiController);
+		recipesTab = new RecipesTab(toiToiController);
 
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
+		
 		try {
+			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
 			tabbedPane.addTab("", recipesTab.createMainPanel() );
 		} catch (IOException e) {
 
@@ -202,4 +211,68 @@ public class MainFrame extends JFrame {
 		return breakfast;
 	}
 
+
+
+	public static MainFrame getInstance() {
+		return instance;
+	}
+
+
+
+	public static void setInstance(MainFrame instance) {
+		MainFrame.instance = instance;
+	}
+
+	public RecipesTab getRecipesTab() {
+		return recipesTab;
+	}
+
+
+	public void setRecipesTab(RecipesTab recipesTab) {
+		this.recipesTab = recipesTab;
+	}
+
+
+	public ToiToiController getToiToiController() {
+		return toiToiController;
+	}
+
+
+	public void setToiToiController(ToiToiController toiToiController) {
+		this.toiToiController = toiToiController;
+	}
+
+
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+
+
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+	}
+
+
+	public RecipeWindow getRecipeWindow() {
+		return recipeWindow;
+	}
+
+
+	public void setRecipeWindow(RecipeWindow recipeWindow) {
+		this.recipeWindow = recipeWindow;
+	}
+
+
+	public Akter getAkter() {
+		return akter;
+	}
+
+
+	public void setAkter(Akter akter) {
+		this.akter = akter;
+	}
+
+	
+	
+	
 }

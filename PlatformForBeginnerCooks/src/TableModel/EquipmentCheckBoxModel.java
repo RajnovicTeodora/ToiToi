@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.ChosenEquipment;
+import controller.Chosen.ChosenEquipment;
 import model.Equipment;
 
 public class EquipmentCheckBoxModel extends AbstractTableModel{
@@ -14,7 +14,7 @@ public class EquipmentCheckBoxModel extends AbstractTableModel{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String[] columns = {"Equipment", "Company", ""};
+	private String[] columns = {"id", "Equipment", "Company", ""};
 	
 	private Object[][] allEquipment;
 	
@@ -22,19 +22,20 @@ public class EquipmentCheckBoxModel extends AbstractTableModel{
 
 	public EquipmentCheckBoxModel(ArrayList<Equipment> eqs) {
 		super();
-		allEquipment = new Object[eqs.size()][3];
+		allEquipment = new Object[eqs.size()][4];
 		int i = 0;
 		for (Equipment e : eqs) {
-			allEquipment[i][0] = e.getName();
-			allEquipment[i][1] = e.getCompany();
+			allEquipment[i][0] = e.getEquipmentID();
+			allEquipment[i][1] = e.getName();
+			allEquipment[i][2] = e.getCompany();
 			if(ChosenEquipment.getChosenEqs() == null || ChosenEquipment.getChosenEqs().isEmpty()) {
-				allEquipment[i][2] = false;
+				allEquipment[i][3] = false;
 			}
 			else {
 				if(ChosenEquipment.getChosenEqs() .contains(e.getEquipmentID())) {
-					allEquipment[i][2] = true;
+					allEquipment[i][3] = true;
 				}else
-					allEquipment[i][2] = false;
+					allEquipment[i][3] = false;
 			}
 			i++;
 		}
@@ -65,7 +66,7 @@ public class EquipmentCheckBoxModel extends AbstractTableModel{
 	}
 	
 	public boolean isCellEditable(int row, int col) {
-		if (col != 2) {
+		if (col != 3) {
 			return false;
 		} else {
 			return true;
