@@ -278,9 +278,9 @@ public class ProfileWindow {
 		Color c2 = new Color(255, 234, 255);
 		JPanel panel2 = new JPanel(new MigLayout());
 		int brojac = 1;
-		String[][] lista = new String[user.availableGroceries.size()][5];
+		String[][] lista = new String[user.getGrocerie().size()][5];
 
-		for (ProductInfo e : user.availableGroceries) {
+		for (ProductInfo e : user.getGrocerie()) {
 
 			lista[brojac - 1][0] = brojac + "";
 			lista[brojac - 1][1] = e.getIngredient().getName();

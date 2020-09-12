@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
 
@@ -31,6 +32,8 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import controller.ToiToiController;
+import model.CookBook;
+import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 import view.DataLabelFormatter;
@@ -77,7 +80,7 @@ class SignUpStepOne extends JPanel {
 	}
 
 	private void initialize() {
-	
+
 		informationPanel.setBackground(Color.WHITE);
 
 		panel_1 = new JPanel(new MigLayout("", "[] 20 []", " "));
@@ -300,13 +303,22 @@ class SignUpStepOne extends JPanel {
 			birthday = LocalDate.parse(date, format);
 
 			try {
-				
-				user = toiToiController.createUser(name, surname, password, username, email, gender, telephone,
-						address, birthday);
+
+				user = toiToiController.createUser(name, surname, password, username, email, gender, telephone, address,
+						birthday);
+				String code = "";
 				if (file != null) {
-					// TODO ADD IMAGE FILE
+					code = imageCode();
+					while (!writeImg(code)) {
+						code = imageCode();
+					}
 				}
-				
+				user.setImage(code);
+				user.setPoints(0);
+				user.setCookBooks(new ArrayList<CookBook>());
+				user.setRecipes(new ArrayList<Recipe>());
+				user.setLikedRecipes(new ArrayList<Recipe>());
+
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				user = null;
@@ -317,11 +329,24 @@ class SignUpStepOne extends JPanel {
 		}
 
 	}
+
+	public Boolean writeImg(String code) {
+		BufferedImage bi = image;
+		File outputfile = new File(code);
+		try {
+			ImageIO.write(bi, "png", outputfile);
+			return true;
+
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
 	protected String imageCode() {
 		Random r = new Random();
 		int i = 100000 + r.nextInt(900000);
-		
-		return "data/RecipeImage/" + i + ".png";
+
+		return "data/UserImage/" + i + ".png";
 	}
 
 	public User getUser() {

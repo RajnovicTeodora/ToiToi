@@ -63,6 +63,8 @@ public class EquipmentPanel extends JPanel {
 
 		myEquipmentTable = new JTable(met);
 		myEquipmentTable.setBackground(Color.white);
+		myEquipmentTable.setGridColor(new Color(157, 157, 222));
+		myEquipmentTable.getTableHeader().setBackground(new Color(200, 221, 242));
 		myEquipmentTable.addMouseListener(new JTableButtonMouseListener(myEquipmentTable));
 		myEquipmentTable.getTableHeader().setReorderingAllowed(false);
 		tableSorter2.setModel((AbstractTableModel) myEquipmentTable.getModel());

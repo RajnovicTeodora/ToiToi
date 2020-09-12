@@ -3,8 +3,9 @@ package view.RecipeForm;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,7 +51,13 @@ public class MyRecipeProductDialog extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 
 		JLabel quantity = new JLabel("Quantity : ");
-		quantField = new JFormattedTextField(new DecimalFormat());
+		
+		NumberFormat format = DecimalFormat.getInstance();
+		format.setMinimumFractionDigits(2);
+		format.setMaximumFractionDigits(2);
+		format.setRoundingMode(RoundingMode.HALF_UP);
+		
+		quantField = new JFormattedTextField(format);
 		quantField.setColumns(10);
 		quantField.setValue(value);
 

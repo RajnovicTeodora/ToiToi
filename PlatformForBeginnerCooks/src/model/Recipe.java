@@ -23,26 +23,31 @@ public class Recipe implements Serializable {
 
 	private String description;
 
-	private int likes;
+	private int likes = 0;
 
 	private String image;
 
 	private LocalDate dateCreated;
 
 	private User creator;
+
 	private int servings;
-	private int difficulty; // 1-5 
-	private int prepTime; 
-	private int cookTime; 
-	
-	private ArrayList<Taste> taste;
 
-	private  List<Tag> tags;
+	private int difficulty; // 1-5
 
-	private  List<Equipment> equipment;
+	private int prepTime;
 
-	private  List<Comment> comment;
+	private int cookTime;
 
+	private List<Taste> taste;
+
+	private List<Tag> tags;
+
+	private List<Equipment> equipment;
+
+	private List<Comment> comment;
+
+<<<<<<< Updated upstream
 	public ArrayList<NeededQuantity> neededProductQuantity;
 	
 	private Integer difficulty;
@@ -52,12 +57,14 @@ public class Recipe implements Serializable {
 	private Integer cookTime;
 	
 	private User creator;
+=======
+	private List<NeededQuantity> neededProductQuantity;
+>>>>>>> Stashed changes
 
 	public Recipe() {
 		super();
 	}
-	
-	
+
 	public int getPrepTime() {
 		return prepTime;
 	}
@@ -90,8 +97,6 @@ public class Recipe implements Serializable {
 		this.difficulty = difficulty;
 	}
 
-
-
 	public Recipe(String name, String description, int likes, LocalDate dateCreated, ArrayList<Taste> taste,
 			List<Tag> tags, List<Equipment> equipment, List<Comment> comment,
 			ArrayList<NeededQuantity> neededProductQuantity) {
@@ -107,7 +112,7 @@ public class Recipe implements Serializable {
 		this.neededProductQuantity = neededProductQuantity;
 	}
 
-	public ArrayList<NeededQuantity> getNeededProductQuantity() {
+	public List<NeededQuantity> getNeededProductQuantity() {
 		return neededProductQuantity;
 	}
 
@@ -123,7 +128,7 @@ public class Recipe implements Serializable {
 		if (!this.neededProductQuantity.contains(nq))
 			this.neededProductQuantity.add(nq);
 	}
-	
+
 	public User getCreator() {
 		return creator;
 	}
@@ -140,8 +145,7 @@ public class Recipe implements Serializable {
 		this.name = name;
 	}
 
-
-	public ArrayList<Taste> getTaste() {
+	public List<Taste> getTaste() {
 		return taste;
 	}
 
@@ -164,7 +168,7 @@ public class Recipe implements Serializable {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	
+
 	public LocalDate getDate() {
 		return dateCreated;
 	}
@@ -177,9 +181,9 @@ public class Recipe implements Serializable {
 	public String toString() {
 		return "Recipe [recipeID=" + recipeID + ", name=" + name + ", description=" + description + ", likes=" + likes
 				+ ", image=" + image + ", creator=" + creator + ", date=" + dateCreated + ", servings=" + servings
-				+ ", difficulty=" + difficulty  + ", prepTime=" + prepTime
-				+ ", cookTime=" + cookTime + ", taste=" + taste + ", tags=" + tags + ", equipment=" + equipment
-				+ ", comment=" + comment + ", neededProductQuantity=" + neededProductQuantity + "]";
+				+ ", difficulty=" + difficulty + ", prepTime=" + prepTime + ", cookTime=" + cookTime + ", taste="
+				+ taste + ", tags=" + tags + ", equipment=" + equipment + ", comment=" + comment
+				+ ", neededProductQuantity=" + neededProductQuantity + "]";
 	}
 
 	public java.util.List<Tag> getTags() {
@@ -354,6 +358,7 @@ public class Recipe implements Serializable {
 		this.dateCreated = dateCreated;
 	}
 
+<<<<<<< Updated upstream
 	public ArrayList<Taste> getTaste() {
 		return taste;
 	}
@@ -412,4 +417,15 @@ public class Recipe implements Serializable {
 	
 	
 	
+=======
+	public void setTaste(List<Taste> taste) {
+		this.taste = taste;
+	}
+
+	public void setNeededProductQuantity(List<NeededQuantity> neededProductQuantity) {
+		this.neededProductQuantity = neededProductQuantity;
+	}
+	
+
+>>>>>>> Stashed changes
 }

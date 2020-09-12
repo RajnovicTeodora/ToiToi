@@ -75,7 +75,10 @@ public class SignUpStepTwo extends JPanel {
 		IngredientsFormTable ift = new IngredientsFormTable(productInfo);
 
 		tableMyFridge = new JTable(ift);
-		tableMyFridge.setBackground(new Color(192, 229, 250));
+		//tableMyFridge.setBackground(new Color(192, 229, 250));
+		tableMyFridge.setBackground(Color.white);
+		tableMyFridge.setGridColor(new Color(185, 108, 209));
+		tableMyFridge.getTableHeader().setBackground(new Color(248, 226, 255));
 		tableMyFridge.addMouseListener(new JTableButtonMouseListener(tableMyFridge));
 		tableMyFridge.getTableHeader().setReorderingAllowed(false);
 		tableSorter.setModel((AbstractTableModel) tableMyFridge.getModel());
@@ -209,6 +212,8 @@ public class SignUpStepTwo extends JPanel {
 
 		myEquipmentTable = new JTable(met);
 		myEquipmentTable.setBackground(Color.white);
+		myEquipmentTable.setGridColor(new Color(185, 108, 209));
+		myEquipmentTable.getTableHeader().setBackground(new Color(248, 226, 255));
 		myEquipmentTable.addMouseListener(new JTableButtonMouseListener(myEquipmentTable));
 		myEquipmentTable.getTableHeader().setReorderingAllowed(false);
 		tableSorter2.setModel((AbstractTableModel) myEquipmentTable.getModel());

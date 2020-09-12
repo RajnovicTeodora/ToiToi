@@ -62,6 +62,8 @@ public class IngredientsPanel extends JPanel {
 
 		tableRecipeIngredients = new JTable(rif);
 		tableRecipeIngredients.setBackground(Color.white);
+		tableRecipeIngredients.setGridColor(new Color(157, 157, 222));
+		tableRecipeIngredients.getTableHeader().setBackground(new Color(200, 221, 242));
 		tableRecipeIngredients.addMouseListener(new JTableButtonMouseListener(tableRecipeIngredients));
 		tableRecipeIngredients.getTableHeader().setReorderingAllowed(false);
 		tableSorter.setModel((AbstractTableModel) tableRecipeIngredients.getModel());
@@ -70,7 +72,7 @@ public class IngredientsPanel extends JPanel {
 		ingredientsPanel.setBackground(new Color(255, 233, 248));
 
 		JScrollPane sp = new JScrollPane(tableRecipeIngredients);
-		sp.setPreferredSize(new Dimension(500, 200));
+		sp.setPreferredSize(new Dimension(500, 150));
 
 		JPanel bottomTable1 = new JPanel();
 		ingredientsPanel.add(new JLabel("Please select required ingredients : "), "top, wrap");

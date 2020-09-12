@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.Random;
@@ -28,6 +29,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 import controller.ToiToiController;
+import model.Comment;
 import model.Equipment;
 import model.NeededQuantity;
 import model.Recipe;
@@ -68,6 +70,7 @@ public class RecipeForm extends JFrame {
 	protected EquipmentPanel equipmentPanel;
 
 	protected JPanel panel_5;
+	protected ExtraInfoPanel extraInfo;
 	protected JButton confirm = new JButton("Continue");
 	protected JButton cancel = new JButton("Cancel");
 
@@ -225,7 +228,7 @@ public class RecipeForm extends JFrame {
 		panel_2 = new JPanel(new MigLayout("", " 30[]", ""));
 		panel_2.add(temp);
 		panel_2.setBackground(new Color(255, 233, 248));
-		panel_2.setPreferredSize(new Dimension(600, 200));
+		panel_2.setPreferredSize(new Dimension(600, 250));
 
 		mainPanel.add(panel_2, "wrap");
 
@@ -287,10 +290,12 @@ public class RecipeForm extends JFrame {
 		sep4.setPreferredSize(new Dimension(600, 5));
 		mainPanel.add(sep4, "wrap");
 
-		panel_5 = new JPanel(new MigLayout());
-
-		JPanel extraInfo = new JPanel(new MigLayout());
-		// TODO
+		panel_5 = new JPanel(new MigLayout("", "[] 20 [][]",""));
+		panel_5.setBackground(Color.white);
+		
+		extraInfo = new ExtraInfoPanel();
+		extraInfo.setBackground(Color.white);
+		panel_5.add(extraInfo);
 
 		confirm.addActionListener(new ActionListener() {
 
@@ -345,6 +350,15 @@ public class RecipeForm extends JFrame {
 
 				recipe.setRecipeID(id);
 				recipe.setImage(code);
+				extraInfo.confirm();
+				recipe.setServings(extraInfo.getServings());
+				recipe.setCookTime(extraInfo.getCook());
+				recipe.setPrepTime(extraInfo.getPrep());
+				recipe.setDifficulty(extraInfo.getDiff());
+				recipe.setLikes(0);
+				recipe.setDateCreated(LocalDate.now());
+				recipe.setComment(new ArrayList<Comment>());
+				
 				toiToiController.getToiToi().addRecipe(recipe);
 				System.out.println(toiToiController.getToiToi().getRecipe());
 				dispose();

@@ -59,7 +59,6 @@ public class MainFrame extends JFrame {
 		this.setResizable(false);
 		ImageIcon icon = new ImageIcon("./img/logo.png");
 		this.setIconImage(icon.getImage());
-		
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
@@ -72,9 +71,17 @@ public class MainFrame extends JFrame {
 		tabbedPane.addTab("", createPage1());
 		
 		try {
+<<<<<<< Updated upstream
 			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
 			tabbedPane.addTab("", recipesTab.createMainPanel() );
 
+=======
+//<<<<<<< HEAD
+			tabbedPane.addTab("", recipesTab.createMainPanel());
+//=======
+//			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
+//>>>>>>> profile_branch
+>>>>>>> Stashed changes
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -141,17 +148,19 @@ public class MainFrame extends JFrame {
 					@Override
 					public void windowClosed(WindowEvent e) {
 						akter = signIn.getAkter();
-						ProfileWindow pw = new ProfileWindow(akter);
-						try {
-							tabbedPane.addTab("", pw.createMyProfilePage());
-						} catch (IOException e1) {
-							e1.printStackTrace();
+						if (akter != null) {
+							ProfileWindow pw = new ProfileWindow(akter);
+							try {
+								tabbedPane.addTab("", pw.createMyProfilePage());
+							} catch (IOException e1) {
+								e1.printStackTrace();
+							}
+							JLabel lab4 = new JLabel("My profile");
+							lab4.setFont(f);
+							lab4.setPreferredSize(d);
+							tabbedPane.setTabComponentAt(3, lab4);
 						}
-						JLabel lab4 = new JLabel("My profile");
-						lab4.setFont(f);
-						lab4.setPreferredSize(d);
-						tabbedPane.setTabComponentAt(3, lab4);
-						
+
 					}
 
 					@Override
@@ -195,8 +204,29 @@ public class MainFrame extends JFrame {
 
 	public JPanel createPage1() {
 		JPanel panel = new HomePanel(toiToiController);
+<<<<<<< Updated upstream
 		panel.setBackground(new Color(200,221,242));
 		
+=======
+		panel.setBackground(new Color(200, 221, 242));
+
+		/*
+		 * JPanel panel = new JPanel(new GridBagLayout());
+		 * 
+		 * JLabel label = new JLabel("Form");
+		 * 
+		 * JPanel tableButtonPanel = new JPanel(); tableButtonPanel.add(new
+		 * JButton("Add Thing")); tableButtonPanel.add(new
+		 * JRadioButton("Delete Thing")); tableButtonPanel.add(new
+		 * JButton("Modify Thing"));
+		 * 
+		 * GridBagConstraints gbc = new GridBagConstraints();
+		 * 
+		 * gbc.gridx = 0; gbc.gridy = 0; panel.add(label, gbc);
+		 * 
+		 * gbc.gridx = 0; gbc.gridy = 2; panel.add(tableButtonPanel, gbc);
+		 */
+>>>>>>> Stashed changes
 		return panel;
 	}
 

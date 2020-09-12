@@ -27,38 +27,38 @@ public class User extends Akter implements Serializable {
 
 	private int points = 0;
 
-	public List<ProductInfo> availableGroceries;
+	private List<ProductInfo> groceries;
 
-	public List<String> alergies;
+	private List<String> alergies;
 
-	public List<Equipment> equipment;
+	private List<Equipment> equipment;
 
-	public String image;
-	
-	public ArrayList<Recipe> likedRecipes;
-	
-	public ArrayList<Recipe> recipes;
-	
-	public ArrayList<CookBook> cookBooks;
-	
-	
+	private String image;
+
+	private ArrayList<Recipe> likedRecipes;
+
+	private ArrayList<Recipe> recipes;
+
+	private ArrayList<CookBook> cookBooks;
+
 	public User() {
 		super();
 	}
 
-	public User(String name, String surname, String username, String password, String mail, Gender gender, LocalDate birthday, String address,
-		String telephone, int points, List<ProductInfo> availableGroceries, List<String> alergies, List<Equipment> equipment) {
+	public User(String name, String surname, String username, String password, String mail, Gender gender,
+			LocalDate birthday, String address, String telephone, int points, List<ProductInfo> groceries,
+			List<String> alergies, List<Equipment> equipment) {
 		super(name, surname, username, password, mail);
-			this.birthday = birthday;
-			this.address = address;
-			this.telephone = telephone;
-			this.points = points;
-			this.availableGroceries = availableGroceries;
-			this.alergies = alergies;
-			this.equipment = equipment;
-			this.gender = gender;
+		this.birthday = birthday;
+		this.address = address;
+		this.telephone = telephone;
+		this.points = points;
+		this.groceries = groceries;
+		this.alergies = alergies;
+		this.equipment = equipment;
+		this.gender = gender;
 	}
-	
+
 	public ArrayList<CookBook> getCookBooks() {
 		return cookBooks;
 	}
@@ -134,8 +134,7 @@ public class User extends Akter implements Serializable {
 
 		super.setMail(mail);
 	}
-	
-	
+
 	public ArrayList<Recipe> getRecipes() {
 		return recipes;
 	}
@@ -152,7 +151,6 @@ public class User extends Akter implements Serializable {
 		this.image = image;
 	}
 
-	/** @pdGenerated default getter */
 	public java.util.List<String> getAlergies() {
 
 		if (alergies == null)
@@ -160,8 +158,6 @@ public class User extends Akter implements Serializable {
 		return alergies;
 	}
 
-
-	/** @pdGenerated default iterator getter */
 	public java.util.Iterator<String> getIteratorAlergies() {
 
 		if (alergies == null)
@@ -169,11 +165,6 @@ public class User extends Akter implements Serializable {
 		return alergies.iterator();
 	}
 
-
-	/**
-	 * @pdGenerated default setter
-	 * @param newAlergies
-	 */
 	public void setAlergies(java.util.List<String> newAlergies) {
 
 		removeAllAlergies();
@@ -181,11 +172,6 @@ public class User extends Akter implements Serializable {
 			addAlergies((String) iter.next());
 	}
 
-
-	/**
-	 * @pdGenerated default add
-	 * @param newProduct
-	 */
 	public void addAlergies(String newProduct) {
 
 		if (newProduct == null)
@@ -196,12 +182,12 @@ public class User extends Akter implements Serializable {
 			this.alergies.add(newProduct);
 	}
 
-	public void removeAlergies(Product oldProduct) {
-		if (oldProduct == null)
+	public void removeAlergies(String oldAlergy) {
+		if (oldAlergy == null)
 			return;
 		if (this.alergies != null)
-			if (this.alergies.contains(oldProduct))
-				this.alergies.remove(oldProduct);
+			if (this.alergies.contains(oldAlergy))
+				this.alergies.remove(oldAlergy);
 	}
 
 	public void removeAllAlergies() {
@@ -249,13 +235,11 @@ public class User extends Akter implements Serializable {
 			equipment.clear();
 	}
 
-	
 	public java.util.List<Recipe> getRecipe() {
 		if (recipes == null)
 			recipes = new java.util.ArrayList<Recipe>();
 		return recipes;
 	}
-
 
 	public java.util.Iterator<Recipe> getIteratorRecipe() {
 		if (recipes == null)
@@ -263,7 +247,6 @@ public class User extends Akter implements Serializable {
 		return recipes.iterator();
 	}
 
-	
 	public void setRecipe(java.util.List<Recipe> newRecipe) {
 		removeAllRecipes();
 		for (Iterator<Recipe> iter = newRecipe.iterator(); iter.hasNext();)
@@ -291,14 +274,55 @@ public class User extends Akter implements Serializable {
 		if (recipes != null)
 			recipes.clear();
 	}
+
+	public java.util.List<ProductInfo> getGrocerie() {
+		if (groceries == null)
+			groceries = new java.util.ArrayList<ProductInfo>();
+		return groceries;
+	}
+
+	public java.util.Iterator<ProductInfo> getIteratorGrocerie() {
+		if (groceries == null)
+			groceries = new java.util.ArrayList<ProductInfo>();
+		return groceries.iterator();
+	}
+
+	public void setGrocerie(java.util.List<ProductInfo> newGrocerie) {
+		removeAllGroceries();
+		for (Iterator<ProductInfo> iter = newGrocerie.iterator(); iter.hasNext();)
+			addGroceries((ProductInfo) iter.next());
+	}
+
+	public void addGroceries(ProductInfo newGrocerie) {
+		if (newGrocerie == null)
+			return;
+		if (this.groceries == null)
+			this.groceries = new java.util.ArrayList<ProductInfo>();
+		if (!this.groceries.contains(newGrocerie))
+			this.groceries.add(newGrocerie);
+	}
+
+	public void removeGroceries(ProductInfo oldGrocerie) {
+		if (oldGrocerie == null)
+			return;
+		if (this.groceries != null)
+			if (this.groceries.contains(oldGrocerie))
+				this.groceries.remove(oldGrocerie);
+	}
+
+	public void removeAllGroceries() {
+		if (groceries != null)
+			groceries.clear();
+	}
+
 	@Override
 	public String toString() {
 		String retval = "User [name=" + name + ", surname=" + surname + ", username=" + username + ", password="
 				+ password + ", mail=" + mail + ", birthday=" + birthday + ", address=" + address + ", telephone="
-				+ telephone + ", points=" + points + ", availableGroceries=";
+				+ telephone + ", points=" + points + ", groceries=";
 
-		if (availableGroceries != null) {
-			for (ProductInfo p : availableGroceries) {
+		if (groceries != null) {
+			for (ProductInfo p : groceries) {
 				retval += p.getIngredient().getName() + ", ";
 			}
 		}
@@ -364,7 +388,7 @@ public class User extends Akter implements Serializable {
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	
+
 	public String getTelephone() {
 		return telephone;
 	}
@@ -372,8 +396,13 @@ public class User extends Akter implements Serializable {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	
-	
 
-   
+	public List<ProductInfo> getAvailableGroceries() {
+		return groceries;
+	}
+
+	public void setAvailableGroceries(List<ProductInfo> groceries) {
+		this.groceries = groceries;
+	}
+
 }

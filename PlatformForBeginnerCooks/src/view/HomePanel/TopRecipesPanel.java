@@ -69,7 +69,7 @@ public class TopRecipesPanel extends JPanel {
 			ImageIcon addIcon1 = new ImageIcon(img1);
 			top1 = new JButton(addIcon1);
 			name1 = new JLabel(recipe1.getName());
-			user1 = new JLabel(recipe1.getCreator().getUsername());
+			user1 = new JLabel("By " + recipe1.getCreator().getUsername());
 			like1 = new JLabel(recipe1.getLikes() + " Likes", like, JLabel.RIGHT);
 		} else {
 			top1 = new JButton(addIcon);
@@ -107,7 +107,7 @@ public class TopRecipesPanel extends JPanel {
 			ImageIcon addIcon2 = new ImageIcon(img2);
 			top2 = new JButton(addIcon2);
 			name2 = new JLabel(recipe2.getName());
-			user2 = new JLabel(recipe2.getCreator().getUsername());
+			user2 = new JLabel("By " + recipe2.getCreator().getUsername());
 			like2 = new JLabel(recipe2.getLikes() + " Likes", like, JLabel.RIGHT);
 		} else {
 			top2 = new JButton(addIcon);
@@ -144,7 +144,7 @@ public class TopRecipesPanel extends JPanel {
 			ImageIcon addIcon3 = new ImageIcon(img3);
 			top3 = new JButton(addIcon3);
 			name3 = new JLabel(recipe3.getName());
-			user3 = new JLabel(recipe3.getCreator().getUsername());
+			user3 = new JLabel("By " +  recipe3.getCreator().getUsername());
 			like3 = new JLabel(recipe3.getLikes() + " Likes", like, JLabel.RIGHT);
 		} else {
 			top3 = new JButton(addIcon);

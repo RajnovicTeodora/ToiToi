@@ -1,15 +1,19 @@
 package view.SignUpForm;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 import controller.ToiToiController;
 import model.User;
@@ -63,6 +67,15 @@ public class SignUpForm extends JFrame {
 		stepTwo = new SignUpStepTwo(toiToiController);
 
 		mainPanel.add(stepOne, "center, top, wrap");
+
+		JSeparator sep1 = new JSeparator();
+		sep1.setOrientation(SwingConstants.HORIZONTAL);
+		sep1.setBackground(Color.cyan);
+		sep1.setPreferredSize(new Dimension(690, 5));
+		mainPanel.add(sep1, "wrap");
+
+		mainPanel.add(new JLabel("To customize your search we offer you some optional fields..."), "wrap");
+		mainPanel.add(new JLabel(), "wrap");
 		mainPanel.add(stepTwo, "wrap");
 
 		JPanel buttons = new JPanel();
@@ -95,12 +108,13 @@ public class SignUpForm extends JFrame {
 	public void confirm() {
 		stepOne.confirmPressed();
 		stepTwo.confirmPressed();
-		// TODO
 		newUser = stepOne.getUser();
+
 		if (newUser != null) {
 
-			// newUser.setAlergies(stepTwo.getAlergies());
+			newUser.setAlergies(stepTwo.getAlergies());
 			newUser.setEquipment(stepTwo.getEquipment());
+			newUser.setGrocerie(stepTwo.getProducts());
 			toiToiController.getToiToi().addUsers(newUser);
 			System.out.println(toiToiController.getToiToi().getUsers());
 			dispose();

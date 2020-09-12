@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,7 +42,7 @@ public class SignInForm extends JFrame {
 	}
 
 	private void initialize() {
-		this.setSize(400, 200);
+		this.setSize(300, 130);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setResizable(false);
@@ -51,9 +52,9 @@ public class SignInForm extends JFrame {
 		panel = new JPanel(new MigLayout("wrap 2", "", ""));
 
 		usernameLabel = new JLabel("Username : ");
-		usernameField = new JTextField(30);
+		usernameField = new JTextField(20);
 		passwordLabel = new JLabel("Password : ");
-		passwordField = new JPasswordField(30);
+		passwordField = new JPasswordField(20);
 		confirm = new JButton("Confirm");
 		cancel = new JButton("Cancel");
 
@@ -65,6 +66,7 @@ public class SignInForm extends JFrame {
 		panel.add(confirm);
 		panel.add(cancel);
 
+		panel.setBackground(new Color(248, 226, 255));
 		this.add(panel);
 
 		confirm.addActionListener(new ActionListener() {
