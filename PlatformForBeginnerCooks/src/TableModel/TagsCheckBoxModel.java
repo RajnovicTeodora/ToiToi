@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.ChosenTags;
-import model.ChosenTaste;
+import controller.Chosen.ChosenTags;
+import controller.Chosen.ChosenTaste;
 import model.Tag;
 import model.Taste;
 

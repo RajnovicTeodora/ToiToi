@@ -179,6 +179,8 @@ public class ToiToiController {
 		recipe.setCookTime(0);
 		recipe.setPrepTime(30);
 		recipe.setDifficulty(1);
+		recipe.setCookTime(5);
+		recipe.setCreator(u1);
 
 		ArrayList<NeededQuantity> nqList = new ArrayList<NeededQuantity>();
 		NeededQuantity nq1 = new NeededQuantity();

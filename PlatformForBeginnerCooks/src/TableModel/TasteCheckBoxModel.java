@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.ChosenTaste;
+import controller.Chosen.ChosenTaste;
 import model.Taste;
 
 public class TasteCheckBoxModel extends AbstractTableModel{

@@ -33,17 +33,24 @@ import model.Akter;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static MainFrame instance;
 	private ToiToiController toiToiController;
 	private Akter akter = null;
-
-	protected SignUpForm signUp = null;
+	private RecipesTab recipesTab;
+	private RecipeWindow recipeWindow;
+	private JTabbedPane tabbedPane;
+	
+	
+	protected SignUp signUp = null;
 	protected SignInForm signIn = null;
 
+	@SuppressWarnings("static-access")
 	public MainFrame(ToiToiController tc) throws IOException {
-
+		this.instance = this;
 		this.toiToiController = tc;
 		initialize();
 	}
+
 
 	private void initialize() {
 		this.setSize(700, 700);
@@ -56,23 +63,18 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
-//<<<<<<< HEAD
-		RecipeWindow rw = new RecipeWindow(toiToiController);
-		RecipesTab recipesTab = new RecipesTab(toiToiController);
-//=======
-//		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
-//>>>>>>> profile_branch
+		recipeWindow = new RecipeWindow(toiToiController);
+		recipesTab = new RecipesTab(toiToiController);
 
-		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane = new JTabbedPane();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
+		
 		try {
-//<<<<<<< HEAD
+			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
 			tabbedPane.addTab("", recipesTab.createMainPanel() );
-//=======
-//			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
-//>>>>>>> profile_branch
+
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -195,26 +197,6 @@ public class MainFrame extends JFrame {
 		JPanel panel = new HomePanel(toiToiController);
 		panel.setBackground(new Color(200,221,242));
 		
-		/*
-		JPanel panel = new JPanel(new GridBagLayout());
-
-		JLabel label = new JLabel("Form");
-
-		JPanel tableButtonPanel = new JPanel();
-		tableButtonPanel.add(new JButton("Add Thing"));
-		tableButtonPanel.add(new JRadioButton("Delete Thing"));
-		tableButtonPanel.add(new JButton("Modify Thing"));
-
-		GridBagConstraints gbc = new GridBagConstraints();
-
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		panel.add(label, gbc);
-
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		panel.add(tableButtonPanel, gbc);
-		 */
 		return panel;
 	}
 
@@ -230,4 +212,68 @@ public class MainFrame extends JFrame {
 		return breakfast;
 	}
 
+
+
+	public static MainFrame getInstance() {
+		return instance;
+	}
+
+
+
+	public static void setInstance(MainFrame instance) {
+		MainFrame.instance = instance;
+	}
+
+	public RecipesTab getRecipesTab() {
+		return recipesTab;
+	}
+
+
+	public void setRecipesTab(RecipesTab recipesTab) {
+		this.recipesTab = recipesTab;
+	}
+
+
+	public ToiToiController getToiToiController() {
+		return toiToiController;
+	}
+
+
+	public void setToiToiController(ToiToiController toiToiController) {
+		this.toiToiController = toiToiController;
+	}
+
+
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+
+
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+	}
+
+
+	public RecipeWindow getRecipeWindow() {
+		return recipeWindow;
+	}
+
+
+	public void setRecipeWindow(RecipeWindow recipeWindow) {
+		this.recipeWindow = recipeWindow;
+	}
+
+
+	public Akter getAkter() {
+		return akter;
+	}
+
+
+	public void setAkter(Akter akter) {
+		this.akter = akter;
+	}
+
+	
+	
+	
 }
