@@ -24,6 +24,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import controller.ToiToiController;
 import model.Akter;
 import model.CookBook;
 import model.Equipment;
@@ -31,16 +32,60 @@ import model.ProductInfo;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
+import view.RecipeForm.RecipeForm;
 
 public class ProfileWindow {
-	
+
+
+	private ToiToiController toitoiController;
 	private User user;
-	
-	public ProfileWindow(Akter a) {
+
+	public ProfileWindow(Akter a, ToiToiController ttc) {
 		super();
-		this.user = (User)a;
+		this.toitoiController = ttc;
+		if (a instanceof User)
+			this.user = (User) a;
 	}
 	
+	public JPanel createOtherUserProfilePage() throws IOException {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+
+		BufferedImage img = null;
+		if (!user.getImage().equals("")) {
+			img = ImageIO.read(new File(user.getImage()));
+		} else {
+			if (user.getGender() == Gender.FEMALE)
+				img = ImageIO.read(new File("./img/user-female.png"));
+			else if (user.getGender() == Gender.MALE)
+				img = ImageIO.read(new File("./img/user.png"));
+			else
+				img = ImageIO.read(new File("./img/accessibility2.png"));
+		}
+		
+		Image image = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(image);
+
+		JLabel profilePhoto = new JLabel(icon);
+		profilePhoto.setBounds(30, 30, 50, 50);
+
+		JLabel imePrezime = new JLabel(user.getName() + " " + user.getSurname());
+		imePrezime.setFont(new Font("Serif", Font.PLAIN, 40));
+		imePrezime.setBounds(100, 30, 200, 50);
+
+		JTabbedPane tabbedPane = new JTabbedPane();
+		tabbedPane.setBounds(10, 90, 650, 600);
+		
+		tabbedPane.addTab("Recipes", createRecipesPanel(false));
+		tabbedPane.addTab("Cookbooks", createCookBookPanel(false));
+
+		panel.add(profilePhoto);
+		panel.add(imePrezime);
+		panel.add(tabbedPane);
+		return panel;
+	}
+
+
 	public JPanel createMyProfilePage() throws IOException {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -58,8 +103,8 @@ public class ProfileWindow {
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(10, 90, 650, 600);
-		tabbedPane.addTab("Recipes", createRecipesPanel());
-		tabbedPane.addTab("Cookbooks", createCookBookPanel());
+		tabbedPane.addTab("Recipes", createRecipesPanel(true));
+		tabbedPane.addTab("Cookbooks", createCookBookPanel(true));
 		tabbedPane.addTab("My Fridge", createMyFridgePanel());
 		tabbedPane.addTab("My Equipment", createMyEquipmentPanel());
 		tabbedPane.addTab("My info", createMyInfoPanel());
@@ -70,8 +115,9 @@ public class ProfileWindow {
 		return panel;
 		
 	}
-	
-	private JPanel createRecipesPanel() throws IOException{
+
+	private JPanel createRecipesPanel(boolean trebaDugmic) throws IOException {
+
 		JPanel panel = new JPanel(new MigLayout());
 		
 		ImageIcon recipeIcon = new ImageIcon("./img/recipe.png");
@@ -82,17 +128,21 @@ public class ProfileWindow {
 
 		ArrayList<JButton> dugmici = new ArrayList<JButton>();
 		Font f = new Font("Serif", Font.ITALIC, 20);
-		Color c = new Color(255, 233,  255);
+
+		Color c = new Color(255, 233, 255);
 		
-		ImageIcon addIcon = new ImageIcon("./img/add.png");  
-		JButton dodaj = new JButton("Add recipe", addIcon);
-		dodaj.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//ovde se poziva funkcija za dodavanje recepta
-        	}
-        });
-		panel.add(dodaj, "gapleft 100, wrap");
-		
+		if(trebaDugmic) {
+			ImageIcon addIcon = new ImageIcon("./img/add.png");
+			JButton dodaj = new JButton("Add recipe", addIcon);
+			dodaj.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					RecipeForm rf = new RecipeForm(toitoiController);
+					rf.setVisible(true);
+				}
+			});
+			panel.add(dodaj, "gapleft 100, wrap");
+		}
+
 		JPanel panel2 = new JPanel(new MigLayout());
 		
 		int brojac = 1;
@@ -181,7 +231,7 @@ public class ProfileWindow {
 		return panel;
 	}
 	
-	private  JPanel createCookBookPanel() throws IOException {
+	private JPanel createCookBookPanel(boolean trebaDugmic) throws IOException {
 		JPanel panel = new JPanel(new MigLayout());
 		
 		ImageIcon recipeIcon = new ImageIcon("./img/cookbook.png");
@@ -192,17 +242,21 @@ public class ProfileWindow {
 
 		ArrayList<JButton> dugmici = new ArrayList<JButton>();
 		Font f = new Font("Serif", Font.ITALIC, 20);
-		Color c = new Color(204, 204,  255);
+
+		Color c = new Color(204, 204, 255);
+
 		
-		ImageIcon addIcon = new ImageIcon("./img/add.png");  
-		JButton dodaj = new JButton("Add cookbook", addIcon);
-		dodaj.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//ovde se poziva funkcija za dodavanje cb
-        	}
-        });
-		panel.add(dodaj, "gapleft 30, wrap");
-		
+		if(trebaDugmic) {
+			ImageIcon addIcon = new ImageIcon("./img/add.png");
+			JButton dodaj = new JButton("Add cookbook", addIcon);
+			dodaj.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// TODO : dugmic za dodavanje cookbook-a
+				}
+			});
+			panel.add(dodaj, "gapleft 30, wrap");
+		}
+
 		JPanel panel2 = new JPanel(new MigLayout());
 		int brojac = 1;
 		for(CookBook r : user.getCookBooks()) {

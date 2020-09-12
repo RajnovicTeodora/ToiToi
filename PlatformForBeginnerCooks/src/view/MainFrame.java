@@ -51,7 +51,13 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
+
 		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
+
+
+//		RecipeWindow rw = new RecipeWindow(toiToiController);
+		RecipesTab recipesTab = new RecipesTab(toiToiController);
+
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -59,6 +65,9 @@ public class MainFrame extends JFrame {
 		tabbedPane.addTab("", createPage1());
 		try {
 			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
+
+			tabbedPane.addTab("", recipesTab.createMainPanel() );
+
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -97,6 +106,9 @@ public class MainFrame extends JFrame {
 				if (!(signIn == null))
 					signIn.dispose();
 
+//				RecipeForm rf = new RecipeForm(toiToiController);
+//				rf.setVisible(true);
+
 				signIn = new SignInForm(toiToiController);
 				signIn.setVisible(true);
 				signIn.addWindowListener(new WindowListener() {
@@ -124,7 +136,7 @@ public class MainFrame extends JFrame {
 					@Override
 					public void windowClosed(WindowEvent e) {
 						akter = signIn.getAkter();
-						ProfileWindow pw = new ProfileWindow(akter);
+						ProfileWindow pw = new ProfileWindow(akter, toiToiController);
 						try {
 							tabbedPane.addTab("", pw.createMyProfilePage());
 						} catch (IOException e1) {
