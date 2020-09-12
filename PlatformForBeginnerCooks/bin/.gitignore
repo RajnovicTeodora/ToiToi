@@ -1,5 +1,4 @@
-
-/controller/
-/view/
-/model/
 /TableModel/
+/controller/
+/model/
+/view/

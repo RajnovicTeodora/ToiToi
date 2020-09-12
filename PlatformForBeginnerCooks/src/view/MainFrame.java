@@ -62,26 +62,37 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
+
 		recipeWindow = new RecipeWindow(toiToiController);
 		recipesTab = new RecipesTab(toiToiController);
 
 		tabbedPane = new JTabbedPane();
+
+
+		RecipeWindow rw = new RecipeWindow(toiToiController.getRecipeController());
+
+
+//		RecipeWindow rw = new RecipeWindow(toiToiController);
+		RecipesTab recipesTab = new RecipesTab(toiToiController);
+
+
+		JTabbedPane tabbedPane = new JTabbedPane();
+
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
 		
 		try {
-<<<<<<< Updated upstream
+
 			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
 			tabbedPane.addTab("", recipesTab.createMainPanel() );
 
-=======
-//<<<<<<< HEAD
-			tabbedPane.addTab("", recipesTab.createMainPanel());
-//=======
-//			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
-//>>>>>>> profile_branch
->>>>>>> Stashed changes
+
+
+			tabbedPane.addTab("", rw.createUserRecipePage(1,"p", toiToiController) );
+
+			tabbedPane.addTab("", recipesTab.createMainPanel() );
+
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -119,8 +130,10 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!(signIn == null))
 					signIn.dispose();
+
 				RecipeForm rf = new RecipeForm(toiToiController);
 				rf.setVisible(true);
+
 				signIn = new SignInForm(toiToiController);
 				signIn.setVisible(true);
 				signIn.addWindowListener(new WindowListener() {
@@ -148,8 +161,9 @@ public class MainFrame extends JFrame {
 					@Override
 					public void windowClosed(WindowEvent e) {
 						akter = signIn.getAkter();
+
 						if (akter != null) {
-							ProfileWindow pw = new ProfileWindow(akter);
+							ProfileWindow pw = new ProfileWindow(akter, toiToiController);
 							try {
 								tabbedPane.addTab("", pw.createMyProfilePage());
 							} catch (IOException e1) {
@@ -159,8 +173,15 @@ public class MainFrame extends JFrame {
 							lab4.setFont(f);
 							lab4.setPreferredSize(d);
 							tabbedPane.setTabComponentAt(3, lab4);
-						}
 
+							try {
+								tabbedPane.addTab("", pw.createMyProfilePage());
+							} catch (IOException e1) {
+								e1.printStackTrace();
+	
+							}
+
+						}
 					}
 
 					@Override
@@ -204,10 +225,7 @@ public class MainFrame extends JFrame {
 
 	public JPanel createPage1() {
 		JPanel panel = new HomePanel(toiToiController);
-<<<<<<< Updated upstream
-		panel.setBackground(new Color(200,221,242));
-		
-=======
+
 		panel.setBackground(new Color(200, 221, 242));
 
 		/*
@@ -226,7 +244,7 @@ public class MainFrame extends JFrame {
 		 * 
 		 * gbc.gridx = 0; gbc.gridy = 2; panel.add(tableButtonPanel, gbc);
 		 */
->>>>>>> Stashed changes
+
 		return panel;
 	}
 
