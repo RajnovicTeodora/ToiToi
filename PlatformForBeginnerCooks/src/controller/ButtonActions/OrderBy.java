@@ -1,4 +1,4 @@
-package controller;
+package controller.ButtonActions;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class OrderBy {
 	
 	private String chosenOrder;
 	private HashMap<Recipe, Integer> filterList;
-	private ArrayList<Recipe>searchList;
+	private HashMap<Recipe, Integer>searchList;
 	private boolean filterClicked, searchClicked;
 	
 	public OrderBy(boolean filterClicked, boolean searchClicked) {
@@ -24,11 +24,11 @@ public class OrderBy {
 	}
 	
 	
-	public ArrayList<Recipe> getSearchList() {
+	public HashMap<Recipe, Integer> getSearchList() {
 		return searchList;
 	}
 
-	public void setSearchList(ArrayList<Recipe> searchList) {
+	public void setSearchList(HashMap<Recipe, Integer> searchList) {
 		this.searchList = searchList;
 	}
 
@@ -51,24 +51,21 @@ public class OrderBy {
 
 
 	public ArrayList<Recipe> orderAndArray() {///za filterClicked==true i searchClicked ==false
-		Map<Recipe, Integer> result = new LinkedHashMap<>();
+		
 		ArrayList<Recipe> filtered = new ArrayList<Recipe>();
 		ArrayList<Recipe> combined = new ArrayList<Recipe>();
 		
 		if(filterClicked) {
-			result = sortByValue(filterList);
-			for (Recipe recipe : result.keySet()) {
-				filtered.add(recipe);
-			}
+			filtered = sortByValue(filterList);
 			if(!searchClicked) {
 				combined = filtered;
 			}
 		}
 		if(searchClicked && !filterClicked) {
-			combined = searchList;
+			combined = sortByValue(searchList);
 		}
 		if(filterClicked && searchClicked) {
-			for (Recipe recipe : searchList) {
+			for (Recipe recipe : sortByValue(searchList)) {
 				if(filtered.contains(recipe)) {
 					combined.add(recipe);
 				}
@@ -76,7 +73,7 @@ public class OrderBy {
 		}
 		
 		int n = combined.size();
-		if(!combined.isEmpty() && !chosenOrder.equals(null)) 
+		if(chosenOrder != null && !combined.isEmpty()) 
 		{
 			if(chosenOrder.equals("oldest")) {
 	
@@ -115,14 +112,20 @@ public class OrderBy {
 		return combined;
 	}
 	
-	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+	public static <K, V extends Comparable<? super V>> ArrayList<Recipe> sortByValue(Map<K, V> map) {
         List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
         list.sort(Entry.comparingByValue());
 
-        Map<K, V> result = new LinkedHashMap<>();
+        ArrayList<Recipe>result = new ArrayList<Recipe>();
         for (Entry<K, V> entry : list) {
-            result.put(entry.getKey(), entry.getValue());
+            result.add((Recipe) entry.getKey());
         }
+        for (int i = 0; i < result.size() / 2; i++) { 
+            Recipe temp = result.get(i); 
+            result.set(i, result.get(result.size() - i - 1)); 
+            result.set(result.size() - i - 1, temp); 
+        }
+        
 
         return result;
     }

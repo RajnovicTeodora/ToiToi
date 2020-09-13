@@ -1,4 +1,4 @@
-package controller;
+package controller.ButtonActions;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;

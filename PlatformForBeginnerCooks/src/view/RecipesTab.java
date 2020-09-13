@@ -30,11 +30,11 @@ import TableModel.EquipmentCheckBoxModel;
 import TableModel.IngredientsCheckBoxModel;
 import TableModel.TagsCheckBoxModel;
 import TableModel.TasteCheckBoxModel;
-import controller.FilterButtonAction;
-import controller.OrderBy;
-import controller.RecipeImageButtonAction;
-import controller.SearchRecipesButtonAction;
 import controller.ToiToiController;
+import controller.ButtonActions.FilterButtonAction;
+import controller.ButtonActions.OrderBy;
+import controller.ButtonActions.RecipeImageButtonAction;
+import controller.ButtonActions.SearchRecipesButtonAction;
 import model.Product;
 import model.Recipe;
 import model.Taste;
@@ -44,17 +44,22 @@ public class RecipesTab {
 	
 	//key je koliko je kompatibilan recept sa unesenim filterom, sto vise to bolje
 	private	HashMap<Recipe, Integer> filterResults = new HashMap<Recipe, Integer>();
-	private ArrayList<Recipe> searchResults = new ArrayList<Recipe>();
+	private HashMap<Recipe, Integer> searchResults = new HashMap<Recipe, Integer>();
 	private boolean filterClicked = false, searchClicked = false;
 	private JTextField searchTxtField;
 	private JTextField prepTimeField;
 	private JTextField cookTimeField;
-	private ArrayList<JCheckBox>difficultyCheckBoxes = new ArrayList<JCheckBox>();
+	private JCheckBox ckbx1, ckbx2, ckbx3, ckbx4, ckbx5;
+	private boolean ck1, ck2, ck3, ck4, ck5;
 	private IngredientsCheckBoxModel ingrModel;
 	private TasteCheckBoxModel tasteModel;
 	private EquipmentCheckBoxModel eqModel;
 	private TagsCheckBoxModel tagsModel;
 	private JComboBox orderByCombBox;
+	private int selectedOrder=5 ;
+	private String searchTerm="", placedPrepTime = "", placedCookTime="";
+	
+	private RecipeWindow recipeWindow;
 	
 	private ToiToiController toiToiController = null;
 	
@@ -113,23 +118,23 @@ public class RecipesTab {
         JScrollPane eqScrollPane = new JScrollPane(eqTable);
         eqScrollPane.setPreferredSize(new Dimension(210,200));
         
-        prepTimeField = new JTextField(10);
+        prepTimeField = new JTextField(getPlacedPrepTime(), 10);
         //prepTimeField.setSize(new Dimension(20,20));
         
-        cookTimeField = new JTextField(10);
+        cookTimeField = new JTextField(getPlacedCookTime(), 10);
         //cookTimeField.setSize(new Dimension(20,20));
         
-        JCheckBox ckbx1 =new JCheckBox("1");
-		JCheckBox ckbx2 =new JCheckBox("2");
-		JCheckBox ckbx3 =new JCheckBox("3");
-		JCheckBox ckbx4 =new JCheckBox("4");
-		JCheckBox ckbx5 =new JCheckBox("5");
-				
-		difficultyCheckBoxes.add(ckbx1);
-		difficultyCheckBoxes.add(ckbx2);
-		difficultyCheckBoxes.add(ckbx3);
-		difficultyCheckBoxes.add(ckbx4);
-		difficultyCheckBoxes.add(ckbx5);
+        ckbx1 =new JCheckBox("1");
+		ckbx2 =new JCheckBox("2");
+		ckbx3 =new JCheckBox("3");
+		ckbx4 =new JCheckBox("4");
+		ckbx5 =new JCheckBox("5");
+		
+		ckbx1.setSelected(ck1);
+		ckbx2.setSelected(ck2);
+		ckbx3.setSelected(ck3);
+		ckbx4.setSelected(ck4);
+		ckbx5.setSelected(ck5);
 		
 		JPanel levels = new JPanel(new FlowLayout());
 		levels.add(ckbx1);
@@ -175,9 +180,9 @@ public class RecipesTab {
 		
 		String[] cats = {"latest", "oldest", "likes", "easiest", "hardest", null};
 		orderByCombBox = new JComboBox(cats);
-		orderByCombBox.setSelectedIndex(5);
+		orderByCombBox.setSelectedIndex(getSelectedOrder());
 		
-		searchTxtField = new JTextField(300);
+		searchTxtField = new JTextField(getSearchTerm(), 300);
 		JButton searchBttn = new JButton("Search");
 		searchBttn.setMnemonic(KeyEvent.VK_ENTER);
 		searchBttn.addActionListener(new SearchRecipesButtonAction("Search"));
@@ -202,6 +207,7 @@ public class RecipesTab {
 			JPanel textPnl = new JPanel(new MigLayout());
 			
 			RecipeImageButtonAction recAction = new RecipeImageButtonAction();
+			recAction.setTabIndex(1);
 			recAction.setRecipe(recipe);
 		    Image image = new ImageIcon(recipe.getImage()).getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 	        ImageIcon icon=new ImageIcon(image); 
@@ -213,7 +219,7 @@ public class RecipesTab {
 	        imgBtn.setMnemonic(KeyEvent.VK_ENTER);
 	        	        
 	        JLabel recipeName = new JLabel(recipe.getName());
-	        recipeName.setFont(new Font("Serif", Font.PLAIN, 40));
+	        recipeName.setFont(new Font("Serif", Font.PLAIN, 20));
 	        recipeName.setPreferredSize(new Dimension(50,20));
 	        
 	        Image heart = new ImageIcon("./img/heart.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -221,10 +227,13 @@ public class RecipesTab {
 			JLabel likes = new JLabel(recipe.getLikes()+" Likes", like, JLabel.RIGHT);
 			
 			JLabel datelbl = new JLabel(recipe.getDateCreated().toString());
+			ImageIcon star=new ImageIcon("./img/star.png"); 
+			JLabel diffLbl = new JLabel(" difficulty: " + recipe.getDifficulty(), star, JLabel.RIGHT);
 			
+			textPnl.add(datelbl,"left, wrap");
 			textPnl.add(recipeName,"wrap");
 			textPnl.add(likes);
-			textPnl.add(datelbl,"right");
+			textPnl.add(diffLbl, "right");
 			
 			tempPnl.add(imgBtn,"split");
 			tempPnl.add(textPnl,"wrap");
@@ -234,7 +243,7 @@ public class RecipesTab {
 	        
 		}
 		
-		bottomPnl.setBackground(new Color(0, 0, 0, 10));//new Color(10, 0, 0, 20)
+		//bottomPnl.setBackground(new Color(0, 0, 0, 10));//new Color(10, 0, 0, 20)
 		JScrollPane scrollPane = new JScrollPane(bottomPnl );
 		scrollPane.setPreferredSize(new Dimension(600,600));
 		
@@ -296,18 +305,6 @@ public class RecipesTab {
 
 
 
-	public ArrayList<JCheckBox> getDifficultyCheckBoxes() {
-		return difficultyCheckBoxes;
-	}
-
-
-
-	public void setDifficultyCheckBoxes(ArrayList<JCheckBox> difficultyCheckBoxes) {
-		this.difficultyCheckBoxes = difficultyCheckBoxes;
-	}
-
-
-
 	public HashMap<Recipe, Integer> getFilterResults() {
 		return filterResults;
 	}
@@ -358,13 +355,13 @@ public class RecipesTab {
 
 	
 
-	public ArrayList<Recipe> getSearchResults() {
+	public HashMap<Recipe, Integer> getSearchResults() {
 		return searchResults;
 	}
 
 
 
-	public void setSearchResults(ArrayList<Recipe> searchResults) {
+	public void setSearchResults(HashMap<Recipe, Integer> searchResults) {
 		this.searchResults = searchResults;
 	}
 	
@@ -375,7 +372,14 @@ public class RecipesTab {
 		o.setFilterList(getFilterResults());
 		o.setSearchList(getSearchResults());
 		setBottomPnl(o.orderAndArray());
-				
+		setSelectedOrder(orderByCombBox.getSelectedIndex());
+		ck1 = (getCkbx1().isSelected());
+		ck2 = (getCkbx2().isSelected());
+		ck3 = (getCkbx3().isSelected());
+		ck4 = (getCkbx4().isSelected());
+		ck5 = getCkbx5().isSelected();
+		placedPrepTime = prepTimeField.getText();
+		placedCookTime = cookTimeField.getText();
 		
 		JPanel pan = MainFrame.getInstance().getRecipesTab().createMainPanel();
 		MainFrame.getInstance().getRecipesTab().setMainRecipeTab(pan);
@@ -411,7 +415,84 @@ public class RecipesTab {
 	public JTextField getSearchTxtField() {
 		return searchTxtField;
 	}
-	
-	
+
+
+
+	public String getSearchTerm() {
+		return searchTerm;
+	}
+
+
+
+	public void setSearchTerm(String searchTerm) {
+		this.searchTerm = searchTerm;
+	}
+
+
+
+	public RecipeWindow getRecipeWindow() {
+		return recipeWindow;
+	}
+
+
+
+	public void setRecipeWindow(RecipeWindow recipeWindow) {
+		this.recipeWindow = recipeWindow;
+	}
+
+
+
+	public JCheckBox getCkbx1() {
+		return ckbx1;
+	}
+
+
+
+	public JCheckBox getCkbx2() {
+		return ckbx2;
+	}
+
+
+
+	public JCheckBox getCkbx3() {
+		return ckbx3;
+	}
+
+
+
+	public JCheckBox getCkbx4() {
+		return ckbx4;
+	}
+
+
+
+	public JCheckBox getCkbx5() {
+		return ckbx5;
+	}
+
+
+
+	public int getSelectedOrder() {
+		return selectedOrder;
+	}
+
+
+
+	public void setSelectedOrder(int selectedOrder) {
+		this.selectedOrder = selectedOrder;
+	}
+
+
+
+	public String getPlacedPrepTime() {
+		return placedPrepTime;
+	}
+
+
+
+	public String getPlacedCookTime() {
+		return placedCookTime;
+	}
+
 	
 }

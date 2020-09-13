@@ -105,13 +105,13 @@ public class TopUserPanel extends JPanel {
 
 		userLink.setContentAreaFilled(false);
 		// top2.setBorderPainted(false);
-		userLink.setToolTipText("Go to user"); // TODO link to recipe page
+		userLink.setToolTipText("Go to user"); 
 		userLink.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (user != null) {
-					//TODO ovo cu ja popravi <33
+					//TODO ovo cu ja popravi <33 ISIDORA
 					
 //					JDialog profil = new JDialog();
 //					profil.setSize(700, 700);
@@ -130,13 +130,13 @@ public class TopUserPanel extends JPanel {
 
 		recipeLink.setContentAreaFilled(false);
 		// top2.setBorderPainted(false);
-		recipeLink.setToolTipText("Go to recipe"); // TODO link to recipe page
+		recipeLink.setToolTipText("Go to recipe"); 
 		recipeLink.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (recipe != null) {
-					// TODO recipe exits, so link it here
+					// TODO recipe exits, so link it here OLJA
 				}
 			}
 
@@ -161,8 +161,6 @@ public class TopUserPanel extends JPanel {
 		rightPanel.add(recipePanel);
 		add(rightPanel);
 		rightPanel.setBackground(new Color(255, 233, 248));
-
-		// TODO
 
 		JTextArea area = new JTextArea(recipe.getDescription());
 		area.setPreferredSize(new Dimension(180, 180));

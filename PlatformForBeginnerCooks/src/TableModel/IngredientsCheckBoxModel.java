@@ -14,7 +14,7 @@ public class IngredientsCheckBoxModel extends AbstractTableModel{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String[] columns = {"id", "Ingredient", "Company", ""};
+	private String[] columns = {"id", "Ingredient", ""};
 	
 	private Object[][] allProducts;
 	
@@ -22,20 +22,19 @@ public class IngredientsCheckBoxModel extends AbstractTableModel{
 
 	public IngredientsCheckBoxModel(ArrayList<Product> products) {
 		super();
-		allProducts = new Object[products.size()][4];
+		allProducts = new Object[products.size()][3];
 		int i = 0;
 		for (Product product : products) {
 			allProducts[i][0] = product.getProductID();
 			allProducts[i][1] = product.getName();
-			allProducts[i][2] = product.getProducedBy();
 			if(ChosenProducts.getChosenProducts() == null || ChosenProducts.getChosenProducts().isEmpty()) {
-				allProducts[i][3] = false;
+				allProducts[i][2] = false;
 			}
 			else {
 				if(ChosenProducts.getChosenProducts().contains(product.getProductID())) {
-					allProducts[i][3] = true;
+					allProducts[i][2] = true;
 				}else
-					allProducts[i][3] = false;
+					allProducts[i][2] = false;
 			}
 			i++;
 		}
@@ -66,7 +65,7 @@ public class IngredientsCheckBoxModel extends AbstractTableModel{
 	}
 	
 	public boolean isCellEditable(int row, int col) {
-		if (col != 3) {
+		if (col != 2) {
 			return false;
 		} else {
 			return true;
