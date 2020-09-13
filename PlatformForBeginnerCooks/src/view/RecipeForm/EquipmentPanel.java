@@ -282,7 +282,13 @@ public class EquipmentPanel extends JPanel {
 				for (Equipment e : toiToiController.getToiToi().getEquipment()) {
 					if ((e.getName().compareTo(n) == 0) && (e.getCompany().compareTo(c) == 0)
 							&& (e.getDescription().compareTo(d) == 0)) {
+						if (e.getEquipmentID() == -1) {
+							int id = toiToiController.getEquipmentController()
+									.freeId((ArrayList<Equipment>) toiToiController.getToiToi().getEquipment());
+							e.setEquipmentID(id);
+						}
 						equipment.add(e);
+						toiToiController.getToiToi().addEquipment(e);
 						break;
 					}
 				}

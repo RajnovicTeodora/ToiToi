@@ -60,7 +60,7 @@ public class TextEdit extends JPanel implements ActionListener {
 		ta.setWrapStyleWord(true);
 		
 		JPanel temp = new JPanel();
-		temp.add(new JLabel("Description:                                    "));
+		temp.add(new JLabel("Instructions:                                    "));
 		temp.add(menuBar, " wrap");
 		temp.setBackground(Color.white);
 		add(temp, "wrap");

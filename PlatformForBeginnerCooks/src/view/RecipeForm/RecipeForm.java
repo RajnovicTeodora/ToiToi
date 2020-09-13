@@ -290,9 +290,9 @@ public class RecipeForm extends JFrame {
 		sep4.setPreferredSize(new Dimension(600, 5));
 		mainPanel.add(sep4, "wrap");
 
-		panel_5 = new JPanel(new MigLayout("", "[] 20 [][]",""));
+		panel_5 = new JPanel(new MigLayout("", "[] 20 [][]", ""));
 		panel_5.setBackground(Color.white);
-		
+
 		extraInfo = new ExtraInfoPanel();
 		extraInfo.setBackground(Color.white);
 		panel_5.add(extraInfo);
@@ -358,7 +358,9 @@ public class RecipeForm extends JFrame {
 				recipe.setLikes(0);
 				recipe.setDateCreated(LocalDate.now());
 				recipe.setComment(new ArrayList<Comment>());
-				
+
+				for (Tag t : tags)
+					toiToiController.getToiToi().addTags(t);
 				toiToiController.getToiToi().addRecipe(recipe);
 				System.out.println(toiToiController.getToiToi().getRecipe());
 				dispose();

@@ -23,14 +23,23 @@ public class ToiToi {
 
 	public java.util.List<CookBook> cookBooks;
 
+	public ToiToi(String name, String telephone) {
+		super();
+		this.name = name;
+		this.telephone = telephone;
+	}
+
+	public ToiToi() {
+		super();
+	}
+
 	public java.util.List<Tag> getTags() {
 		if (tags == null)
 			tags = new java.util.ArrayList<Tag>();
 		return tags;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public java.util.Iterator getIteratorTags() {
+	public java.util.Iterator<Tag> getIteratorTags() {
 		if (tags == null)
 			tags = new java.util.ArrayList<Tag>();
 		return tags.iterator();
@@ -38,9 +47,10 @@ public class ToiToi {
 
 	public void setTags(java.util.List<Tag> newTags) {
 		removeAllTags();
-		for (@SuppressWarnings("rawtypes")
-		java.util.Iterator iter = newTags.iterator(); iter.hasNext();)
-			addTags((Tag) iter.next());
+
+		java.util.Iterator<Tag> iter = newTags.iterator();
+		iter.hasNext();
+		addTags(iter.next());
 	}
 
 	public void addTags(Tag newTag) {
@@ -67,27 +77,27 @@ public class ToiToi {
 
 	public java.util.List<Akter> getUsers() {
 		if (users == null)
-			users = new java.util.Vector<Akter>();
+			users = new java.util.ArrayList<Akter>();
 		return users;
 	}
 
-	public java.util.Iterator getIteratorUsers() {
+	public java.util.Iterator<Akter> getIteratorUsers() {
 		if (users == null)
-			users = new java.util.Vector<Akter>();
+			users = new java.util.ArrayList<Akter>();
 		return users.iterator();
 	}
 
 	public void setUsers(java.util.List<Akter> newUsers) {
 		removeAllUsers();
-		for (java.util.Iterator iter = newUsers.iterator(); iter.hasNext();)
-			addUsers((Akter) iter.next());
+		for (java.util.Iterator<Akter> iter = newUsers.iterator(); iter.hasNext();)
+			addUsers(iter.next());
 	}
 
 	public void addUsers(Akter newAkter) {
 		if (newAkter == null)
 			return;
 		if (this.users == null)
-			this.users = new java.util.Vector<Akter>();
+			this.users = new java.util.ArrayList<Akter>();
 		if (!this.users.contains(newAkter))
 			this.users.add(newAkter);
 	}
@@ -111,27 +121,18 @@ public class ToiToi {
 		return recipe;
 	}
 
-	public java.util.Iterator getIteratorRecipe() {
+	public java.util.Iterator<Recipe> getIteratorRecipe() {
 		if (recipe == null)
 			recipe = new java.util.ArrayList<Recipe>();
 		return recipe.iterator();
 	}
 
-	/**
-	 * @pdGenerated default setter
-	 * @param newRecipe
-	 */
-	@SuppressWarnings("rawtypes")
 	public void setRecipe(java.util.List<Recipe> newRecipe) {
 		removeAllRecipe();
-		for (java.util.Iterator iter = newRecipe.iterator(); iter.hasNext();)
-			addRecipe((Recipe) iter.next());
+		for (java.util.Iterator<Recipe> iter = newRecipe.iterator(); iter.hasNext();)
+			addRecipe(iter.next());
 	}
 
-	/**
-	 * @pdGenerated default add
-	 * @param newRecipe
-	 */
 	public void addRecipe(Recipe newRecipe) {
 		if (newRecipe == null)
 			return;
@@ -167,7 +168,7 @@ public class ToiToi {
 	}
 
 	/** @pdGenerated default iterator getter */
-	public java.util.Iterator getIteratorProducts() {
+	public java.util.Iterator<Product> getIteratorProducts() {
 		if (products == null)
 			products = new java.util.ArrayList<Product>();
 		return products.iterator();
@@ -179,8 +180,8 @@ public class ToiToi {
 	 */
 	public void setProducts(java.util.List<Product> newProducts) {
 		removeAllProducts();
-		for (java.util.Iterator iter = newProducts.iterator(); iter.hasNext();)
-			addProducts((Product) iter.next());
+		for (java.util.Iterator<Product> iter = newProducts.iterator(); iter.hasNext();)
+			addProducts(iter.next());
 	}
 
 	/**
@@ -222,7 +223,7 @@ public class ToiToi {
 	}
 
 	/** @pdGenerated default iterator getter */
-	public java.util.Iterator getIteratorEquipment() {
+	public java.util.Iterator<Equipment> getIteratorEquipment() {
 		if (equipment == null)
 			equipment = new java.util.ArrayList<Equipment>();
 		return equipment.iterator();
@@ -234,8 +235,8 @@ public class ToiToi {
 	 */
 	public void setEquipment(java.util.List<Equipment> newEquipment) {
 		removeAllEquipment();
-		for (java.util.Iterator iter = newEquipment.iterator(); iter.hasNext();)
-			addEquipment((Equipment) iter.next());
+		for (java.util.Iterator<Equipment> iter = newEquipment.iterator(); iter.hasNext();)
+			addEquipment(iter.next());
 	}
 
 	/**
@@ -277,7 +278,7 @@ public class ToiToi {
 	}
 
 	/** @pdGenerated default iterator getter */
-	public java.util.Iterator getIteratorCookBooks() {
+	public java.util.Iterator<CookBook> getIteratorCookBooks() {
 		if (cookBooks == null)
 			cookBooks = new java.util.ArrayList<CookBook>();
 		return cookBooks.iterator();
@@ -289,14 +290,10 @@ public class ToiToi {
 	 */
 	public void setCookBooks(java.util.List<CookBook> newCookBooks) {
 		removeAllCookBooks();
-		for (java.util.Iterator iter = newCookBooks.iterator(); iter.hasNext();)
-			addCookBooks((CookBook) iter.next());
+		for (java.util.Iterator<CookBook> iter = newCookBooks.iterator(); iter.hasNext();)
+			addCookBooks(iter.next());
 	}
 
-	/**
-	 * @pdGenerated default add
-	 * @param newCookBook
-	 */
 	public void addCookBooks(CookBook newCookBook) {
 		if (newCookBook == null)
 			return;
@@ -306,10 +303,6 @@ public class ToiToi {
 			this.cookBooks.add(newCookBook);
 	}
 
-	/**
-	 * @pdGenerated default remove
-	 * @param oldCookBook
-	 */
 	public void removeCookBooks(CookBook oldCookBook) {
 		if (oldCookBook == null)
 			return;
@@ -318,10 +311,25 @@ public class ToiToi {
 				this.cookBooks.remove(oldCookBook);
 	}
 
-	/** @pdGenerated default removeAll */
 	public void removeAllCookBooks() {
 		if (cookBooks != null)
 			cookBooks.clear();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 }

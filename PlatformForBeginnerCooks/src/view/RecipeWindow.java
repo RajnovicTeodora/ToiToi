@@ -6,17 +6,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,16 +25,13 @@ import TableModel.MissingEquipmentTable;
 import TableModel.MissingIngredientsTable;
 import TableModel.RecipeEquipmentTable;
 import TableModel.RecipeIngredientsTable;
-import controller.AkterController;
 import controller.BackButtonAction;
 import controller.CreatorButtonAction;
 import controller.LikeButtonAction;
-import controller.RecipeController;
 import controller.ToiToiController;
 import model.Akter;
 import model.Comment;
 import model.Equipment;
-import model.NeededQuantity;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
@@ -49,10 +42,9 @@ public class RecipeWindow {
 
 	public RecipeWindow(ToiToiController toiToiController) {
 		super();
-		this.toiToiController = toiToiController;
+		this.setToiToiController(toiToiController);
 	}
 
-	
 	public JPanel createVisitorRecipePage(Recipe recipe) throws IOException {
 		JPanel mainPanel = new JPanel(new MigLayout());
 		JPanel centerPanel = new JPanel(new MigLayout());
@@ -60,64 +52,65 @@ public class RecipeWindow {
 		JPanel leftPanel = new JPanel(new MigLayout());
 		JPanel upperPanel = new JPanel(new MigLayout());
 //<<<<<<< Updated upstream
-		JPanel bottomPanel = new JPanel(new MigLayout());		
-		
-		///////////////////////////BACK///////////////////////////////////
+		JPanel bottomPanel = new JPanel(new MigLayout());
+
+		/////////////////////////// BACK///////////////////////////////////
 		JButton backBttn = new JButton(new BackButtonAction("Back"));
 		backBttn.setMnemonic(KeyEvent.VK_ENTER);
-		
-		//////////////////////////DATE CREATOR AND DIFFICULTY///////////////////////
+
+		////////////////////////// DATE CREATOR AND DIFFICULTY///////////////////////
 		JLabel datelbl = new JLabel("  created " + recipe.getDateCreated().toString() + " by");
-		
-		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\"><U>"+recipe.getCreator().getUsername()+"</U></FONT></HTML>");
+
+		JButton creatorBtn = new JButton(
+				"<HTML> <FONT color=\"#000099\"><U>" + recipe.getCreator().getUsername() + "</U></FONT></HTML>");
 		creatorBtn.addActionListener(new CreatorButtonAction(recipe.getCreator().getUsername()));
 		creatorBtn.setContentAreaFilled(false);
 		creatorBtn.setBorderPainted(false);
 		creatorBtn.setFont(new Font("Serif", Font.PLAIN, 20));
 		creatorBtn.setToolTipText("View user");
-		
-		ImageIcon star=new ImageIcon("./img/star.png"); 
+
+		ImageIcon star = new ImageIcon("./img/star.png");
 		JLabel diffLbl = new JLabel(" difficulty: " + recipe.getDifficulty(), star, JLabel.RIGHT);
-		
-		//////////////////////////LIKES/////////////////////////////////////////
-	    ImageIcon like=new ImageIcon("./img/heart.png"); 
-		JLabel likes = new JLabel(recipe.getLikes()+" Likes", like, JLabel.RIGHT);
-	    
-	    ///////////////////////////IMAGE//////////////////////////////////////
-		BufferedImage img=ImageIO.read(new File(recipe.getImage()));
-	    Image image = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon icon=new ImageIcon(image);        
-        JLabel lbl=new JLabel();
-        lbl.setIcon(icon);
-            
-	    //////////////////////////TITLE//////////////////////////////////////
-	    JLabel l2 = new JLabel(recipe.getName());
-	    l2.setFont(new Font("Serif", Font.PLAIN, 40));
-	    l2.setPreferredSize(new Dimension(100,50));
-	  	    
-	    ////////////////////PREPTIME COOKTIME/////////////////////////////////
-	    ImageIcon prepImg=new ImageIcon("./img/time.png"); 
-	    int p =0;
-	    if(recipe.getPrepTime() != null) {
-	    	p = recipe.getPrepTime();
-	    }
-	    
-		JLabel prepLbl = new JLabel(" Prep time: "+ p +" min", prepImg, JLabel.RIGHT);
-	    
-		ImageIcon cookImg=new ImageIcon("./img/time.png"); 
-		int i =0;
-		if(recipe.getCookTime() != null) {
+
+		////////////////////////// LIKES/////////////////////////////////////////
+		ImageIcon like = new ImageIcon("./img/heart.png");
+		JLabel likes = new JLabel(recipe.getLikes() + " Likes", like, JLabel.RIGHT);
+
+		/////////////////////////// IMAGE//////////////////////////////////////
+		BufferedImage img = ImageIO.read(new File(recipe.getImage()));
+		Image image = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(image);
+		JLabel lbl = new JLabel();
+		lbl.setIcon(icon);
+
+		////////////////////////// TITLE//////////////////////////////////////
+		JLabel l2 = new JLabel(recipe.getName());
+		l2.setFont(new Font("Serif", Font.PLAIN, 40));
+		l2.setPreferredSize(new Dimension(100, 50));
+
+		//////////////////// PREPTIME COOKTIME/////////////////////////////////
+		ImageIcon prepImg = new ImageIcon("./img/time.png");
+		int p = 0;
+		if (recipe.getPrepTime() != null) {
+			p = recipe.getPrepTime();
+		}
+
+		JLabel prepLbl = new JLabel(" Prep time: " + p + " min", prepImg, JLabel.RIGHT);
+
+		ImageIcon cookImg = new ImageIcon("./img/time.png");
+		int i = 0;
+		if (recipe.getCookTime() != null) {
 			i = recipe.getCookTime();
 		}
-		JLabel cookLbl = new JLabel(" Cook time: "+i+" min", cookImg, JLabel.RIGHT);
-	    
-	    ///////////////////////////INGREDIENTS/////////////////////////////////
-	    RecipeIngredientsTable model = new RecipeIngredientsTable(recipe.getNeededProductQuantity()) {
-	    	private static final long serialVersionUID = 1L;
-	    	
-	    };
-	    JTable tabel = new JTable(model);
-	    tabel.setAutoCreateRowSorter(true);
+		JLabel cookLbl = new JLabel(" Cook time: " + i + " min", cookImg, JLabel.RIGHT);
+
+		/////////////////////////// INGREDIENTS/////////////////////////////////
+		RecipeIngredientsTable model = new RecipeIngredientsTable(recipe.getNeededProductQuantity()) {
+			private static final long serialVersionUID = 1L;
+
+		};
+		JTable tabel = new JTable(model);
+		tabel.setAutoCreateRowSorter(true);
 //=======
 //		JPanel bottomPanel = new JPanel(new MigLayout());
 //
@@ -160,7 +153,6 @@ public class RecipeWindow {
 		sp.setPreferredSize(new Dimension(400, 215));
 		JPanel pnl = new JPanel(new BorderLayout());
 		pnl.add(sp, BorderLayout.CENTER);
-		
 
 		//////////////////////////// DESCRIPTION////////////////////////////////
 		JLabel l5 = new JLabel("Instructions: ");
@@ -206,10 +198,10 @@ public class RecipeWindow {
 
 		leftPanel.add(lbl, "top,wrap");
 		leftPanel.add(likes, "wrap");
-		leftPanel.add(prepLbl,"wrap");
+		leftPanel.add(prepLbl, "wrap");
 		leftPanel.add(cookLbl, "wrap");
 		leftPanel.add(diffLbl);
-		
+
 		rightPanel.add(pnl, " wrap");
 		rightPanel.add(eqPnl, " wrap");
 		rightPanel.add(l5, "wrap");
@@ -220,7 +212,7 @@ public class RecipeWindow {
 
 		upperPanel.add(backBttn, "top");
 		upperPanel.add(l2);
-		upperPanel.add(datelbl,"split");
+		upperPanel.add(datelbl, "split");
 		upperPanel.add(creatorBtn);
 
 		bottomPanel.add(comsLabel, "wrap");
@@ -235,7 +227,7 @@ public class RecipeWindow {
 	}
 
 //<<<<<<< Updated upstream
-		
+
 	public JPanel createUserRecipePage(Recipe rec, Akter akter) throws IOException {
 //=======
 //	public JPanel createUserRecipePage(Integer recipeID, String userID) throws IOException {
@@ -247,48 +239,47 @@ public class RecipeWindow {
 		JPanel upperPanel = new JPanel(new MigLayout());
 		JPanel bottomPanel = new JPanel(new MigLayout());
 //<<<<<<< Updated upstream
-		
-		User user = (User) akter;		
-		
-		///////////////////////////BACK///////////////////////////////////
+
+		User user = (User) akter;
+
+		/////////////////////////// BACK///////////////////////////////////
 		JButton backBttn = new JButton(new BackButtonAction("Back"));
 		backBttn.setMnemonic(KeyEvent.VK_ENTER);
 
-		
-		//////////////////////////DATE CREATOR AND DIFFICULTY///////////////////////
+		////////////////////////// DATE CREATOR AND DIFFICULTY///////////////////////
 		JLabel datelbl = new JLabel("  created " + rec.getDateCreated().toString() + " by");
-		
-		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\"><U>"+rec.getCreator().getUsername()+"</U></FONT></HTML>");
+
+		JButton creatorBtn = new JButton(
+				"<HTML> <FONT color=\"#000099\"><U>" + rec.getCreator().getUsername() + "</U></FONT></HTML>");
 		creatorBtn.addActionListener(new CreatorButtonAction(rec.getCreator().getUsername()));
 		creatorBtn.setContentAreaFilled(false);
 		creatorBtn.setBorderPainted(false);
 		creatorBtn.setFont(new Font("Serif", Font.PLAIN, 20));
 		creatorBtn.setToolTipText("View user");
-		
-		
-		ImageIcon star=new ImageIcon("./img/star.png"); 
+
+		ImageIcon star = new ImageIcon("./img/star.png");
 		JLabel diffLbl = new JLabel(" difficulty: " + rec.getDifficulty(), star, JLabel.RIGHT);
-				
-		////////////////////PREPTIME COOKTIME/////////////////////////////////
-		ImageIcon prepImg=new ImageIcon("./img/time.png"); 
-		int p =0;
-		if(rec.getPrepTime() != null) {
-		p = rec.getPrepTime();
+
+		//////////////////// PREPTIME COOKTIME/////////////////////////////////
+		ImageIcon prepImg = new ImageIcon("./img/time.png");
+		int p = 0;
+		if (rec.getPrepTime() != null) {
+			p = rec.getPrepTime();
 		}
-		
-		JLabel prepLbl = new JLabel(" Prep time: "+ p +" min", prepImg, JLabel.RIGHT);
-		
-		ImageIcon cookImg=new ImageIcon("./img/time.png"); 
-		int i =0;
-		if(rec.getCookTime() != null) {
-		i = rec.getCookTime();
+
+		JLabel prepLbl = new JLabel(" Prep time: " + p + " min", prepImg, JLabel.RIGHT);
+
+		ImageIcon cookImg = new ImageIcon("./img/time.png");
+		int i = 0;
+		if (rec.getCookTime() != null) {
+			i = rec.getCookTime();
 		}
-		JLabel cookLbl = new JLabel(" Cook time: "+i+" min", cookImg, JLabel.RIGHT);
-		
-		//////////////////////////LIKES/////////////////////////////////////////
-	    Image heart = new ImageIcon("./img/heart.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
-	    ImageIcon like=new ImageIcon(heart); 
-		JLabel likes = new JLabel(rec.getLikes()+" Likes");//, like, JLabel.RIGHT
+		JLabel cookLbl = new JLabel(" Cook time: " + i + " min", cookImg, JLabel.RIGHT);
+
+		////////////////////////// LIKES/////////////////////////////////////////
+		Image heart = new ImageIcon("./img/heart.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+		ImageIcon like = new ImageIcon(heart);
+		JLabel likes = new JLabel(rec.getLikes() + " Likes");// , like, JLabel.RIGHT
 //=======
 //
 //		HashMap<String, Akter> akters = toiToiController.getAkterController().getHashMapAkter();
@@ -308,29 +299,31 @@ public class RecipeWindow {
 		likeBtn.setToolTipText("Like");
 //<<<<<<< Updated upstream
 		likeBtn.addActionListener(new LikeButtonAction("Like", rec, user));
-	    
-	    ///////////////////////////IMAGE//////////////////////////////////////
-	    BufferedImage img=ImageIO.read(new File(rec.getImage()));
-	    Image image = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-        ImageIcon icon=new ImageIcon(image);        
-        JLabel lbl=new JLabel();
-        lbl.setIcon(icon);
-        JPanel panelIcon = new JPanel(new MigLayout());
-        panelIcon.add(lbl, "top,wrap");
-        panelIcon.add(likes);
-	    
-	    ///////////////////////////TITLE/////////////////////////////////////
-	    JLabel l2 = new JLabel(rec.getName());
-	    l2.setFont(new Font("Serif", Font.PLAIN, 40));
-	    l2.setPreferredSize(new Dimension(100,50));
-	  	    
-	    ///////////////////////////INGREDIENTS & ALERGIES/////////////////////////////////
-	    JLabel ingr = new JLabel("Ingredients:");
-	    MissingIngredientsTable model = new MissingIngredientsTable(rec.getNeededProductQuantity(), user.getAvailableGroceries(), user.getAlergies());
-	    
-	    JTable tabel = new JTable(model);
-	    
-	    tabel.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+		/////////////////////////// IMAGE//////////////////////////////////////
+		BufferedImage img = ImageIO.read(new File(rec.getImage()));
+		Image image = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		ImageIcon icon = new ImageIcon(image);
+		JLabel lbl = new JLabel();
+		lbl.setIcon(icon);
+		JPanel panelIcon = new JPanel(new MigLayout());
+		panelIcon.add(lbl, "top,wrap");
+		panelIcon.add(likes);
+
+		/////////////////////////// TITLE/////////////////////////////////////
+		JLabel l2 = new JLabel(rec.getName());
+		l2.setFont(new Font("Serif", Font.PLAIN, 40));
+		l2.setPreferredSize(new Dimension(100, 50));
+
+		/////////////////////////// INGREDIENTS &
+		/////////////////////////// ALERGIES/////////////////////////////////
+		JLabel ingr = new JLabel("Ingredients:");
+		MissingIngredientsTable model = new MissingIngredientsTable(rec.getNeededProductQuantity(),
+				user.getAvailableGroceries(), user.getAlergies());
+
+		JTable tabel = new JTable(model);
+
+		tabel.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 //=======
 //
 //		/////////////////////////// IMAGE//////////////////////////////////////
@@ -386,8 +379,8 @@ public class RecipeWindow {
 		JPanel pnl = new JPanel(new BorderLayout());
 		pnl.add(sp, BorderLayout.CENTER);
 //<<<<<<< Updated upstream
-		
-		////////////////////////////DESCRIPTION////////////////////////////////
+
+		//////////////////////////// DESCRIPTION////////////////////////////////
 		JLabel l5 = new JLabel("Instructions: ");
 //=======
 //
@@ -453,23 +446,23 @@ public class RecipeWindow {
 		rightPanel.add(eqSp, "span, wrap");
 		rightPanel.add(l5, "span,wrap");
 //<<<<<<< Updated upstream
-		rightPanel.add(areaScrollPane,"span");
-		
-		leftPanel.add(panelIcon,"top, wrap");
-		leftPanel.add(likeBtn,"split");
-		leftPanel.add(likes,"wrap");
-		leftPanel.add(prepLbl,"wrap");
+		rightPanel.add(areaScrollPane, "span");
+
+		leftPanel.add(panelIcon, "top, wrap");
+		leftPanel.add(likeBtn, "split");
+		leftPanel.add(likes, "wrap");
+		leftPanel.add(prepLbl, "wrap");
 		leftPanel.add(cookLbl, "wrap");
 		leftPanel.add(diffLbl);
-		
-		centerPanel.add(leftPanel,"top");
+
+		centerPanel.add(leftPanel, "top");
 		centerPanel.add(rightPanel, "top");
-		
+
 		upperPanel.add(backBttn, "top");
 		upperPanel.add(l2);
-		upperPanel.add(datelbl,"split");
+		upperPanel.add(datelbl, "split");
 		upperPanel.add(creatorBtn);
-		
+
 //=======
 //		rightPanel.add(areaScrollPane, "span");
 //
@@ -495,5 +488,13 @@ public class RecipeWindow {
 		mainPanel.setBackground(new Color(170, 0, 0, 50));
 
 		return mainPanel;
+	}
+
+	public ToiToiController getToiToiController() {
+		return toiToiController;
+	}
+
+	public void setToiToiController(ToiToiController toiToiController) {
+		this.toiToiController = toiToiController;
 	}
 }

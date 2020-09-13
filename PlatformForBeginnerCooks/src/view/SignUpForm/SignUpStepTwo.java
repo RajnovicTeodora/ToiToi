@@ -68,14 +68,14 @@ public class SignUpStepTwo extends JPanel {
 		this.toiToiController = toiToiController;
 		setBackground(Color.white);
 		setLayout(new MigLayout());
-		
+
 		// =====MY FRIDGE PANEL========================
 
 		createInfo((ArrayList<Product>) toiToiController.getToiToi().getProducts());
 		IngredientsFormTable ift = new IngredientsFormTable(productInfo);
 
 		tableMyFridge = new JTable(ift);
-		//tableMyFridge.setBackground(new Color(192, 229, 250));
+		// tableMyFridge.setBackground(new Color(192, 229, 250));
 		tableMyFridge.setBackground(Color.white);
 		tableMyFridge.setGridColor(new Color(185, 108, 209));
 		tableMyFridge.getTableHeader().setBackground(new Color(248, 226, 255));
@@ -495,7 +495,13 @@ public class SignUpStepTwo extends JPanel {
 				for (Equipment e : toiToiController.getToiToi().getEquipment()) {
 					if ((e.getName().compareTo(n) == 0) && (e.getCompany().compareTo(c) == 0)
 							&& (e.getDescription().compareTo(d) == 0)) {
+						if (e.getEquipmentID() == -1) {
+							int id = toiToiController.getEquipmentController()
+									.freeId((ArrayList<Equipment>) toiToiController.getToiToi().getEquipment());
+							e.setEquipmentID(id);
+						}
 						equipment.add(e);
+						toiToiController.getToiToi().addEquipment(e);
 						break;
 					}
 				}

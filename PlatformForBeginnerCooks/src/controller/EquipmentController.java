@@ -21,7 +21,7 @@ public class EquipmentController {
 		this.equipmentFile = equipmentfile;
 
 	}
-	
+
 	public void writeEquipment(ArrayList<Equipment> equipmentList) throws IOException {
 		FileOutputStream fileOut = null;
 		ObjectOutputStream objectOut = null;
@@ -46,12 +46,12 @@ public class EquipmentController {
 		try {
 			FileInputStream fileIn = new FileInputStream(equipmentFile);
 			objectIn = new ObjectInputStream(fileIn);
-			equipmentList  = (ArrayList<Equipment>) objectIn.readObject();
-		
-		}catch(Exception e) {
+			equipmentList = (ArrayList<Equipment>) objectIn.readObject();
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			if(objectIn != null)
+		} finally {
+			if (objectIn != null)
 				objectIn.close();
 		}
 		return equipmentList;
@@ -64,5 +64,25 @@ public class EquipmentController {
 
 	public void setEquipment(Equipment equipment) {
 		this.equipment = equipment;
+	}
+
+	// find the first unused recipe id
+	public int freeId(ArrayList<Equipment> equipment) {
+		int i = 1;
+		Boolean copy = false;
+		while (true) {
+			for (Equipment e : equipment) {
+				if (e.getEquipmentID() == i) {
+					copy = true;
+					break;
+				}
+			}
+			if (copy) {
+				i++;
+				copy = false;
+			} else {
+				return i;
+			}
+		}
 	}
 }

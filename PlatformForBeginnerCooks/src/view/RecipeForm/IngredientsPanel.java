@@ -254,7 +254,7 @@ public class IngredientsPanel extends JPanel {
 				products.add(nq);
 			}
 		}
-		
+
 		return products;
 	}
 }

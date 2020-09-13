@@ -100,8 +100,10 @@ public class TagsList extends JPanel implements ActionListener {
 
 	public ArrayList<Tag> confirm() {
 		ArrayList<Tag> returnT = new ArrayList<Tag>();
-		for (int i = 0; i < tags.size(); i++)
-			returnT.add(new Tag(tags.get(i)));
+		for (int i = 0; i < tags.size(); i++) {
+			Tag t = new Tag(tags.get(i));
+			returnT.add(t);
+		}
 		return returnT;
 	}
 }

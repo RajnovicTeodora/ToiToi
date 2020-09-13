@@ -111,7 +111,7 @@ public class TopRecipesPanel extends JPanel {
 			like2 = new JLabel(recipe2.getLikes() + " Likes", like, JLabel.RIGHT);
 		} else {
 			top2 = new JButton(addIcon);
-			name3 = new JLabel("None");
+			name2 = new JLabel("None");
 			user2 = new JLabel("None");
 			like2 = new JLabel("0" + " Likes", like, JLabel.RIGHT);
 		}
@@ -140,7 +140,7 @@ public class TopRecipesPanel extends JPanel {
 		if (recipes.size() >= 3) {
 			recipe3 = recipes.get(2);
 
-			Image img3 = new ImageIcon(recipe1.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+			Image img3 = new ImageIcon(recipe3.getImage()).getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
 			ImageIcon addIcon3 = new ImageIcon(img3);
 			top3 = new JButton(addIcon3);
 			name3 = new JLabel(recipe3.getName());
