@@ -2,6 +2,8 @@ package controller.Chosen;
 
 import java.util.ArrayList;
 
+import model.Tag;
+
 public class ChosenTags {
 
 	private static ArrayList<String> chosenTags = new ArrayList<String>();
@@ -26,7 +28,7 @@ public class ChosenTags {
 	}
 	
 	public static void remove_product(String pId) {
-		if(chosenTags== null || !chosenTags.contains(pId)) {
+		if(chosenTags == null || !chosenTags.contains(pId)) {
 			return;
 		}
 		chosenTags.remove(pId);

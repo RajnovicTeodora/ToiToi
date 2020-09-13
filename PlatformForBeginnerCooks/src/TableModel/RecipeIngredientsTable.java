@@ -19,10 +19,11 @@ public class RecipeIngredientsTable extends AbstractTableModel{
 	
 	public RecipeIngredientsTable(ArrayList<NeededQuantity> nqss) {
 		this.nqs =  new ArrayList<NeededQuantity>();
-		for (NeededQuantity neededQuantity : nqss) {
-			this.nqs.add(neededQuantity);
+		if(nqss != null) {
+			for (NeededQuantity neededQuantity : nqss) {
+				this.nqs.add(neededQuantity);
+			}
 		}
-		
 	}
 
 	public Collection<NeededQuantity> getNqs() {

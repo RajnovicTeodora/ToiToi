@@ -41,6 +41,8 @@ public class MainFrame extends JFrame {
 	private RecipesTab recipesTab;
 	private RecipeWindow recipeWindow;
 	private JTabbedPane tabbedPane;
+	private JPanel homePanel;
+	private CommentWindow commentWindow;
 	
 	
 	protected SignUpForm signUp = null;
@@ -69,12 +71,6 @@ public class MainFrame extends JFrame {
 		recipesTab = new RecipesTab(toiToiController);
 
 		tabbedPane = new JTabbedPane();
-
-		RecipeWindow rw = new RecipeWindow(toiToiController);
-		RecipesTab recipesTab = new RecipesTab(toiToiController);
-
-
-		JTabbedPane tabbedPane = new JTabbedPane();
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
@@ -213,6 +209,7 @@ public class MainFrame extends JFrame {
 		JPanel panel = new HomePanel(toiToiController);
 
 		panel.setBackground(new Color(200, 221, 242));
+		setHomePanel(panel);
 
 		/*
 		 * JPanel panel = new JPanel(new GridBagLayout());
@@ -305,6 +302,26 @@ public class MainFrame extends JFrame {
 
 	public void setAkter(Akter akter) {
 		this.akter = akter;
+	}
+
+
+	public JPanel getHomePanel() {
+		return homePanel;
+	}
+
+
+	public void setHomePanel(JPanel homePanel) {
+		this.homePanel = homePanel;
+	}
+
+
+	public CommentWindow getCommentWindow() {
+		return commentWindow;
+	}
+
+
+	public void setCommentWindow(CommentWindow commentWindow) {
+		this.commentWindow = commentWindow;
 	}
 
 	

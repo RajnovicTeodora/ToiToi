@@ -1,4 +1,4 @@
-package controller;
+package controller.ButtonActions;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -15,6 +15,7 @@ public class LikeButtonAction extends AbstractAction{
 	private static final long serialVersionUID = 7344829217204344593L;
 	private Recipe recipe;
 	private User user;
+	private int currentTabIndex;
 
 	public LikeButtonAction(String name, Recipe recipe, User user) {
 		super(name);
@@ -30,8 +31,8 @@ public class LikeButtonAction extends AbstractAction{
 				user.getLikedRecipes().remove(recipe);
 				
 				try {
-					MainFrame.getInstance().getTabbedPane().setComponentAt(1,  
-							MainFrame.getInstance().getRecipeWindow().createUserRecipePage(recipe, user));
+					MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(),  
+							MainFrame.getInstance().getRecipeWindow().createUserRecipePage(recipe, user, getCurrentTabIndex()));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -43,8 +44,8 @@ public class LikeButtonAction extends AbstractAction{
 			user.getLikedRecipes().add(recipe);
 			
 			try {
-				MainFrame.getInstance().getTabbedPane().setComponentAt(1,  
-						MainFrame.getInstance().getRecipeWindow().createUserRecipePage(recipe, user));
+				MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(),  
+						MainFrame.getInstance().getRecipeWindow().createUserRecipePage(recipe, user, getCurrentTabIndex()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,6 +62,14 @@ public class LikeButtonAction extends AbstractAction{
 
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
+	}
+
+	public int getCurrentTabIndex() {
+		return currentTabIndex;
+	}
+
+	public void setCurrentTabIndex(int currentTabIndex) {
+		this.currentTabIndex = currentTabIndex;
 	}
 
 }

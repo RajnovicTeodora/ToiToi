@@ -1,4 +1,4 @@
-package controller;
+package controller.ButtonActions;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import controller.Chosen.ChosenProducts;
 import controller.Chosen.ChosenTags;
 import controller.Chosen.ChosenTaste;
 import model.Recipe;
+import model.Tag;
+import model.Taste;
 import view.MainFrame;
 
 public class FilterButtonAction extends AbstractAction{
@@ -41,7 +43,7 @@ public class FilterButtonAction extends AbstractAction{
 		return searchResults;
 	}
 	
-	@SuppressWarnings({ "unlikely-arg-type" })
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		//key je koliko je kompatibilan recept sa unesenim filterom, sto vise to bolje
@@ -51,16 +53,29 @@ public class FilterButtonAction extends AbstractAction{
 		String cookTime = MainFrame.getInstance().getRecipesTab().getCookTimeField().getText();
 		String prepTime = MainFrame.getInstance().getRecipesTab().getPrepTimeField().getText();
 		
+		boolean ckbx1 = MainFrame.getInstance().getRecipesTab().getCkbx1().isSelected();
+		boolean ckbx2 = MainFrame.getInstance().getRecipesTab().getCkbx2().isSelected();
+		boolean ckbx3 = MainFrame.getInstance().getRecipesTab().getCkbx3().isSelected();
+		boolean ckbx4 = MainFrame.getInstance().getRecipesTab().getCkbx4().isSelected();
+		boolean ckbx5 = MainFrame.getInstance().getRecipesTab().getCkbx5().isSelected();
+		
 		ArrayList<String>diffChosen  = new ArrayList<String>();
-		for (JCheckBox cb : MainFrame.getInstance().getRecipesTab().getDifficultyCheckBoxes()) {
-			if(cb.isSelected()) {
-				diffChosen.add(cb.getName().substring(4));  
-			}
+		if(ckbx1) {
+			diffChosen.add("1");
+		}if(ckbx2) {
+			diffChosen.add("2");
+		}if(ckbx3) {
+			diffChosen.add("3");
+		}if(ckbx4) {
+			diffChosen.add("4");
+		}if(ckbx5) {
+			diffChosen.add("5");
 		}
+		
 		
 		IngredientsCheckBoxModel ingrModel = MainFrame.getInstance().getRecipesTab().getIngrModel();
 		for (int i = 0; i < ingrModel.getRowCount(); i++) {
-			if ((boolean) ingrModel.getValueAt(i, 3) && !ChosenProducts.containsProduct((Integer) ingrModel.getValueAt(i, 0))) {
+			if ((boolean) ingrModel.getValueAt(i, 2) && !ChosenProducts.containsProduct((Integer) ingrModel.getValueAt(i, 0))) {
 				ChosenProducts.add_product((Integer) ingrModel.getValueAt(i, 0));
 			}
 		}
@@ -76,6 +91,8 @@ public class FilterButtonAction extends AbstractAction{
 		for (int i = 0; i < tagsModel.getRowCount(); i++) {
 			if ((boolean) tagsModel.getValueAt(i, 1)) {
 				ChosenTags.add_product( (String) tagsModel.getValueAt(i, 0));
+			}else {
+				ChosenTags.remove_product((String) tagsModel.getValueAt(i, 0));
 			}
 		}
 		
@@ -84,8 +101,9 @@ public class FilterButtonAction extends AbstractAction{
 			if ((boolean) tasteModel.getValueAt(i, 1)) {
 				ChosenTaste.add_taste( (String) tasteModel.getValueAt(i, 0));
 			}else {
-				ChosenTaste.remove_taste( (String) tasteModel.getValueAt(i, 0));
+				ChosenTaste.remove_taste((String) tasteModel.getValueAt(i, 0));
 			}
+			
 		}
 		
 		
@@ -133,16 +151,29 @@ public class FilterButtonAction extends AbstractAction{
 					}
 					if(ChosenTaste.getChosenTaste()!=(null)) {
 						for (String taste : ChosenTaste.getChosenTaste()) {
-							if(!recipe.getTaste().contains(taste)) {
+							boolean contains = false;
+							for (Taste t : recipe.getTaste()) {
+								if(t.equals(Taste.valueOf(taste))) {
+									contains =true;
+								}
+							}
+							if(!contains) {
 								continue;
 							}
+							
 							searchResults = containsResult(recipe, searchResults);
 						}
 					}
 					
 					if(ChosenTags.getChosenTags()!=(null)) {
 						for (String tag : ChosenTags.getChosenTags()) {
-							if(!recipe.getTags().contains(tag)) {
+							boolean contains = false;
+							for (Tag t : recipe.getTags()) {
+								if(t.getTag().equals(tag)) {
+									contains =true;
+								}
+							}
+							if(!contains) {
 								continue;
 							}
 							searchResults = containsResult(recipe, searchResults);

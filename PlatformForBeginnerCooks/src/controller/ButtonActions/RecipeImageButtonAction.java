@@ -1,4 +1,4 @@
-package controller;
+package controller.ButtonActions;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -16,6 +16,7 @@ public class RecipeImageButtonAction  extends AbstractAction{
 	 */
 	private static final long serialVersionUID = 7344829217204344593L;
 	private Recipe recipe;
+	private int tabIndex;
 
 	public RecipeImageButtonAction() {
 		super();
@@ -25,18 +26,20 @@ public class RecipeImageButtonAction  extends AbstractAction{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		if(MainFrame.getInstance().getAkter() == null) {
-			try {
+			 
 				
-				JPanel pan = MainFrame.getInstance().getRecipeWindow().createVisitorRecipePage(getRecipe());
-				MainFrame.getInstance().getTabbedPane().setComponentAt(1, pan);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				try {
+					JPanel pan = MainFrame.getInstance().getRecipeWindow().createVisitorRecipePage(getRecipe(), getTabIndex());
+					MainFrame.getInstance().getTabbedPane().setComponentAt(getTabIndex(), pan);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 		}else {
 			try {
-				MainFrame.getInstance().getTabbedPane().setComponentAt(1,  
-						MainFrame.getInstance().getRecipeWindow().createUserRecipePage(getRecipe(), MainFrame.getInstance().getAkter()));
+				JPanel pan = MainFrame.getInstance().getRecipeWindow().createUserRecipePage(getRecipe(), MainFrame.getInstance().getAkter(), getTabIndex());
+				MainFrame.getInstance().getTabbedPane().setComponentAt(getTabIndex(), pan);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -52,6 +55,15 @@ public class RecipeImageButtonAction  extends AbstractAction{
 		this.recipe = recipe;
 	}
 
+	public int getTabIndex() {
+		return tabIndex;
+	}
+
+	public void setTabIndex(int tabIndex) {
+		this.tabIndex = tabIndex;
+	}
+
+	
 	
 	
 }

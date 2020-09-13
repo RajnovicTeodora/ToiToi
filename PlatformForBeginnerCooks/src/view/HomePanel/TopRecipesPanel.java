@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.ButtonActions.RecipeImageButtonAction;
 import model.Recipe;
 import net.miginfocom.swing.MigLayout;
 
@@ -81,17 +83,22 @@ public class TopRecipesPanel extends JPanel {
 		top1.setContentAreaFilled(false);
 		// top1.setBorderPainted(false);
 		top1.setToolTipText("Go to recipe");
-		top1.addActionListener(new ActionListener() {
+		RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
+		recAction1.setTabIndex(0);
+		recAction1.setRecipe(recipe1);
+		top1.setMnemonic(KeyEvent.VK_ENTER);
+		top1.addActionListener(recAction1);
+		/*top1.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (recipes.size() >= 1) {
-					// TODO recipe exits, so link it here
+					// TODO recipe exits, so link it here OLJA
 				}
 
 			}
 
-		});
+		});*/
 
 		panel1.add(top1, "wrap");
 		panel1.add(name1, "wrap");
@@ -118,17 +125,22 @@ public class TopRecipesPanel extends JPanel {
 
 		top2.setContentAreaFilled(false);
 		// top2.setBorderPainted(false);
-		top2.setToolTipText("Go to recipe"); // TODO link to recipe page
+		top2.setToolTipText("Go to recipe"); 
+		RecipeImageButtonAction recAction2 = new RecipeImageButtonAction();
+		recAction2.setTabIndex(0);
+		recAction2.setRecipe(recipe2);
+		top2.setMnemonic(KeyEvent.VK_ENTER);
+		top2.addActionListener(recAction2);/*
 		top2.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (recipes.size() >= 2) {
-					// TODO recipe exits, so link it here
+					// TODO recipe exits, so link it here OLJA
 				}
 			}
 
-		});
+		});*/
 
 		panel2.add(top2, "wrap");
 		panel2.add(name2, "wrap");
@@ -155,17 +167,22 @@ public class TopRecipesPanel extends JPanel {
 
 		top3.setContentAreaFilled(false);
 		// top3.setBorderPainted(false);
-		top3.setToolTipText("Go to recipe"); // TODO link to recipe page
+		top3.setToolTipText("Go to recipe"); 
+		RecipeImageButtonAction recAction3 = new RecipeImageButtonAction();
+		recAction3.setTabIndex(0);
+		recAction3.setRecipe(recipe3);
+		top3.setMnemonic(KeyEvent.VK_ENTER);
+		top3.addActionListener(recAction3);/*
 		top3.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (recipes.size() >= 3) {
-					// TODO recipe exits, so link it here
+					// TODO recipe exits, so link it here OLJA
 				}
 			}
 
-		});
+		});*/
 		panel3.add(top3, "wrap");
 		panel3.add(name3, "wrap");
 		panel3.add(user3, "wrap");
