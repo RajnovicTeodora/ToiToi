@@ -1,4 +1,4 @@
-package view;
+package view.ProfileWindow;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -114,6 +114,7 @@ public class ProfileWindow {
 		tabbedPane.setBounds(10, 90, 650, 600);
 		tabbedPane.addTab("Recipes", createRecipesPanel(true));
 		tabbedPane.addTab("Cookbooks", createCookBookPanel(true));
+		tabbedPane.addTab("Liked Recipes", createLikedRecipesPanel());
 		tabbedPane.addTab("My Fridge", createMyFridgePanel());
 		tabbedPane.addTab("My Equipment", createMyEquipmentPanel());
 		tabbedPane.addTab("My info", createMyInfoPanel());
@@ -123,6 +124,60 @@ public class ProfileWindow {
 		panel.add(tabbedPane);
 		return panel;
 
+	}
+	
+	private JPanel createLikedRecipesPanel() throws IOException {
+		JPanel panel = new JPanel(new MigLayout());
+
+		ImageIcon recipeIcon = new ImageIcon("./img/like.png");
+		JLabel naslov = new JLabel("Liked Recipes");
+		naslov.setIcon(recipeIcon);
+		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
+		panel.add(naslov, "gapleft 200");
+
+		ArrayList<JButton> dugmici = new ArrayList<JButton>();
+		Font f = new Font("Serif", Font.ITALIC, 20);
+
+
+		Color c = new Color(204, 255, 255);
+
+
+
+		JPanel panel2 = new JPanel(new MigLayout());
+
+		int brojac = 1;
+		for (Recipe r : user.getLikedRecipes()) {
+			
+		
+			BufferedImage img = ImageIO.read(new File(r.getImage()));
+			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+			ImageIcon icon = new ImageIcon(image);
+
+			JButton dugmic = new JButton(icon);
+			dugmici.add(dugmic); // mozda nece trebati
+			dugmic.setBackground(c);
+
+			dugmic.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// ovde se poziva funkcija za prikaz celog recepta!
+				}
+			
+			});
+
+			JLabel naziv = new JLabel(r.getName());
+			naziv.setFont(f);
+
+			JLabel br = new JLabel(brojac + ".");
+			br.setFont(f);
+			panel2.add(br, "gapleft 10");
+			panel2.add(dugmic, "gapleft 30, gaptop 30");
+			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
+			brojac++;
+			
+		}
+		
+		panel.add(panel2, "span, wrap");
+		return panel;
 	}
 
 
@@ -152,6 +207,9 @@ public class ProfileWindow {
 				}
 			});
 			panel.add(dodaj, "gapleft 100, wrap");
+		}
+		else {
+			panel.add(new JLabel(), "span, wrap");
 		}
 
 
@@ -284,6 +342,9 @@ public class ProfileWindow {
 				}
 			});
 			panel.add(dodaj, "gapleft 30, wrap");
+		}
+		else {
+			panel.add(new JLabel(), "span, wrap");
 		}
 
 		JPanel panel2 = new JPanel(new MigLayout());

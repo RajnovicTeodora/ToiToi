@@ -2,6 +2,7 @@ package view;
 
 import net.miginfocom.swing.MigLayout;
 import view.HomePanel.HomePanel;
+import view.ProfileWindow.ProfileWindow;
 import view.RecipeForm.RecipeForm;
 import view.SignUpForm.SignUpForm;
 
@@ -28,6 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import controller.ToiToiController;
+import model.Admin;
 import model.Akter;
 
 public class MainFrame extends JFrame {
@@ -152,16 +154,19 @@ public class MainFrame extends JFrame {
 						akter = signIn.getAkter();
 
 						if (akter != null) {
-							ProfileWindow pw = new ProfileWindow(akter, toiToiController);
-							try {
-								tabbedPane.addTab("", pw.createMyProfilePage());
-							} catch (IOException e1) {
-								e1.printStackTrace();
+							if(akter.getClass() != Admin.class) {
+								ProfileWindow pw = new ProfileWindow(akter, toiToiController);
+								try {
+									tabbedPane.addTab("", pw.createMyProfilePage());
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
+								JLabel lab4 = new JLabel("My profile");
+								lab4.setFont(f);
+								lab4.setPreferredSize(d);
+								tabbedPane.setTabComponentAt(3, lab4);
 							}
-							JLabel lab4 = new JLabel("My profile");
-							lab4.setFont(f);
-							lab4.setPreferredSize(d);
-							tabbedPane.setTabComponentAt(3, lab4);
+							
 						}
 					}
 

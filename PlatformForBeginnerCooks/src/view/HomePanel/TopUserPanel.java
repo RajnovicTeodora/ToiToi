@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -21,7 +22,7 @@ import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 import view.MainFrame;
-import view.ProfileWindow;
+import view.ProfileWindow.ProfileWindow;
 
 public class TopUserPanel extends JPanel {
 
@@ -112,16 +113,20 @@ public class TopUserPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				if (user != null) {
 					//TODO ovo cu ja popravi <33
-					
-//					JDialog profil = new JDialog();
-//					profil.setSize(700, 700);
-//					ProfileWindow pw  = new ProfileWindow(user, MainFrame.toiToiController);
-//					try {
-//						profil.add(pw.createOtherUserProfilePage());
-//						profil.setVisible(true);
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
+					ImageIcon logo = new ImageIcon("./img/logo.png");
+					JFrame prozor = new JFrame();
+					prozor.setSize(700, 700);
+					prozor.setLocationRelativeTo(null);
+					prozor.setIconImage(logo.getImage());
+					ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
+					try {
+						prozor.add(pw.createOtherUserProfilePage());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					prozor.setVisible(true);
+
 //					}
 				}
 			}
