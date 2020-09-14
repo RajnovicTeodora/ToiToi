@@ -1,6 +1,7 @@
 package view;
 
 import net.miginfocom.swing.MigLayout;
+import view.CookBookPanel.CookBookPanel;
 import view.HomePanel.HomePanel;
 import view.ProfileWindow.ProfileWindow;
 import view.RecipeForm.RecipeForm;
@@ -40,7 +41,7 @@ public class MainFrame extends JFrame {
 	private Akter akter = null;
 	private RecipesTab recipesTab;
 	private RecipeWindow recipeWindow;
-	private JTabbedPane tabbedPane;
+	public static JTabbedPane tabbedPane;
 	private JPanel homePanel;
 	private CommentWindow commentWindow;
 	
@@ -56,7 +57,7 @@ public class MainFrame extends JFrame {
 	}
 
 
-	private void initialize() {
+	private void initialize() throws IOException {
 		this.setSize(700, 700);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -86,12 +87,9 @@ public class MainFrame extends JFrame {
 
 			e.printStackTrace();
 		}
-		try {
-			tabbedPane.addTab("", createPage2());
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		tabbedPane.addTab("", CookBookPanel.createCookBookPanel(toiToiController.getCbController().sortByLikes(toiToiController.getToiToi().getCookBooks())));
+		
+		
 		pan.add(tabbedPane, BorderLayout.CENTER);
 		Font f = new Font("Serif", Font.PLAIN, 20);
 		Dimension d = new Dimension(100, 30);
@@ -230,19 +228,6 @@ public class MainFrame extends JFrame {
 
 		return panel;
 	}
-
-	public JPanel createPage2() throws IOException {
-
-		JPanel breakfast = new JPanel();
-		breakfast.setLayout(new BorderLayout());
-		breakfast.add(new JButton("North"), BorderLayout.NORTH);
-		breakfast.add(new JButton("South"), BorderLayout.SOUTH);
-		breakfast.add(new JButton("East"), BorderLayout.EAST);
-		breakfast.add(new JButton("West"), BorderLayout.WEST);
-		breakfast.add(new JButton("Center"), BorderLayout.CENTER);
-		return breakfast;
-	}
-
 
 
 	public static MainFrame getInstance() {

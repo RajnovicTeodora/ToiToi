@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import controller.ToiToiController;
@@ -77,6 +78,7 @@ public class ProfileWindow {
 		
 		tabbedPane.addTab("Recipes", createRecipesPanel(false));
 		tabbedPane.addTab("Cookbooks", createCookBookPanel(false));
+		tabbedPane.addTab("Liked Recipes", createLikedRecipesPanel());
 
 		panel.add(profilePhoto);
 		panel.add(imePrezime);
@@ -241,12 +243,12 @@ public class ProfileWindow {
 			br.setFont(f);
 			panel2.add(br, "gapleft 10");
 			panel2.add(dugmic, "gapleft 30, gaptop 30");
-			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
+			panel2.add(naziv, "gapleft 50, gaptop 30, gapright 250, wrap");
 			brojac++;
 			
 		}
-		
-		panel.add(panel2, "span, wrap");
+		JScrollPane jsp = new JScrollPane(panel2);
+		panel.add(jsp, "span, grow, wrap");
 		return panel;
 	}
 
@@ -264,7 +266,7 @@ public class ProfileWindow {
 		edit.setBounds(500, 10, 130, 40);
 		edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ovde se poziva funkcija za edit profila
+				new EditProfile(user);
 			}
 		});
 
@@ -372,11 +374,12 @@ public class ProfileWindow {
 			br.setFont(f);
 			panel2.add(br, "gapleft 10");
 			panel2.add(dugmic, "gapleft 30, gaptop 30");
-			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
+			panel2.add(naziv, "gapleft 50, gaptop 30, gapright 250, wrap");
 			brojac++;
 
 		}
-		panel.add(panel2, "span, wrap");
+		JScrollPane jsp = new JScrollPane(panel2);
+		panel.add(jsp, "span, wrap");
 		return panel;
 	}
 

@@ -2,6 +2,7 @@ package view.HomePanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 import controller.RecipeController;
@@ -22,6 +24,7 @@ import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 import view.MainFrame;
+import view.ProfileWindow.ButtonTabComponent;
 import view.ProfileWindow.ProfileWindow;
 
 public class TopUserPanel extends JPanel {
@@ -112,22 +115,24 @@ public class TopUserPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (user != null) {
-					//TODO ovo cu ja popravi <33
-					ImageIcon logo = new ImageIcon("./img/logo.png");
-					JFrame prozor = new JFrame();
-					prozor.setSize(700, 700);
-					prozor.setLocationRelativeTo(null);
-					prozor.setIconImage(logo.getImage());
-					ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
-					try {
-						prozor.add(pw.createOtherUserProfilePage());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					
+					if(MainFrame.getInstance().getAkter() !=null && MainFrame.getInstance().getAkter().getUsername() == user.getUsername()) {
+						MainFrame.tabbedPane.setSelectedIndex(3);
 					}
-					prozor.setVisible(true);
-
-//					}
+					else {
+						ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
+						
+						try {
+							MainFrame.tabbedPane.add("", pw.createOtherUserProfilePage());
+							
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+						MainFrame.tabbedPane.setTabComponentAt(MainFrame.tabbedPane.getTabCount()-1,  new ButtonTabComponent(MainFrame.tabbedPane, user.getName()+ " " +user.getSurname()));
+					}
+					
+					
 				}
 			}
 

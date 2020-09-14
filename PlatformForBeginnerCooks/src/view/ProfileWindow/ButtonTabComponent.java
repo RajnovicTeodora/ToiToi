@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -27,8 +28,8 @@ public class ButtonTabComponent extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	private final JTabbedPane pane;
-
-    public ButtonTabComponent(final JTabbedPane pane)  {
+	
+	public ButtonTabComponent(final JTabbedPane pane, String naslov)  {
         //unset default FlowLayout' gaps
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
         if (pane == null) {
@@ -37,22 +38,19 @@ public class ButtonTabComponent extends JPanel{
         this.pane = pane;
         setOpaque(false);
         
+       
         //make JLabel read titles from JTabbedPane
         JLabel label = new JLabel() {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
+            
+        	private static final long serialVersionUID = 1L;
+			
 
 			public String getText() {
-                int i = pane.indexOfTabComponent(ButtonTabComponent.this);
-                if (i != -1) {
-                    return pane.getTitleAt(i);
-                }
-                return null;
+                return naslov;
             }
         };
-        
+        label.setFont(new Font("Serif", Font.PLAIN, 20));
+        label.setPreferredSize(new Dimension(100, 30));
         add(label);
         //add more space between the label and the button
         label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));

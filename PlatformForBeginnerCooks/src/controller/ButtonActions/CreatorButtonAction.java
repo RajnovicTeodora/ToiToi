@@ -6,7 +6,11 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.JPanel;
 
+import model.Akter;
+import model.User;
 import view.MainFrame;
+import view.ProfileWindow.ButtonTabComponent;
+import view.ProfileWindow.ProfileWindow;
 
 public class CreatorButtonAction extends AbstractAction{
 	
@@ -24,15 +28,31 @@ public class CreatorButtonAction extends AbstractAction{
 
 	public void actionPerformed(ActionEvent arg0) {
 		
-		if(MainFrame.getInstance().getAkter() == null) {
+		if(MainFrame.getInstance().getAkter() == null || !MainFrame.getInstance().getAkter().getUsername().equalsIgnoreCase(username)) {
 			
-			JPanel pan = new JPanel();
-			///////////////napravi odgovarajuci panel i iskoristi ovo dole da se prikaze u Recipes/////////////////////
-			MainFrame.getInstance().getTabbedPane().setComponentAt(1, pan);
+
+			User user = MainFrame.toiToiController.getUserController().getUser();
+			
+			for(Akter u : MainFrame.toiToiController.getToiToi().getUsers()) {
+				if(u.getUsername().equalsIgnoreCase(this.username)) {
+					user = (User) u;
+				}
+			}
+			
+			ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
+			
+			try {
+				MainFrame.tabbedPane.add("", pw.createOtherUserProfilePage());
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			MainFrame.tabbedPane.setTabComponentAt(MainFrame.tabbedPane.getTabCount()-1,  new ButtonTabComponent(MainFrame.tabbedPane, user.getName()+ " " +user.getSurname()));
 			
 		}
-		else if(MainFrame.getInstance().getAkter().getUsername() == username) {
-			//TODO
+		else if(MainFrame.getInstance().getAkter().getUsername().equalsIgnoreCase(username)) {
+			MainFrame.tabbedPane.setSelectedIndex(3);
 		}
 		
 	}

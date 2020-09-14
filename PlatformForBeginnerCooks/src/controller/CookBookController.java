@@ -6,9 +6,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import model.Comment;
 import model.CookBook;
+import model.Recipe;
 
 public class CookBookController {
 	
@@ -70,6 +73,36 @@ public class CookBookController {
 		}
 		return cbList;
 
+	}
+	
+	public List<CookBook> sortByLikes(List<CookBook> cb) {
+		cb.sort(new Comparator<CookBook>() {
+
+			@Override
+			public int compare(CookBook cb1, CookBook cb2) {
+				if (cb1.getLikes()+cb1.getComments().size() >= cb2.getLikes()+cb2.getComments().size())
+					return -1;
+				return 0;
+
+			}
+		});
+
+		return cb;
+	}
+	
+	public List<CookBook> sortByName(List<CookBook> cb, String name) {
+		cb.sort(new Comparator<CookBook>() {
+
+			@Override
+			public int compare(CookBook cb1, CookBook cb2) {
+				if (cb1.getName().equalsIgnoreCase(name) && !cb2.getName().equalsIgnoreCase(name))
+					return 0;
+				return -1;
+
+			}
+		});
+
+		return cb;
 	}
 
 }

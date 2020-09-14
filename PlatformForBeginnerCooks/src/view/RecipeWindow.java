@@ -234,8 +234,8 @@ public class RecipeWindow {
 		ImageIcon userIcon =new ImageIcon("./img/smalluser.png");
 		JButton creatorBtn = new JButton(rec.getCreator().getUsername(), userIcon);
 		creatorBtn.addActionListener(new CreatorButtonAction(rec.getCreator().getUsername()));
-		creatorBtn.setContentAreaFilled(false);
-		creatorBtn.setBorderPainted(false);
+//		creatorBtn.setContentAreaFilled(false);
+//		creatorBtn.setBorderPainted(false);
 		creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
 		creatorBtn.setToolTipText("View user");
 		

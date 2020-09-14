@@ -49,6 +49,7 @@ public class ToiToiController {
 		super();
 
 	}
+	
 
 	public void writteData() {
 
