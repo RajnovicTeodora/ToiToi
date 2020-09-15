@@ -40,6 +40,7 @@ public class ProfileWindow {
 
 	private ToiToiController toitoiController;
 	private User user;
+	private int currentTabIndex;//treba za recipeWindow jer profileWindow se moze pojaviti na indexu 3 i 4
 
 	public ProfileWindow(Akter a, ToiToiController ttc) {
 		super();
@@ -160,12 +161,18 @@ public class ProfileWindow {
 			dugmici.add(dugmic); // mozda nece trebati
 			dugmic.setBackground(c);
 
-			dugmic.addActionListener(new ActionListener() {
+			RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
+			recAction1.setTabIndex(getCurrentTabIndex());///TODO veza na recepte-odradjeno
+			recAction1.setRecipe(r);
+			dugmic.setMnemonic(KeyEvent.VK_ENTER);
+			dugmic.addActionListener(recAction1);
+			
+			/*dugmic.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// ovde se poziva funkcija za prikaz celog recepta!
 				}
 			
-			});
+			});*/
 
 			JLabel naziv = new JLabel(r.getName());
 			naziv.setFont(f);
@@ -230,11 +237,11 @@ public class ProfileWindow {
 			dugmici.add(dugmic); // mozda nece trebati
 			dugmic.setBackground(c);
 			
-			/*RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
-			recAction1.setTabIndex(3);///TODO dodaj currentTabIndex
-			recAction1.setRecipe(r);
+			RecipeImageButtonAction recAction2 = new RecipeImageButtonAction();
+			recAction2.setTabIndex(getCurrentTabIndex());///TODO veza na recepte-odradjeno
+			recAction2.setRecipe(r);
 			dugmic.setMnemonic(KeyEvent.VK_ENTER);
-			dugmic.addActionListener(recAction1);*/
+			dugmic.addActionListener(recAction2);
 			
 			/*dugmic.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -514,5 +521,13 @@ public class ProfileWindow {
 		panel2.add(jsp, "span");
 		panel.add(panel2, "span,gaptop 30, wrap");
 		return panel;
+	}
+
+	public int getCurrentTabIndex() {
+		return currentTabIndex;
+	}
+
+	public void setCurrentTabIndex(int currentTabIndex) {
+		this.currentTabIndex = currentTabIndex;
 	}
 }

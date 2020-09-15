@@ -41,6 +41,7 @@ public class MainFrame extends JFrame {
 	private JPanel homePanel;
 	private CommentWindow commentWindow;
 	private EditRecipeWindow editRecipe;
+	private ProfileWindow profileForVisitor;
 	
 	private JPanel pan1;
 	public static ProfileWindow pw;
@@ -94,7 +95,12 @@ public class MainFrame extends JFrame {
 
 			e.printStackTrace();
 		}
-		tabbedPane.addTab("", CookBookPanel.createCookBookPanel(toiToiController.getCbController().sortByLikes(toiToiController.getToiToi().getCookBooks())));
+		try {
+			tabbedPane.addTab("", CookBookPanel.createCookBookPanel(toiToiController.getCbController().sortByLikes(toiToiController.getToiToi().getCookBooks())));
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		
 		pan.add(tabbedPane, BorderLayout.CENTER);
@@ -177,6 +183,7 @@ public class MainFrame extends JFrame {
 						if (akter != null) {
 							if(akter.getClass() != Admin.class) {
 								pw = new ProfileWindow(akter, toiToiController);
+								pw.setCurrentTabIndex(3);
 								try {
 									tabbedPane.addTab("", pw.createMyProfilePage());
 								} catch (IOException e1) {
@@ -199,9 +206,9 @@ public class MainFrame extends JFrame {
 
 			}
 		});
-		
+		pan1.setPreferredSize(new Dimension(710, 80));
 		pan1.add(title, "gapleft 150");
-		pan1.add(signUpBttn, "gapleft 100");
+		pan1.add(signUpBttn, "gapleft 120");//"gapleft 100"
 		pan1.add(logInBttn);
 
 		JPanel masterPan = new JPanel();
@@ -227,7 +234,7 @@ public class MainFrame extends JFrame {
 		pan1.remove(signUpBttn);
 		pan1.repaint();
 		logOutBttn =  new JButton("Log out");
-		pan1.add(logOutBttn, "gapleft 100");
+		pan1.add(logOutBttn, "gapleft 190");
 				
 		logOutBttn.addActionListener(new ActionListener() {
 
@@ -236,6 +243,7 @@ public class MainFrame extends JFrame {
 				
 				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Confirm Log Out", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, new ImageIcon("./img/signOut.png"));
 				if (reply == JOptionPane.YES_OPTION) {
+					toiToiController.writteData();
 					akter = null;
 					tabbedPane.remove(3);
 					loggedOutUser();
@@ -249,7 +257,7 @@ public class MainFrame extends JFrame {
 	private void loggedOutUser() {
 		pan1.remove(logOutBttn);
 		pan1.repaint();
-		pan1.add(signUpBttn, "gapleft 100");
+		pan1.add(signUpBttn, "gapleft 120");
 		pan1.add(logInBttn);
 
 	}
@@ -344,7 +352,19 @@ public class MainFrame extends JFrame {
 		this.editRecipe = editRecipe;
 	}
 
-	
+
+
+	public ProfileWindow getProfileForVisitor() {
+		return profileForVisitor;
+	}
+
+
+
+	public void setProfileForVisitor(ProfileWindow profileForVisitor) {
+		this.profileForVisitor = profileForVisitor;
+	}
+
+
 	
 	
 }

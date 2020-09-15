@@ -65,7 +65,7 @@ public class ToiToiController {
 		
 		
 		
-		  Equipment e1 = new Equipment(1, "Serpa", "Metalac",
+		  /*Equipment e1 = new Equipment(1, "Serpa", "Metalac",
 		  "Duboka serpa, precnik 5cm"); Equipment e2 = new Equipment(2, "Tanjir",
 		  "Home", "Beli tanjir, precnik 10, keramika"); Equipment e3 = new Equipment(3,
 		  "Tepsija", "Metalac", "precnik 10");
@@ -246,7 +246,7 @@ public class ToiToiController {
 		  cb.setDate(d1); cb.setLikes(100); cb.setRecipes(recipeList);
 		  cb.setComments(commentList); ArrayList<CookBook> cbList = new
 		  ArrayList<CookBook>(); u1.setCookBooks(cbList); cbList.add(cb);
-		  u1.setCookBooks(cbList);
+		  u1.setCookBooks(cbList);*/
 		 
 		 
 		 
@@ -256,18 +256,18 @@ public class ToiToiController {
 		try {
 			
 			
-			  this.equipmentController.writeEquipment(equipmentList);
+			  /*this.equipmentController.writeEquipment(equipmentList);
 			  this.productController.writeProducts(ingredients1);
 			  this.tagController.writeTags(tagList);
 			  this.akterController.writeAkters(userList);
 			  this.commentController.writeComments(commentList);
 			  this.recipeController.writeRecipes(recipeList);
-			  this.cbController.writeCookBook(cbList); this.nqController.writeNQ(nqList);
+			  this.cbController.writeCookBook(cbList); this.nqController.writeNQ(nqList);*/
 			 
 			 
 
 			
-			  /*this.equipmentController.writeEquipment((ArrayList<Equipment>)toiToi.getEquipment());
+			  this.equipmentController.writeEquipment((ArrayList<Equipment>)toiToi.getEquipment());
 			  this.productController.writeProducts((ArrayList<Product>)toiToi.getProducts());
 			  this.tagController.writeTags((ArrayList<Tag>)toiToi.getTags());
 			  //System.out.println(toiToi.getUsers());
@@ -275,7 +275,7 @@ public class ToiToiController {
 			  //this.commentController.writeComments(toiToi.get;
 			  this.recipeController.writeRecipes((ArrayList<Recipe>) toiToi.getRecipe());
 			  this.cbController.writeCookBook((ArrayList<CookBook>) toiToi.getCookBooks());
-			  // this.nqController.writeNQ(toi);*/
+			  // this.nqController.writeNQ(toi);
 			 		} catch (IOException e) {
 
 			e.printStackTrace();

@@ -1,14 +1,18 @@
 package controller.ButtonActions;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import model.Recipe;
 import model.User;
 import view.MainFrame;
+import view.HomePanel.HomePanel;
+import view.ProfileWindow.ProfileWindow;
 
 public class LikeButtonAction extends AbstractAction{
 	
@@ -49,6 +53,8 @@ public class LikeButtonAction extends AbstractAction{
 				MainFrame.getInstance().getToiToiController().getToiToi().replaceUser(tmpUser);
 				MainFrame.getInstance().setAkter(tmpUser);
 				setUser(tmpUser);
+				updateHomeTab();
+				updateProfiletab();
 				
 				try {
 					MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(),  
@@ -70,6 +76,8 @@ public class LikeButtonAction extends AbstractAction{
 			MainFrame.getInstance().getToiToiController().getToiToi().replaceUser( tmpUser);
 			MainFrame.getInstance().setAkter(tmpUser);
 			setUser(tmpUser);
+			updateHomeTab();
+			updateProfiletab();
 			
 			try {
 				
@@ -82,6 +90,27 @@ public class LikeButtonAction extends AbstractAction{
 			
 		}
 		
+		
+	}
+	
+	public void updateHomeTab() {
+		JPanel panl = new HomePanel(MainFrame.getInstance().getToiToiController());
+		panl.setBackground(new Color(200, 221, 242));
+		MainFrame.getInstance().setHomePanel(panl);
+		MainFrame.getInstance().getTabbedPane().setComponentAt(0, panl);
+	}
+	
+	
+	public void updateProfiletab() {
+		ProfileWindow pw = new ProfileWindow(MainFrame.getInstance().getAkter(), MainFrame.getInstance().getToiToiController());
+		JPanel pan = new JPanel();
+		try {
+			pan = pw.createMyProfilePage();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		MainFrame.getInstance().getTabbedPane().setComponentAt(3, pan);
 		
 	}
 

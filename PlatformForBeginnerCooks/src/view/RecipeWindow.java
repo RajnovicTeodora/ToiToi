@@ -81,7 +81,7 @@ public class RecipeWindow {
 		JLabel datelbl = new JLabel("  created " + recipe.getDateCreated().toString() + " by:");
 		
 		ImageIcon userIcon =new ImageIcon("./img/smalluser.png");
-		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\"><U>"+recipe.getCreator().getUsername()+"</U></FONT></HTML>", userIcon);
+		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\">"+recipe.getCreator().getUsername()+"</FONT></HTML>", userIcon);
 		CreatorButtonAction cra = new CreatorButtonAction();
 		cra.setRecipeCreator(recipe.getCreator());
 		cra.setCurrentTabIndex(getCurrentTabIndex());
@@ -133,7 +133,7 @@ public class RecipeWindow {
 	    };
 	    JTable tabel = new JTable(model);
 	    tabel.setAutoCreateRowSorter(true);
-	    tabel.getTableHeader().setBackground(new Color(150, 0, 0, 30));
+	    tabel.getTableHeader().setBackground(new Color(240, 210, 255));
 	    tabel.getColumn("Essential").setPreferredWidth(2);
 	    tabel.getColumn("Quantity").setPreferredWidth(3);
 
@@ -184,7 +184,7 @@ public class RecipeWindow {
 		///////////////////////////// EQUIPMENT////////////////////////////////
 		RecipeEquipmentTable eqModel = new RecipeEquipmentTable((ArrayList<Equipment>) recipe.getEquipment());
 		JTable eqTable = new JTable(eqModel);
-		eqTable.getTableHeader().setBackground(new Color(150, 0, 0, 30));
+		eqTable.getTableHeader().setBackground(new Color(240, 210, 255));
 		eqTable.setAutoCreateRowSorter(true);
 		JScrollPane eqSp = new JScrollPane(eqTable);
 		eqSp.setPreferredSize(new Dimension(400, 215));
@@ -227,7 +227,7 @@ public class RecipeWindow {
 		
 		upperPanel.add(datelbl," split");
 		upperPanel.add(creatorBtn);
-		upperPanel.setBackground(new Color(150, 0, 0, 30));
+		upperPanel.setBackground(new Color(240, 210, 255));
 
 		bottomPanel.add(comsLabel, "wrap");
 		bottomPanel.add(commentAreaScrollPane, "growx");
@@ -267,7 +267,7 @@ public class RecipeWindow {
 		
 		ImageIcon userIcon =new ImageIcon("./img/smalluser.png");
 
-		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\"><U>"+rec.getCreator().getUsername()+"</U></FONT></HTML>", userIcon);
+		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\">"+rec.getCreator().getUsername()+"</FONT></HTML>", userIcon);
 		CreatorButtonAction cra = new CreatorButtonAction();
 		cra.setRecipeCreator(rec.getCreator());
 		cra.setCurrentTabIndex(getCurrentTabIndex());
@@ -335,7 +335,7 @@ public class RecipeWindow {
 	    tabel.getColumn("Essential").setPreferredWidth(3);
 	    tabel.getColumn("Quantity").setPreferredWidth(4);
 	    tabel.getColumn("In MyFridge").setPreferredWidth(3);
-	    tabel.getTableHeader().setBackground(new Color(150, 0, 0, 30));
+	    tabel.getTableHeader().setBackground(new Color(240, 210, 255));
 	    tabel.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
 			/**
@@ -418,7 +418,7 @@ public class RecipeWindow {
 		///////////////////////////// EQUIPMENT////////////////////////////////
 		MissingEquipmentTable eqModel = new MissingEquipmentTable(rec.getEquipment(), user.getEquipment());
 		JTable eqTabel = new JTable(eqModel);
-		eqTabel.getTableHeader().setBackground(new Color(150, 0, 0, 30));
+		eqTabel.getTableHeader().setBackground(new Color(240, 210, 255));
 		eqTabel.setAutoCreateRowSorter(true);
 		eqTabel.getColumn("In MyTools").setPreferredWidth(3);
 		JScrollPane eqSp = new JScrollPane(eqTabel);
@@ -468,7 +468,7 @@ public class RecipeWindow {
 		upperPanel.add(l2,"skip, wrap");		
 		upperPanel.add(datelbl," split");
 		upperPanel.add(creatorBtn);
-		upperPanel.setBackground(new Color(150, 0, 0, 30));
+		upperPanel.setBackground(new Color(240, 210, 255));
 		
 		bottomPanel.add(comsLabel, "wrap");
 		bottomPanel.add(commentAreaScrollPane, "growx");

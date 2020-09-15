@@ -30,33 +30,51 @@ public class CreatorButtonAction extends AbstractAction{
 
 	public void actionPerformed(ActionEvent arg0) {
 		
-		if(MainFrame.getInstance().getAkter() == null || !MainFrame.getInstance().getAkter().getUsername().equalsIgnoreCase(username)) {
+		if(MainFrame.getInstance().getAkter() == null || !MainFrame.getInstance().getAkter().getUsername().equalsIgnoreCase(recipeCreator.getUsername())) {
 			
 
-			User user = MainFrame.toiToiController.getUserController().getUser();
+			User user = MainFrame.getInstance().getToiToiController().getUserController().getUser();
 			
-			for(Akter u : MainFrame.toiToiController.getToiToi().getUsers()) {
-				if(u.getUsername().equalsIgnoreCase(this.username)) {
+			for(Akter u : MainFrame.getInstance().getToiToiController().getToiToi().getUsers()) {
+				if(u.getUsername().equalsIgnoreCase(recipeCreator.getUsername())) {
 					user = (User) u;
 				}
 			}
-			
-			ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
-			
-			try {
-				MainFrame.tabbedPane.add("", pw.createOtherUserProfilePage());
+			int i = MainFrame.getInstance().getTabbedPane().getTabCount();  //samo 3 jer zbog 1.if ne upadaju ulogovani  
+			if(i != 3 && MainFrame.getInstance().getProfileForVisitor()!=null) {
+				MainFrame.getInstance().setProfileForVisitor(new ProfileWindow(user, MainFrame.toiToiController));
 				
-			} catch (IOException e) {
-				e.printStackTrace();
+				MainFrame.getInstance().getTabbedPane().setTabComponentAt(MainFrame.tabbedPane.getTabCount()-1,
+						new ButtonTabComponent(MainFrame.tabbedPane, user.getName()+ " " +user.getSurname()));
+				try {
+					MainFrame.getInstance().getTabbedPane().setComponentAt(MainFrame.tabbedPane.getTabCount()-1, 
+							MainFrame.getInstance().getProfileForVisitor().createOtherUserProfilePage());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else {
+				MainFrame.getInstance().setProfileForVisitor(new ProfileWindow(user, MainFrame.toiToiController));
+				MainFrame.getInstance().getProfileForVisitor().setCurrentTabIndex(MainFrame.tabbedPane.getTabCount());
+				try {
+					MainFrame.getInstance().getTabbedPane().add("", MainFrame.getInstance().getProfileForVisitor().createOtherUserProfilePage());
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				MainFrame.getInstance().getTabbedPane().setTabComponentAt(MainFrame.tabbedPane.getTabCount()-1,
+						new ButtonTabComponent(MainFrame.tabbedPane, user.getName()+ " " +user.getSurname()));
 			}
 			
-			MainFrame.tabbedPane.setTabComponentAt(MainFrame.tabbedPane.getTabCount()-1,  new ButtonTabComponent(MainFrame.tabbedPane, user.getName()+ " " +user.getSurname()));
+			
+			
 			
 		}
-		else if(MainFrame.getInstance().getAkter().getUsername().equalsIgnoreCase(username)) {
+		else if(MainFrame.getInstance().getAkter().getUsername().equalsIgnoreCase(recipeCreator.getUsername())) {
 			MainFrame.tabbedPane.setSelectedIndex(3);
 
-		}
+		}//else if(ulogovan al ne gleda svoj profil)
 		
 		
 	}

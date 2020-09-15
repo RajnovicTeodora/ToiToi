@@ -16,6 +16,7 @@ import model.Akter;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
+import view.MainFrame;
 
 public class HomePanel extends JPanel {
 
@@ -62,7 +63,7 @@ public class HomePanel extends JPanel {
 		mainPanel.add(sep1, "wrap");
 
 		ArrayList<User> users = new ArrayList<User>();
-		for (Akter a : toiToiController.getToiToi().getUsers()) {
+		for (Akter a : MainFrame.getInstance().getToiToiController().getToiToi().getUsers()) {
 			if (a instanceof User) {
 				User user = (User) a;
 				users.add(user);

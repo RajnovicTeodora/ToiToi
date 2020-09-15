@@ -35,6 +35,40 @@ public class BackButtonAction extends AbstractAction{
 			updateRecipesTab();
 			updateHomeTab();
 		}
+		else if(getCurrentTabIndex() == 3) {
+			updateRecipesTab();
+			updateHomeTab();
+			if(MainFrame.getInstance().getAkter() != null) {
+				JPanel panl=new JPanel();
+				try {
+					panl = MainFrame.pw.createMyProfilePage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				MainFrame.getInstance().getTabbedPane().setComponentAt(3, panl);
+			}else {
+				JPanel panl=new JPanel();
+				try {
+					panl = MainFrame.getInstance().getProfileForVisitor().createOtherUserProfilePage();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				MainFrame.getInstance().getTabbedPane().setComponentAt(3, panl);
+			}
+		}else if(getCurrentTabIndex() == 4) {
+			updateRecipesTab();
+			updateHomeTab();
+			JPanel panl=new JPanel();
+			try {
+				panl = MainFrame.getInstance().getProfileForVisitor().createOtherUserProfilePage();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			MainFrame.getInstance().getTabbedPane().setComponentAt(4, panl);
+		}
 	}
 
 	public void updateHomeTab() {
