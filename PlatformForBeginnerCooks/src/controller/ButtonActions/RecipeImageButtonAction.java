@@ -6,7 +6,10 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.JPanel;
 
+import model.Admin;
+import model.Moderator;
 import model.Recipe;
+import model.User;
 import view.MainFrame;
 
 public class RecipeImageButtonAction  extends AbstractAction{
@@ -25,7 +28,7 @@ public class RecipeImageButtonAction  extends AbstractAction{
 
 	public void actionPerformed(ActionEvent arg0) {
 		
-		if(MainFrame.getInstance().getAkter() == null) {
+		if(MainFrame.getInstance().getAkter() == null || MainFrame.getInstance().getAkter() instanceof Admin) {
 			 
 				
 				try {
@@ -36,7 +39,8 @@ public class RecipeImageButtonAction  extends AbstractAction{
 					e.printStackTrace();
 				}
 			
-		}else {
+		}else if(MainFrame.getInstance().getAkter() != null && (MainFrame.getInstance().getAkter() instanceof Moderator ||
+				MainFrame.getInstance().getAkter() instanceof User)){
 			try {
 				JPanel pan = MainFrame.getInstance().getRecipeWindow().createUserRecipePage(getRecipe(), MainFrame.getInstance().getAkter(), getTabIndex());
 				MainFrame.getInstance().getTabbedPane().setComponentAt(getTabIndex(), pan);

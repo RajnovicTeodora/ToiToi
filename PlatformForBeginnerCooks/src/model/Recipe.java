@@ -273,9 +273,7 @@ public class Recipe implements Serializable {
 	}
 
 	public void setComment(java.util.List<Comment> newComment) {
-		removeAllComment();
-		for (Iterator<Comment> iter = newComment.iterator(); iter.hasNext();)
-			addComment((Comment) iter.next());
+		this.comment = newComment;
 	}
 
 	public void addComment(Comment newComment) {

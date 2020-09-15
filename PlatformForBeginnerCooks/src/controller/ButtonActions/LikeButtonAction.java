@@ -24,15 +24,35 @@ public class LikeButtonAction extends AbstractAction{
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		if(user.getLikedRecipes().contains(recipe)) {
+		boolean contains = false;
+		for (Recipe it : user.getLikedRecipes()) {
+			if(it.getRecipeID() == getRecipe().getRecipeID()) {
+				contains = true;
+			}
+		}
+		if(contains) {
 			int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want do unlike?", "Unlike", JOptionPane.YES_NO_OPTION);
 			if (choice ==JOptionPane.YES_OPTION) {
-				recipe.setLikes(recipe.getLikes()-1);
-				user.getLikedRecipes().remove(recipe);
+				Recipe temp = getRecipe();
+				temp.setLikes(getRecipe().getLikes()-1);
+				User tmpUser = user;
+				for (Recipe it : tmpUser.getLikedRecipes()) {
+					if(it.getRecipeID() == getRecipe().getRecipeID()) {
+						tmpUser.getLikedRecipes().remove(it);
+						break;
+					}
+				}
+				
+				
+				MainFrame.getInstance().getToiToiController().getToiToi().replaceRecipe(getRecipe(), temp);
+				setRecipe(temp);
+				MainFrame.getInstance().getToiToiController().getToiToi().replaceUser(tmpUser);
+				MainFrame.getInstance().setAkter(tmpUser);
+				setUser(tmpUser);
 				
 				try {
 					MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(),  
-							MainFrame.getInstance().getRecipeWindow().createUserRecipePage(recipe, user, getCurrentTabIndex()));
+							MainFrame.getInstance().getRecipeWindow().createUserRecipePage(getRecipe(), getUser(), getCurrentTabIndex()));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -40,12 +60,21 @@ public class LikeButtonAction extends AbstractAction{
 			}
 		}
 		else {
-			recipe.setLikes(recipe.getLikes()+1);
-			user.getLikedRecipes().add(recipe);
+			Recipe temp = getRecipe();
+			temp.setLikes(getRecipe().getLikes()+1);
+			User tmpUser = user;
+			tmpUser.getLikedRecipes().add(recipe);
+			
+			MainFrame.getInstance().getToiToiController().getToiToi().replaceRecipe(getRecipe(), temp);
+			setRecipe(temp);
+			MainFrame.getInstance().getToiToiController().getToiToi().replaceUser( tmpUser);
+			MainFrame.getInstance().setAkter(tmpUser);
+			setUser(tmpUser);
 			
 			try {
+				
 				MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(),  
-						MainFrame.getInstance().getRecipeWindow().createUserRecipePage(recipe, user, getCurrentTabIndex()));
+						MainFrame.getInstance().getRecipeWindow().createUserRecipePage(getRecipe(), getUser(), getCurrentTabIndex()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -72,4 +101,13 @@ public class LikeButtonAction extends AbstractAction{
 		this.currentTabIndex = currentTabIndex;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
 }

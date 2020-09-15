@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 import controller.RecipeController;
+import controller.ButtonActions.RecipeImageButtonAction;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
@@ -141,7 +143,12 @@ public class TopUserPanel extends JPanel {
 		recipeLink.setContentAreaFilled(false);
 		// top2.setBorderPainted(false);
 		recipeLink.setToolTipText("Go to recipe"); // TODO link to recipe page
-		recipeLink.addActionListener(new ActionListener() {
+		RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
+		recAction1.setTabIndex(0);
+		recAction1.setRecipe(recipe);
+		recipeLink.setMnemonic(KeyEvent.VK_ENTER);
+		recipeLink.addActionListener(recAction1);
+		/*recipeLink.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -150,7 +157,7 @@ public class TopUserPanel extends JPanel {
 				}
 			}
 
-		});
+		});*/
 
 		JLabel l1 = new JLabel("ToiToi top user!");
 		userPanel.add(l1, "wrap");

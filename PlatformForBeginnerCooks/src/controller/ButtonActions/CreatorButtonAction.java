@@ -10,6 +10,7 @@ import model.Akter;
 import model.User;
 import view.MainFrame;
 import view.ProfileWindow.ButtonTabComponent;
+
 import view.ProfileWindow.ProfileWindow;
 
 public class CreatorButtonAction extends AbstractAction{
@@ -19,11 +20,12 @@ public class CreatorButtonAction extends AbstractAction{
 	 */
 	private static final long serialVersionUID = 7344829217204344593L;
 	
-	private String username;
+	private User recipeCreator;
 
-	public CreatorButtonAction(String username) {
-		super(username);
-		this.username = username;
+	private int currentTabIndex;
+	
+	public CreatorButtonAction() {
+		super();
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -53,8 +55,26 @@ public class CreatorButtonAction extends AbstractAction{
 		}
 		else if(MainFrame.getInstance().getAkter().getUsername().equalsIgnoreCase(username)) {
 			MainFrame.tabbedPane.setSelectedIndex(3);
+
 		}
 		
+		
+	}
+
+	public int getCurrentTabIndex() {
+		return currentTabIndex;
+	}
+
+	public void setCurrentTabIndex(int currentTabIndex) {
+		this.currentTabIndex = currentTabIndex;
+	}
+
+	public User getRecipeCreator() {
+		return recipeCreator;
+	}
+
+	public void setRecipeCreator(User recipeCreator) {
+		this.recipeCreator = recipeCreator;
 	}
 
 }

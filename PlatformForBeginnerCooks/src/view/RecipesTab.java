@@ -37,6 +37,7 @@ import controller.ButtonActions.RecipeImageButtonAction;
 import controller.ButtonActions.SearchRecipesButtonAction;
 import model.Product;
 import model.Recipe;
+import model.Tag;
 import model.Taste;
 import net.miginfocom.swing.MigLayout;
 
@@ -45,6 +46,7 @@ public class RecipesTab {
 	//key je koliko je kompatibilan recept sa unesenim filterom, sto vise to bolje
 	private	HashMap<Recipe, Integer> filterResults = new HashMap<Recipe, Integer>();
 	private HashMap<Recipe, Integer> searchResults = new HashMap<Recipe, Integer>();
+	private ArrayList<Recipe> currentRecipes = new ArrayList<Recipe>();
 	private boolean filterClicked = false, searchClicked = false;
 	private JTextField searchTxtField;
 	private JTextField prepTimeField;
@@ -106,7 +108,24 @@ public class RecipesTab {
 		JScrollPane tasteScrollPane = new JScrollPane(tasteTable);
 		tasteScrollPane.setPreferredSize(new Dimension(210,200));
 		
-		tagsModel = new TagsCheckBoxModel(toiToiController.getTagController().readTags());
+		ArrayList<String>tem = new ArrayList<String>();
+		for (Recipe recipe : MainFrame.getInstance().getToiToiController().getToiToi().getRecipe()) {
+			 for (Tag t : recipe.getTags()) {
+				 if(!tem.contains(t.getTag())){
+					tem.add(t.getTag());
+				}
+			}
+		}
+		
+		ArrayList<Tag>nzm = new ArrayList<Tag>();
+		for (String tag : tem) {
+			nzm.add(new Tag(tag));
+		}
+		
+		MainFrame.getInstance().getToiToiController().getToiToi().setTags(nzm);
+		//TODO tagovi ovde
+		
+		tagsModel = new TagsCheckBoxModel((ArrayList<Tag>) MainFrame.getInstance().getToiToiController().getToiToi().getTags());
 		JTable tagsTable = new JTable(tagsModel);
 		tagsTable.setAutoCreateRowSorter(true);
         JScrollPane tagsScrollPane = new JScrollPane(tagsTable);
@@ -203,6 +222,7 @@ public class RecipesTab {
 		JPanel bottomPnl = new JPanel(new MigLayout());
 		
 		for (Recipe recipe : recipes) {
+			
 			JPanel tempPnl = new JPanel(new MigLayout());
 			JPanel textPnl = new JPanel(new MigLayout());
 			
@@ -371,7 +391,10 @@ public class RecipesTab {
 		o.setChosenOrder((String) orderByCombBox.getSelectedItem());
 		o.setFilterList(getFilterResults());
 		o.setSearchList(getSearchResults());
-		setBottomPnl(o.orderAndArray());
+		ArrayList<Recipe>temp = o.orderAndArray();
+		setBottomPnl(temp);
+		//TODO PROVERI
+		setCurrentRecipes(temp);
 		setSelectedOrder(orderByCombBox.getSelectedIndex());
 		ck1 = (getCkbx1().isSelected());
 		ck2 = (getCkbx2().isSelected());
@@ -492,6 +515,18 @@ public class RecipesTab {
 
 	public String getPlacedCookTime() {
 		return placedCookTime;
+	}
+
+
+
+	public ArrayList<Recipe> getCurrentRecipes() {
+		return currentRecipes;
+	}
+
+
+
+	public void setCurrentRecipes(ArrayList<Recipe> currentRecipes) {
+		this.currentRecipes = currentRecipes;
 	}
 
 	

@@ -40,6 +40,7 @@ public class MainFrame extends JFrame {
 	public static JTabbedPane tabbedPane;
 	private JPanel homePanel;
 	private CommentWindow commentWindow;
+	private EditRecipeWindow editRecipe;
 	
 	private JPanel pan1;
 	public static ProfileWindow pw;
@@ -58,8 +59,9 @@ public class MainFrame extends JFrame {
 	}
 
 
-	private void initialize() throws IOException {
-		this.setSize(700, 700);
+
+	private void initialize() {
+		this.setSize(700, 800);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
@@ -84,6 +86,7 @@ public class MainFrame extends JFrame {
 		try {
 
 			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
+			recipesTab.setCurrentRecipes(toiToiController.getRecipeController().readRecipes());
 			tabbedPane.addTab("", recipesTab.createMainPanel() );
 
 
@@ -216,23 +219,6 @@ public class MainFrame extends JFrame {
 		panel.setBackground(new Color(200, 221, 242));
 		setHomePanel(panel);
 
-		/*
-		 * JPanel panel = new JPanel(new GridBagLayout());
-		 * 
-		 * JLabel label = new JLabel("Form");
-		 * 
-		 * JPanel tableButtonPanel = new JPanel(); tableButtonPanel.add(new
-		 * JButton("Add Thing")); tableButtonPanel.add(new
-		 * JRadioButton("Delete Thing")); tableButtonPanel.add(new
-		 * JButton("Modify Thing"));
-		 * 
-		 * GridBagConstraints gbc = new GridBagConstraints();
-		 * 
-		 * gbc.gridx = 0; gbc.gridy = 0; panel.add(label, gbc);
-		 * 
-		 * gbc.gridx = 0; gbc.gridy = 2; panel.add(tableButtonPanel, gbc);
-		 */
-
 		return panel;
 	}
 	
@@ -346,6 +332,16 @@ public class MainFrame extends JFrame {
 
 	public void setCommentWindow(CommentWindow commentWindow) {
 		this.commentWindow = commentWindow;
+	}
+
+
+	public EditRecipeWindow getEditRecipe() {
+		return editRecipe;
+	}
+
+
+	public void setEditRecipe(EditRecipeWindow editRecipe) {
+		this.editRecipe = editRecipe;
 	}
 
 	

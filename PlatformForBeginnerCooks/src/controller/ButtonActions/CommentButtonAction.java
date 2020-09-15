@@ -30,6 +30,7 @@ public class CommentButtonAction extends AbstractAction{
 		CommentWindow cw = new CommentWindow();
 		cw.setRecipe(getRecipe());	
 		cw.setCurrentTabIndex(getCurrentTabIndex());
+		MainFrame.getInstance().setCommentWindow(cw);
 		cw.run();
 	}
 
