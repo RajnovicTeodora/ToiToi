@@ -6,7 +6,9 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.JPanel;
 
+import model.User;
 import view.MainFrame;
+import view.ProfileWindow.ProfileWindow;
 
 public class CreatorButtonAction extends AbstractAction{
 	
@@ -15,26 +17,48 @@ public class CreatorButtonAction extends AbstractAction{
 	 */
 	private static final long serialVersionUID = 7344829217204344593L;
 	
-	private String username;
+	private User recipeCreator;
 
-	public CreatorButtonAction(String username) {
-		super(username);
-		this.username = username;
+	private int currentTabIndex;
+	
+	public CreatorButtonAction() {
+		super();
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
 		
 		if(MainFrame.getInstance().getAkter() == null) {
 			
+			ProfileWindow pw = new ProfileWindow(getRecipeCreator(), MainFrame.getInstance().getToiToiController());
 			JPanel pan = new JPanel();
-			///////////////napravi odgovarajuci panel i iskoristi ovo dole da se prikaze u Recipes/////////////////////
-			MainFrame.getInstance().getTabbedPane().setComponentAt(1, pan);
+			try {
+				pan = pw.createOtherUserProfilePage();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(), pan);
 			
 		}
-		else if(MainFrame.getInstance().getAkter().getUsername() == username) {
-			//TODO
-		}
 		
+		
+	}
+
+	public int getCurrentTabIndex() {
+		return currentTabIndex;
+	}
+
+	public void setCurrentTabIndex(int currentTabIndex) {
+		this.currentTabIndex = currentTabIndex;
+	}
+
+	public User getRecipeCreator() {
+		return recipeCreator;
+	}
+
+	public void setRecipeCreator(User recipeCreator) {
+		this.recipeCreator = recipeCreator;
 	}
 
 }

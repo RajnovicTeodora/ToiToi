@@ -106,7 +106,7 @@ public class SearchRecipesButtonAction extends AbstractAction{
 		MainFrame.getInstance().getRecipesTab().setSearchTerm(searchTerm);
 		if(searchTerm.isEmpty()) {
 			try {
-				for (Recipe recipe : MainFrame.getInstance().getToiToiController().getRecipeController().readRecipes()) {
+				for (Recipe recipe : (ArrayList<Recipe>) MainFrame.getInstance().getToiToiController().getToiToi().getRecipe()) {
 					searchResults.put(recipe, 0);				
 				}
 				MainFrame.getInstance().getRecipesTab().setSearchResults(searchResults);
@@ -133,24 +133,18 @@ public class SearchRecipesButtonAction extends AbstractAction{
 	            insert(keys.get(i));
 	        }
 			
-			try {						
-				for (Recipe recipe : MainFrame.getInstance().getToiToiController().getRecipeController().readRecipes()) {
-					String name[] = recipe.getName().split(" ");
-					for (String string : name) {
-						if(search(string.toLowerCase()) == true) {
-							searchResults = containsResult(recipe, searchResults);
-						}
+			for (Recipe recipe : (ArrayList<Recipe>) MainFrame.getInstance().getToiToiController().getToiToi().getRecipe()) {
+				String name[] = recipe.getName().split(" ");
+				for (String string : name) {
+					if(search(string.toLowerCase()) == true) {
+						searchResults = containsResult(recipe, searchResults);
 					}
-					for (String string : keys) {
-						if((recipe.getName().toLowerCase()).contains(string)) {
-							searchResults = containsResult(recipe, searchResults);
-						}
+				}
+				for (String string : keys) {
+					if((recipe.getName().toLowerCase()).contains(string)) {
+						searchResults = containsResult(recipe, searchResults);
 					}
-				}				
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				}
 			}
 			
 			MainFrame.getInstance().getRecipesTab().setSearchResults(searchResults);

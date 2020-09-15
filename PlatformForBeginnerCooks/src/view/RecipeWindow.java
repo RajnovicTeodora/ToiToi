@@ -35,10 +35,14 @@ import controller.ToiToiController;
 import controller.ButtonActions.BackButtonAction;
 import controller.ButtonActions.CommentButtonAction;
 import controller.ButtonActions.CreatorButtonAction;
+import controller.ButtonActions.DeleteRecipeButtonAction;
+import controller.ButtonActions.EditRecipeButtonAction;
 import controller.ButtonActions.LikeButtonAction;
+import model.Admin;
 import model.Akter;
 import model.Comment;
 import model.Equipment;
+import model.Moderator;
 import model.NeededQuantity;
 import model.Recipe;
 import model.User;
@@ -74,13 +78,18 @@ public class RecipeWindow {
 		ImageIcon plate=new ImageIcon("./img/plate.png"); 
 		JLabel servingsLbl = new JLabel(" servings: " + recipe.getServings(), plate, JLabel.RIGHT);
 		
-		JLabel datelbl = new JLabel("  created " + recipe.getDateCreated().toString() + " by");
+		JLabel datelbl = new JLabel("  created " + recipe.getDateCreated().toString() + " by:");
 		
 		ImageIcon userIcon =new ImageIcon("./img/smalluser.png");
-		JButton creatorBtn = new JButton(recipe.getCreator().getUsername(), userIcon);
-		creatorBtn.addActionListener(new CreatorButtonAction(recipe.getCreator().getUsername()));
-		creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
+		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\"><U>"+recipe.getCreator().getUsername()+"</U></FONT></HTML>", userIcon);
+		CreatorButtonAction cra = new CreatorButtonAction();
+		cra.setRecipeCreator(recipe.getCreator());
+		cra.setCurrentTabIndex(getCurrentTabIndex());
+		creatorBtn.addActionListener(cra);
+		//creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
 		creatorBtn.setToolTipText("View user");
+		creatorBtn.setContentAreaFilled(false);
+		creatorBtn.setBorderPainted(false);
 		
 		ImageIcon star=new ImageIcon("./img/star.png"); 
 		JLabel diffLbl = new JLabel(" difficulty: " + recipe.getDifficulty(), star, JLabel.RIGHT);
@@ -124,6 +133,9 @@ public class RecipeWindow {
 	    };
 	    JTable tabel = new JTable(model);
 	    tabel.setAutoCreateRowSorter(true);
+	    tabel.getTableHeader().setBackground(new Color(150, 0, 0, 30));
+	    tabel.getColumn("Essential").setPreferredWidth(2);
+	    tabel.getColumn("Quantity").setPreferredWidth(3);
 
 		JScrollPane sp = new JScrollPane(tabel);
 		sp.setPreferredSize(new Dimension(400, 215));
@@ -149,11 +161,16 @@ public class RecipeWindow {
 			coms += "-> [" + it.getDate() + "] - " + it.getCommentator().getUsername() + ":\n";
 			coms += it.getText() + "\n";
 			for (Comment child : it.getChild()) {
-				coms += "  (Reply) --> [" + child.getDate().toString() + "] - " + child.getCommentator().getUsername()
+				coms += "(Reply) --> [" + child.getDate().toString() + "] - " + child.getCommentator().getUsername()
 						+ ":\n";
 				coms += "	" + child.getText() + "\n";
+				for (Comment granch : child.getChild()) {
+					coms += "	(Reply)--> [" + granch.getDate().toString() + "] - " + granch.getCommentator().getUsername()
+							+ ":\n";
+					coms += "		" + granch.getText() + "\n";
+				}
 			}
-			coms += "\n";
+			
 		}
 		JTextArea commentArea = new JTextArea(coms);
 		commentArea.setEditable(false);
@@ -167,11 +184,21 @@ public class RecipeWindow {
 		///////////////////////////// EQUIPMENT////////////////////////////////
 		RecipeEquipmentTable eqModel = new RecipeEquipmentTable((ArrayList<Equipment>) recipe.getEquipment());
 		JTable eqTable = new JTable(eqModel);
+		eqTable.getTableHeader().setBackground(new Color(150, 0, 0, 30));
 		eqTable.setAutoCreateRowSorter(true);
 		JScrollPane eqSp = new JScrollPane(eqTable);
 		eqSp.setPreferredSize(new Dimension(400, 215));
 		JPanel eqPnl = new JPanel(new BorderLayout());
 		eqPnl.add(eqSp, BorderLayout.CENTER);
+		
+		///////////////////////////ADMIN DELETE BUTTON//////////////////////////
+		
+		DeleteRecipeButtonAction dlt = new DeleteRecipeButtonAction("Delete");
+		dlt.setCurrentTabIndex(getCurrentTabIndex());
+		dlt.setRecipeToDelete(recipe);
+		JButton delete = new JButton(dlt);
+		delete.setMnemonic(KeyEvent.VK_ENTER);
+		
 
 		leftPanel.add(lbl, "top,wrap");
 		leftPanel.add(likes, "wrap");
@@ -189,9 +216,16 @@ public class RecipeWindow {
 		centerPanel.add(rightPanel, "top");
 		centerPanel.setBackground(new Color(0, 0, 0, 10));
 
-		upperPanel.add(backBttn, "top");
-		upperPanel.add(l2);
-		upperPanel.add(datelbl,"split");
+		if(MainFrame.getInstance().getAkter() != null && MainFrame.getInstance().getAkter() instanceof Admin) {
+			upperPanel.add(backBttn, "top, left, split");
+			upperPanel.add(delete,"top");
+		}
+		else {
+			upperPanel.add(backBttn, "top, left");
+		}	
+		upperPanel.add(l2,"skip, wrap");
+		
+		upperPanel.add(datelbl," split");
 		upperPanel.add(creatorBtn);
 		upperPanel.setBackground(new Color(150, 0, 0, 30));
 
@@ -232,11 +266,14 @@ public class RecipeWindow {
 		JLabel datelbl = new JLabel("  created " + rec.getDateCreated().toString() + " by");
 		
 		ImageIcon userIcon =new ImageIcon("./img/smalluser.png");
-		JButton creatorBtn = new JButton(rec.getCreator().getUsername(), userIcon);
-		creatorBtn.addActionListener(new CreatorButtonAction(rec.getCreator().getUsername()));
+		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\"><U>"+rec.getCreator().getUsername()+"</U></FONT></HTML>", userIcon);
+		CreatorButtonAction cra = new CreatorButtonAction();
+		cra.setRecipeCreator(rec.getCreator());
+		cra.setCurrentTabIndex(getCurrentTabIndex());
+		creatorBtn.addActionListener(cra);
 		creatorBtn.setContentAreaFilled(false);
 		creatorBtn.setBorderPainted(false);
-		creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
+		//creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
 		creatorBtn.setToolTipText("View user");
 		
 		
@@ -272,16 +309,6 @@ public class RecipeWindow {
 		likeAction.setCurrentTabIndex(getCurrentTabIndex());
 		likeBtn.addActionListener(likeAction);
 		
-		Image commImg = new ImageIcon("./img/comment.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-	    ImageIcon comment =new ImageIcon(commImg);
-		JButton commentBttn = new JButton(comment);
-		commentBttn.setContentAreaFilled(false);
-		commentBttn.setBorderPainted(false);
-		commentBttn.setToolTipText("Add comment");
-		CommentButtonAction commAct = new CommentButtonAction("Add comment");
-		commAct.setRecipe(rec);
-		commAct.setCurrentTabIndex(getCurrentTabIndex());
-		commentBttn.addActionListener(commAct);
 	    
 	    ///////////////////////////IMAGE//////////////////////////////////////
 	    BufferedImage img=ImageIO.read(new File(rec.getImage()));
@@ -303,7 +330,10 @@ public class RecipeWindow {
 	    MissingIngredientsTable model = new MissingIngredientsTable(rec.getNeededProductQuantity(), user.getAvailableGroceries(), user.getAlergies());
 	    
 	    JTable tabel = new JTable(model);
-	    
+	    tabel.getColumn("Essential").setPreferredWidth(3);
+	    tabel.getColumn("Quantity").setPreferredWidth(4);
+	    tabel.getColumn("In MyFridge").setPreferredWidth(3);
+	    tabel.getTableHeader().setBackground(new Color(150, 0, 0, 30));
 	    tabel.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
 			/**
@@ -352,11 +382,15 @@ public class RecipeWindow {
 			coms += "-> [" + it.getDate() + "] - " + it.getCommentator().getUsername() + ":\n";
 			coms += it.getText() + "\n";
 			for (Comment child : it.getChild()) {
-				coms += "  (Reply) --> [" + child.getDate().toString() + "] - " + child.getCommentator().getUsername()
+				coms += "(Reply)--> [" + child.getDate().toString() + "] - " + child.getCommentator().getUsername()
 						+ ":\n";
 				coms += "	" + child.getText() + "\n";
+				for (Comment granch : child.getChild()) {
+					coms += "	(Reply)--> [" + granch.getDate().toString() + "] - " + granch.getCommentator().getUsername()
+							+ ":\n";
+					coms += "		" + granch.getText() + "\n";
+				}
 			}
-			coms += "\n";
 		}
 		JTextArea commentArea = new JTextArea(coms);
 		commentArea.setEditable(false);
@@ -368,11 +402,23 @@ public class RecipeWindow {
 		commentAreaScrollPane.setPreferredSize(new Dimension(700, 500));
 		
 		
-
+		Image commImg = new ImageIcon("./img/comment.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	    ImageIcon comment =new ImageIcon(commImg);
+		JButton commentBttn = new JButton(comment);
+		commentBttn.setContentAreaFilled(false);
+		commentBttn.setBorderPainted(false);
+		commentBttn.setToolTipText("Add comment");
+		CommentButtonAction commAct = new CommentButtonAction("Add comment");
+		commAct.setRecipe(rec);
+		commAct.setCurrentTabIndex(getCurrentTabIndex());
+		commentBttn.addActionListener(commAct);
+		
 		///////////////////////////// EQUIPMENT////////////////////////////////
 		MissingEquipmentTable eqModel = new MissingEquipmentTable(rec.getEquipment(), user.getEquipment());
 		JTable eqTabel = new JTable(eqModel);
+		eqTabel.getTableHeader().setBackground(new Color(150, 0, 0, 30));
 		eqTabel.setAutoCreateRowSorter(true);
+		eqTabel.getColumn("In MyTools").setPreferredWidth(3);
 		JScrollPane eqSp = new JScrollPane(eqTabel);
 		eqSp.setPreferredSize(new Dimension(400, 215));
 		JLabel l3 = new JLabel("Equipment: ");
@@ -381,6 +427,14 @@ public class RecipeWindow {
 		ImageIcon alert = new ImageIcon("./img/alert.png");
 
 		JLabel alergies = new JLabel("Allergies are marked", alert, JLabel.RIGHT);
+		
+		//////////////////////////EDIT///////////////////////////////////////
+		JButton edit = new JButton("Edit");
+		edit.setToolTipText("Edit recipe");
+		EditRecipeButtonAction erba = new EditRecipeButtonAction();
+		erba.setCurrentTabIndex(getCurrentTabIndex());
+		erba.setRecipe(rec);
+		edit.addActionListener(erba);
 
 		rightPanel.add(ingr);
 		rightPanel.add(alergies, "right, wrap");
@@ -402,9 +456,15 @@ public class RecipeWindow {
 		centerPanel.add(rightPanel, "top");
 		centerPanel.setBackground(new Color(0, 0, 0, 10));
 		
-		upperPanel.add(backBttn, "left, top");
-		upperPanel.add(l2,"center");
-		upperPanel.add(datelbl,"split");
+		if(user.getUsername().equals(rec.getCreator().getUsername()) || akter instanceof Moderator) {
+			upperPanel.add(backBttn, "top, left, split");
+			upperPanel.add(edit,"top");
+		}
+		else {
+			upperPanel.add(backBttn, "top, left");
+		}
+		upperPanel.add(l2,"skip, wrap");		
+		upperPanel.add(datelbl," split");
 		upperPanel.add(creatorBtn);
 		upperPanel.setBackground(new Color(150, 0, 0, 30));
 		
@@ -415,7 +475,6 @@ public class RecipeWindow {
 		mainPanel.add(upperPanel, "growx, wrap");
 		mainPanel.add(centerPanel, "wrap");
 		mainPanel.add(bottomPanel);
-
 		//mainPanel.setBackground(new Color(170, 0, 0, 50));
 
 		return mainPanel;

@@ -72,15 +72,15 @@ public class CommentWindow extends JFrame{
 		ArrayList<String> commentsToReply  = new ArrayList<String>();
 		for (Comment comment : getRecipe().getComment()) {
 			int lenght = comment.getText().length();
-			if(lenght>20) {
-				lenght=20;
+			if(lenght>10) {
+				lenght=10;
 			}
 			commentsToReply.add(comment.getText().substring(0,lenght) +"...by: "+ getRecipe().getCreator().getUsername());
 			allComm.add(comment);
 			for (Comment child : comment.getChild()) {
 				int l = child.getText().length();
-				if(l>20) {
-					l=20;
+				if(l>10) {
+					l=10;
 				}
 				commentsToReply.add(child.getText().substring(0,l)+"...by: "+ getRecipe().getCreator().getUsername());
 				allComm.add(child);
@@ -113,11 +113,10 @@ public class CommentWindow extends JFrame{
 					c.setCommentator((User) MainFrame.getInstance().getAkter());
 					c.setDate(LocalDate.now());
 					
-					Recipe r = getRecipe();
-					MainFrame.getInstance().getToiToiController().getToiToi().removeRecipe(getRecipe());
+					Recipe r = getRecipe();					
 					r.addComment(c);
-					MainFrame.getInstance().getToiToiController().getToiToi().addRecipe(r);
-					setRecipe(r);
+					MainFrame.getInstance().getToiToiController().getToiToi().replaceRecipe(getRecipe(), r);
+					setRecipe(r);					
 					dispose();
 					try {
 						MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(),  
@@ -128,20 +127,41 @@ public class CommentWindow extends JFrame{
 					}
 				}
 				else {//reply
-					/*
-					 * Comment parent = allComm.get(sel-1); Comment child = new Comment();
-					 * child.setDate(LocalDate.now()); child.setCommentator((User)
-					 * MainFrame.getInstance().getAkter()); child.setText(text);
-					 * 
-					 * 
-					 * Recipe r = getRecipe();
-					 * MainFrame.getInstance().getToiToiController().getToiToi().removeRecipe(
-					 * getRecipe()); for (Comment c : r.getComment()) { if(c.equals(parent)) {
-					 * c.addChild(child); }else { for (Comment c1 : c.getChild()) {
-					 * if(c1.equals(parent)) { c1.addChild(child); } } } }
-					 * MainFrame.getInstance().getToiToiController().getToiToi().addRecipe(r);
-					 * setRecipe(r);
-					 */
+					
+					  Comment parent = allComm.get(sel-1); 
+					  Comment child = new Comment();
+					  child.setDate(LocalDate.now());
+					  child.setCommentator((User)
+					  MainFrame.getInstance().getAkter()); 
+					  child.setText(text);
+					  
+					  
+					  Recipe r = getRecipe();
+					  //MainFrame.getInstance().getToiToiController().getToiToi().removeRecipe(getRecipe()); 
+					  for (Comment c : r.getComment()) { 
+						  if(c.equals(parent)) {
+							   c.addChild(child); 
+						}
+						  else { 
+							  for (Comment c1 : c.getChild()) {
+								  if(c1.equals(parent)) { 
+									  c1.addChild(child); 
+								} 
+							} 
+						} 
+					}
+					MainFrame.getInstance().getToiToiController().getToiToi().replaceRecipe(getRecipe(), r);
+					setRecipe(r);					
+					dispose();
+					try {
+						MainFrame.getInstance().getTabbedPane().setComponentAt(getCurrentTabIndex(),  
+								MainFrame.getInstance().getRecipeWindow().createUserRecipePage(getRecipe(), (User) MainFrame.getInstance().getAkter(), getCurrentTabIndex()));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					 
 					//TODO dubina komentara?
 				}
 				

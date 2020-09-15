@@ -6,6 +6,8 @@
 
 package model;
 
+import java.util.ArrayList;
+
 public class ToiToi {
 	private String name;
 
@@ -36,6 +38,7 @@ public class ToiToi {
 	public java.util.List<Tag> getTags() {
 		if (tags == null)
 			tags = new java.util.ArrayList<Tag>();
+		
 		return tags;
 	}
 
@@ -46,11 +49,7 @@ public class ToiToi {
 	}
 
 	public void setTags(java.util.List<Tag> newTags) {
-		removeAllTags();
-
-		java.util.Iterator<Tag> iter = newTags.iterator();
-		iter.hasNext();
-		addTags(iter.next());
+		this.tags = newTags;
 	}
 
 	public void addTags(Tag newTag) {
@@ -109,6 +108,20 @@ public class ToiToi {
 			if (this.users.contains(oldAkter))
 				this.users.remove(oldAkter);
 	}
+	
+	public void replaceUser(Akter newAkter) {
+		if (newAkter == null)
+			return;
+		if (this.users != null) {
+			for(Akter a : this.users) {
+				if(a.getUsername().equals(newAkter.getUsername())) {
+					this.users.remove(a);
+					this.users.add(newAkter);
+					break;
+				}
+			}
+		}
+	}
 
 	public void removeAllUsers() {
 		if (users != null)
@@ -150,8 +163,38 @@ public class ToiToi {
 		if (oldRecipe == null)
 			return;
 		if (this.recipe != null)
-			if (this.recipe.contains(oldRecipe))
-				this.recipe.remove(oldRecipe);
+			for (Recipe recipe : this.recipe) {
+				if(oldRecipe.getRecipeID() == recipe.getRecipeID()) {
+					this.recipe.remove(recipe);
+					break;
+				}
+			}				
+	}
+	
+	public void replaceRecipe(Recipe oldRecipe, Recipe neww) {
+		if (oldRecipe == null)
+			return;
+		if (this.recipe != null)
+			for (Recipe recipe : this.recipe) {
+				if(oldRecipe.getRecipeID() == recipe.getRecipeID()) {
+					this.recipe.remove(recipe);
+					this.recipe.add(neww);
+					break;
+				}
+			}
+	}
+	
+	public ArrayList<Recipe> updateMyRecipes(ArrayList<Recipe>myRecipes) {
+		ArrayList<Recipe> retval = new ArrayList<Recipe>();
+		for (int i=0; i<myRecipes.size();i++) {
+			for (Recipe recipe2 : this.recipe) {
+				if(recipe2.getRecipeID()==myRecipes.get(i).getRecipeID()) {
+					retval.add(recipe2);
+					break;
+				}
+			}
+		}
+		return retval;
 	}
 
 	/** @pdGenerated default removeAll */

@@ -66,8 +66,9 @@ public class OrderBy {
 		}
 		if(filterClicked && searchClicked) {
 			for (Recipe recipe : sortByValue(searchList)) {
-				if(filtered.contains(recipe)) {
-					combined.add(recipe);
+				for(Recipe r1 : filtered) {
+					if(r1.getRecipeID()==recipe.getRecipeID())
+						combined.add(recipe);
 				}
 			}
 		}

@@ -77,6 +77,8 @@ public class FilterButtonAction extends AbstractAction{
 		for (int i = 0; i < ingrModel.getRowCount(); i++) {
 			if ((boolean) ingrModel.getValueAt(i, 2) && !ChosenProducts.containsProduct((Integer) ingrModel.getValueAt(i, 0))) {
 				ChosenProducts.add_product((Integer) ingrModel.getValueAt(i, 0));
+			}else {
+				ChosenProducts.remove_product((Integer) ingrModel.getValueAt(i, 0));
 			}
 		}
 		
@@ -84,6 +86,8 @@ public class FilterButtonAction extends AbstractAction{
 		for (int i = 0; i < eqModel.getRowCount(); i++) {
 			if ((boolean) eqModel.getValueAt(i, 3)) {
 				ChosenEquipment.add_product((Integer) eqModel.getValueAt(i, 0));
+			}else {
+				ChosenEquipment.remove_product((Integer) eqModel.getValueAt(i, 0));
 			}
 		}
 		
@@ -114,93 +118,88 @@ public class FilterButtonAction extends AbstractAction{
 				!ChosenTags.getChosenTags().isEmpty() ||
 				!cookTime.isEmpty() || !prepTime.isEmpty()) {	
 			
-			try {
-				ArrayList<Recipe>all = MainFrame.getInstance().getToiToiController().getRecipeController().readRecipes();	
+			ArrayList<Recipe>all = (ArrayList<Recipe>) MainFrame.getInstance().getToiToiController().getToiToi().getRecipe();	
+			
+			for (Recipe recipe : all) {
 				
-				for (Recipe recipe : all) {
+				//ide od vecih nivoa i ako je difficulty trenutnog recepta veci od oznacenog nivoa onda preskace taj recept
+				if(!diffChosen.isEmpty()) {
 					
-					//ide od vecih nivoa i ako je difficulty trenutnog recepta veci od oznacenog nivoa onda preskace taj recept
-					if(!diffChosen.isEmpty()) {
-						
-						for (int i = diffChosen.size()-1;i >=0; i--) {
-							int temp = Integer.parseInt(diffChosen.get(i));
-							if( recipe.getDifficulty() > temp) {							
-								break;
-							}
-							if(recipe.getDifficulty() <= temp) {
-								if(!searchResults.containsKey(recipe)) {
-									searchResults.put(recipe, 1);
-								}							
-							}
+					for (int i = diffChosen.size()-1;i >=0; i--) {
+						int temp = Integer.parseInt(diffChosen.get(i));
+						if( recipe.getDifficulty() > temp) {							
+							break;
+						}
+						if(recipe.getDifficulty() <= temp) {
+							if(!searchResults.containsKey(recipe)) {
+								searchResults.put(recipe, 1);
+							}							
 						}
 					}
-					
-					if(!cookTime.isEmpty() && (recipe.getCookTime() > Integer.parseInt(cookTime))) {
-						continue;
-					}
-					
-					if(!cookTime.isEmpty() &&  (recipe.getCookTime() <= Integer.parseInt(cookTime))) {
-						searchResults = containsResult(recipe, searchResults);
-					}
-					
-					if(!prepTime.isEmpty() && (recipe.getPrepTime() > Integer.parseInt(prepTime))) {
-						continue;
-					}
-					if(!prepTime.isEmpty() &&  (recipe.getPrepTime() <= Integer.parseInt(prepTime))) {
-						searchResults = containsResult(recipe, searchResults);
-					}
-					if(ChosenTaste.getChosenTaste()!=(null)) {
-						for (String taste : ChosenTaste.getChosenTaste()) {
-							boolean contains = false;
-							for (Taste t : recipe.getTaste()) {
-								if(t.equals(Taste.valueOf(taste))) {
-									contains =true;
-								}
-							}
-							if(!contains) {
-								continue;
-							}
-							
-							searchResults = containsResult(recipe, searchResults);
-						}
-					}
-					
-					if(ChosenTags.getChosenTags()!=(null)) {
-						for (String tag : ChosenTags.getChosenTags()) {
-							boolean contains = false;
-							for (Tag t : recipe.getTags()) {
-								if(t.getTag().equals(tag)) {
-									contains =true;
-								}
-							}
-							if(!contains) {
-								continue;
-							}
-							searchResults = containsResult(recipe, searchResults);
-						}
-					}
-					
-					if(ChosenProducts.getChosenProducts()!=(null)) {
-						for (Integer productId : ChosenProducts.getChosenProducts()) {
-							if(!recipe.getProductIds().contains(productId)) {
-								continue;
-							}
-							searchResults = containsResult(recipe, searchResults);
-						}
-					}
-					if(ChosenEquipment.getChosenEqs()!=(null)) {
-						for (Integer equipmentId : ChosenEquipment.getChosenEqs()) {
-							if(!recipe.getEquipmentIds().contains(equipmentId)) {
-								continue;
-							}						
-							searchResults = containsResult(recipe, searchResults);
-							
-						}
-					}		
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				if(!cookTime.isEmpty() && (recipe.getCookTime() > Integer.parseInt(cookTime))) {
+					continue;
+				}
+				
+				if(!cookTime.isEmpty() &&  (recipe.getCookTime() <= Integer.parseInt(cookTime))) {
+					searchResults = containsResult(recipe, searchResults);
+				}
+				
+				if(!prepTime.isEmpty() && (recipe.getPrepTime() > Integer.parseInt(prepTime))) {
+					continue;
+				}
+				if(!prepTime.isEmpty() &&  (recipe.getPrepTime() <= Integer.parseInt(prepTime))) {
+					searchResults = containsResult(recipe, searchResults);
+				}
+				if(ChosenTaste.getChosenTaste()!=(null)) {
+					for (String taste : ChosenTaste.getChosenTaste()) {
+						boolean contains = false;
+						for (Taste t : recipe.getTaste()) {
+							if(t.equals(Taste.valueOf(taste))) {
+								contains =true;
+							}
+						}
+						if(!contains) {
+							continue;
+						}
+						
+						searchResults = containsResult(recipe, searchResults);
+					}
+				}
+				
+				if(ChosenTags.getChosenTags()!=(null)) {
+					for (String tag : ChosenTags.getChosenTags()) {
+						boolean contains = false;
+						for (Tag t : recipe.getTags()) {
+							if(t.getTag().equals(tag)) {
+								contains =true;
+							}
+						}
+						if(!contains) {
+							continue;
+						}
+						searchResults = containsResult(recipe, searchResults);
+					}
+				}
+				
+				if(ChosenProducts.getChosenProducts()!=(null)) {
+					for (Integer productId : ChosenProducts.getChosenProducts()) {
+						if(!recipe.getProductIds().contains(productId)) {
+							continue;
+						}
+						searchResults = containsResult(recipe, searchResults);
+					}
+				}
+				if(ChosenEquipment.getChosenEqs()!=(null)) {
+					for (Integer equipmentId : ChosenEquipment.getChosenEqs()) {
+						if(!recipe.getEquipmentIds().contains(equipmentId)) {
+							continue;
+						}						
+						searchResults = containsResult(recipe, searchResults);
+						
+					}
+				}		
 			}
 			
 			
@@ -214,7 +213,7 @@ public class FilterButtonAction extends AbstractAction{
 			
 		}else {
 			try {
-				for (Recipe recipe : MainFrame.getInstance().getToiToiController().getRecipeController().readRecipes()) {
+				for (Recipe recipe : (ArrayList<Recipe>) MainFrame.getInstance().getToiToiController().getToiToi().getRecipe()) {
 					searchResults.put(recipe, 0);				
 				}
 				MainFrame.getInstance().getRecipesTab().setFilterResults(searchResults);

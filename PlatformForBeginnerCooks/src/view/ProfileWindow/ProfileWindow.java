@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import controller.ToiToiController;
+import controller.ButtonActions.RecipeImageButtonAction;
 import model.Akter;
 import model.CookBook;
 import model.Equipment;
@@ -226,13 +228,19 @@ public class ProfileWindow {
 			JButton dugmic = new JButton(icon);
 			dugmici.add(dugmic); // mozda nece trebati
 			dugmic.setBackground(c);
-
-			dugmic.addActionListener(new ActionListener() {
+			
+			/*RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
+			recAction1.setTabIndex(3);///TODO dodaj currentTabIndex
+			recAction1.setRecipe(r);
+			dugmic.setMnemonic(KeyEvent.VK_ENTER);
+			dugmic.addActionListener(recAction1);*/
+			
+			/*dugmic.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					// ovde se poziva funkcija za prikaz celog recepta!
 				}
 			
-			});
+			});*/
 
 			JLabel naziv = new JLabel(r.getName());
 			naziv.setFont(f);
