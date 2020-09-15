@@ -4,15 +4,12 @@ import net.miginfocom.swing.MigLayout;
 import view.CookBookPanel.CookBookPanel;
 import view.HomePanel.HomePanel;
 import view.ProfileWindow.ProfileWindow;
-import view.RecipeForm.RecipeForm;
 import view.SignUpForm.SignUpForm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,9 +21,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import controller.ToiToiController;
@@ -45,14 +41,19 @@ public class MainFrame extends JFrame {
 	private JPanel homePanel;
 	private CommentWindow commentWindow;
 	
+	private JPanel pan1;
+	public static ProfileWindow pw;
+	private JButton logInBttn;
+	private JButton signUpBttn;
+	private JButton logOutBttn;
 	
 	protected SignUpForm signUp = null;
 	protected SignInForm signIn = null;
 
 	@SuppressWarnings("static-access")
 	public MainFrame(ToiToiController tc) throws IOException {
-		this.instance = this;
-		this.toiToiController = tc;
+		MainFrame.instance = this;
+		MainFrame.toiToiController = tc;
 		initialize();
 	}
 
@@ -67,6 +68,9 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
+		
+		pan1 = new JPanel(new MigLayout());
+		
 
 		recipeWindow = new RecipeWindow(toiToiController);
 		recipesTab = new RecipesTab(toiToiController);
@@ -108,8 +112,28 @@ public class MainFrame extends JFrame {
 		lab3.setFont(f);
 		lab3.setPreferredSize(d);
 		tabbedPane.setTabComponentAt(2, lab3);
+		
+		JLabel title = new JLabel("         ToiToi");
+		title.setFont(new Font("Serif", Font.ITALIC, 50));
+		title.setPreferredSize(new Dimension(100, 40));
 
-		JButton logInBttn = new JButton("Log in");
+		signUpBttn = new JButton("Sign up");
+		
+		signUpBttn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!(signUp == null))
+					signUp.dispose();
+				signUp = new SignUpForm(toiToiController);
+				signUp.setVisible(true);
+
+			}
+		});
+		signUpBttn.setSize(50, 30);
+		
+		logInBttn = new JButton("Log in");
+		
 		logInBttn.setSize(50, 30);
 		logInBttn.addActionListener(new ActionListener() {
 
@@ -149,7 +173,7 @@ public class MainFrame extends JFrame {
 
 						if (akter != null) {
 							if(akter.getClass() != Admin.class) {
-								ProfileWindow pw = new ProfileWindow(akter, toiToiController);
+								pw = new ProfileWindow(akter, toiToiController);
 								try {
 									tabbedPane.addTab("", pw.createMyProfilePage());
 								} catch (IOException e1) {
@@ -159,6 +183,7 @@ public class MainFrame extends JFrame {
 								lab4.setFont(f);
 								lab4.setPreferredSize(d);
 								tabbedPane.setTabComponentAt(3, lab4);
+								loggedInUser();
 							}
 							
 						}
@@ -171,28 +196,10 @@ public class MainFrame extends JFrame {
 
 			}
 		});
-		JButton signUpBttn = new JButton("Sign up");
-		signUpBttn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (!(signUp == null))
-					signUp.dispose();
-				signUp = new SignUpForm(toiToiController);
-				signUp.setVisible(true);
-
-			}
-		});
-		signUpBttn.setSize(50, 30);
-
-		JLabel title = new JLabel("         ToiToi");
-		title.setFont(new Font("Serif", Font.ITALIC, 50));
-		title.setPreferredSize(new Dimension(100, 40));
-
-		JPanel pan1 = new JPanel(new MigLayout("", "[][grow][]"));
-		pan1.add(title, "skip 1, center");
-		pan1.add(signUpBttn, "split");
-		pan1.add(logInBttn, "right");
+		
+		pan1.add(title, "gapleft 150");
+		pan1.add(signUpBttn, "gapleft 100");
+		pan1.add(logInBttn);
 
 		JPanel masterPan = new JPanel();
 		masterPan.setLayout(new BorderLayout());
@@ -228,6 +235,38 @@ public class MainFrame extends JFrame {
 
 		return panel;
 	}
+	
+	private void loggedInUser() {
+		pan1.remove(logInBttn);
+		pan1.remove(signUpBttn);
+		pan1.repaint();
+		logOutBttn =  new JButton("Log out");
+		pan1.add(logOutBttn, "gapleft 100");
+				
+		logOutBttn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Confirm Log Out", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, new ImageIcon("./img/signOut.png"));
+				if (reply == JOptionPane.YES_OPTION) {
+					akter = null;
+					tabbedPane.remove(3);
+					loggedOutUser();
+				}
+
+			}
+
+		});
+	}
+	
+	private void loggedOutUser() {
+		pan1.remove(logOutBttn);
+		pan1.repaint();
+		pan1.add(signUpBttn, "gapleft 100");
+		pan1.add(logInBttn);
+
+	}
 
 
 	public static MainFrame getInstance() {
@@ -256,7 +295,7 @@ public class MainFrame extends JFrame {
 
 
 	public void setToiToiController(ToiToiController toiToiController) {
-		this.toiToiController = toiToiController;
+		MainFrame.toiToiController = toiToiController;
 	}
 
 
@@ -266,7 +305,7 @@ public class MainFrame extends JFrame {
 
 
 	public void setTabbedPane(JTabbedPane tabbedPane) {
-		this.tabbedPane = tabbedPane;
+		MainFrame.tabbedPane = tabbedPane;
 	}
 
 

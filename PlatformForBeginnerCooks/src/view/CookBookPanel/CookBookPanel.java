@@ -89,17 +89,14 @@ public class CookBookPanel {
 		
 		for(CookBook cb : MainFrame.toiToiController.getToiToi().getCookBooks()) {
 			if(cb.getName().equalsIgnoreCase(ime)) {
-				System.out.println("Isto");
 				lista.add(cb);
 			}
 			
 			else if(ime.toLowerCase().contains(cb.getName().toLowerCase())) {
-				System.out.println("skoro isto");
 				lista.add(cb);
 			}
 			
 			else if(cb.getName().toLowerCase().contains(ime.toLowerCase())) {
-				System.out.println("skoro isto");
 				lista.add(cb);
 			}
 			

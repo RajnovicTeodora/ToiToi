@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import model.Comment;
 import model.CookBook;
-import model.Recipe;
 
 public class CookBookController {
 	

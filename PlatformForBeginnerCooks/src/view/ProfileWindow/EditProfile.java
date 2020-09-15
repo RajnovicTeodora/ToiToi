@@ -1,6 +1,5 @@
 package view.ProfileWindow;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -10,7 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
 
@@ -19,13 +20,10 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -37,7 +35,7 @@ import model.Gender;
 import model.User;
 import net.miginfocom.swing.MigLayout;
 import view.DataLabelFormatter;
-import view.ImageFilter;
+import view.MainFrame;
 
 public class EditProfile {
 	
@@ -97,47 +95,47 @@ public class EditProfile {
 		label.setIcon(profileIcon);
 		imagePanel.add(label);
 		
-		ImageIcon addIcon = new ImageIcon(new ImageIcon("img/addimg.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
-		JButton buttonAdd = new JButton(addIcon);
-		buttonAdd.setContentAreaFilled(false);
-		buttonAdd.setBorderPainted(false);
-		buttonAdd.setToolTipText("Add profile photo");
-		
-		buttonAdd.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.addChoosableFileFilter(new ImageFilter());
-				fileChooser.setAcceptAllFileFilterUsed(false);
-
-				int option = fileChooser.showOpenDialog(imgPanel);
-
-				if (option == JFileChooser.APPROVE_OPTION) {
-					File file = fileChooser.getSelectedFile();
-
-					try {
-						if (file.exists()) {
-							BufferedImage  image = ImageIO.read(file);
-							Image dimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-							ImageIcon icon = new ImageIcon(dimg);
-							label.setIcon(icon);
-						} else {
-							JOptionPane.showMessageDialog(null, "No image was found!", "Error!",
-									JOptionPane.ERROR_MESSAGE);
-
-						}
-					} catch (IOException ex) {
-
-						ex.printStackTrace();
-					}
-				} else {
-					label.setIcon(profileIcon);
-				}
-			}
-		});
+//		ImageIcon addIcon = new ImageIcon(new ImageIcon("img/addimg.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH));
+//		JButton buttonAdd = new JButton(addIcon);
+//		buttonAdd.setContentAreaFilled(false);
+//		buttonAdd.setBorderPainted(false);
+//		buttonAdd.setToolTipText("Add profile photo");
+//		
+//		buttonAdd.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				JFileChooser fileChooser = new JFileChooser();
+//				fileChooser.addChoosableFileFilter(new ImageFilter());
+//				fileChooser.setAcceptAllFileFilterUsed(false);
+//
+//				int option = fileChooser.showOpenDialog(imgPanel);
+//
+//				if (option == JFileChooser.APPROVE_OPTION) {
+//					File file = fileChooser.getSelectedFile();
+//
+//					try {
+//						if (file.exists()) {
+//							BufferedImage  image = ImageIO.read(file);
+//							Image dimg = image.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+//							ImageIcon icon = new ImageIcon(dimg);
+//							label.setIcon(icon);
+//						} else {
+//							JOptionPane.showMessageDialog(null, "No image was found!", "Error!",
+//									JOptionPane.ERROR_MESSAGE);
+//
+//						}
+//					} catch (IOException ex) {
+//
+//						ex.printStackTrace();
+//					}
+//				} else {
+//					label.setIcon(profileIcon);
+//				}
+//			}
+//		});
 		
 		imgPanel.add(imagePanel, "span, wrap");
-		imgPanel.add(buttonAdd, "gapleft 5");
+//		imgPanel.add(buttonAdd, "gapleft 5");
 		
 		panel1.add(imgPanel);
 		
@@ -195,7 +193,19 @@ public class EditProfile {
 		loz.setFont(f);
 		rodj.setFont(f);
 		
-		String[] polovi = {Gender.FEMALE.toString(), Gender.MALE.toString(),  Gender.OTHER.toString()};
+		String[] polovi = {Gender.MALE.toString(),  Gender.FEMALE.toString(), Gender.OTHER.toString()};
+		
+		if(user.getGender()==Gender.FEMALE) {
+			polovi[0] = Gender.FEMALE.toString();
+			polovi[1] = Gender.MALE.toString();
+		}
+		
+		if(user.getGender()==Gender.OTHER) {
+			polovi[0] = Gender.OTHER.toString();
+			polovi[2] = Gender.MALE.toString();
+		}
+
+		
 		JComboBox<String> jcb = new JComboBox<String>(polovi);
 		jcb.setFont(f);
 		jcb.setBackground(pozadina);
@@ -214,7 +224,9 @@ public class EditProfile {
 		brTelPolje.setFont(f);
 		
 		ZoneId defaultZoneId = ZoneId.systemDefault();
-		JDatePanelImpl rodjPolje = new JDatePanelImpl(new UtilDateModel(Date.from(user.getBirthday().atStartOfDay(defaultZoneId).toInstant())), new Properties());
+		
+		UtilDateModel model = new UtilDateModel(Date.from(user.getBirthday().atStartOfDay(defaultZoneId).toInstant()));
+		JDatePanelImpl rodjPolje = new JDatePanelImpl(model, new Properties());
 		rodjPolje.setBackground(pozadina);
 
 		JDatePickerImpl date = new JDatePickerImpl(rodjPolje, new DataLabelFormatter());
@@ -273,7 +285,51 @@ public class EditProfile {
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO dodati provere da li su dobri formati podatak i posle upisati podatke u fajlove!
+				
+				if(!prazno(imePolje)) {
+					user.setName(imePolje.getText());
+				}
+				if(!prazno(prezimePolje)) {
+					user.setSurname(prezimePolje.getText());
+				}
+				if(!prazno(adresaPolje)) {
+					user.setAddress(adresaPolje.getText());
+				}
+				if(!prazno(mailPolje)) {
+					user.setMail(mailPolje.getText());
+				}
+				if(!prazno(brTelPolje)) {
+					user.setTelephone(brTelPolje.getText());
+				}
+				user.setGender(Gender.valueOf(polovi[jcb.getSelectedIndex()]));
+				
+				if(!prazno(lozPolje)) {
+					user.setPassword(lozPolje.getText());
+				}
+				
+				int day = model.getDay();
+				int month = model.getMonth() + 1;
+				int year = model.getYear();
+				
+				if(model.isSelected()) {
+					String date;
+					if (day < 10 && month < 10)
+						date = "0" + day + "-" + "0" + month + "-" + year;
+					else if (day < 10) {
+						date = "0" + day + "-" + month + "-" + year;
+					} else if (month < 10)
+						date = day + "-" + "0" + month + "-" + year;
+
+					else
+						date = day + "-" + month + "-" + year;
+
+					DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+					LocalDate noviRodj = LocalDate.parse(date, format);
+					user.setBirthday(noviRodj);
+				}
+				
+				
+				prozor.dispose();
 			}
 		});
 		
@@ -299,6 +355,17 @@ public class EditProfile {
 		
 	}
 	
+	private boolean prazno(JTextField polje) {
+		if(polje.getText()==null) {
+			return false;
+		}
+		return true;
+	}
+	
+//	private boolean proveraBrTel(String brTel) {
+//		
+//	}
+
 	
 
 }
