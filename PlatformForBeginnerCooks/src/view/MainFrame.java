@@ -1,7 +1,6 @@
 package view;
 
 import net.miginfocom.swing.MigLayout;
-import view.CookBookForm.CookBookForm;
 import view.CookBookPanel.CookBookPanel;
 import view.HomePanel.HomePanel;
 import view.ProfileWindow.ProfileWindow;
@@ -43,24 +42,21 @@ public class MainFrame extends JFrame {
 	private CommentWindow commentWindow;
 	private EditRecipeWindow editRecipe;
 	private ProfileWindow profileForVisitor;
-	
+
 	private JPanel pan1;
 	public static ProfileWindow pw;
 	private JButton logInBttn;
 	private JButton signUpBttn;
 	private JButton logOutBttn;
-	
+
 	protected SignUpForm signUp = null;
 	protected SignInForm signIn = null;
 
-	@SuppressWarnings("static-access")
 	public MainFrame(ToiToiController tc) throws IOException {
 		MainFrame.instance = this;
 		MainFrame.toiToiController = tc;
 		initialize();
 	}
-
-
 
 	private void initialize() {
 		this.setSize(700, 800);
@@ -72,9 +68,8 @@ public class MainFrame extends JFrame {
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BorderLayout());
-		
+
 		pan1 = new JPanel(new MigLayout());
-		
 
 		recipeWindow = new RecipeWindow(toiToiController);
 		recipesTab = new RecipesTab(toiToiController);
@@ -84,26 +79,24 @@ public class MainFrame extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		tabbedPane.setBounds(10, 50, (int) screenSize.getWidth(), (int) screenSize.getHeight());
 		tabbedPane.addTab("", createPage1());
-		
+
 		try {
 
 			recipesTab.setBottomPnl(toiToiController.getRecipeController().readRecipes());
 			recipesTab.setCurrentRecipes(toiToiController.getRecipeController().readRecipes());
-			tabbedPane.addTab("", recipesTab.createMainPanel() );
-
+			tabbedPane.addTab("", recipesTab.createMainPanel());
 
 		} catch (IOException e) {
 
 			e.printStackTrace();
 		}
 		try {
-			tabbedPane.addTab("", CookBookPanel.createCookBookPanel(toiToiController.getCbController().sortByLikes(toiToiController.getToiToi().getCookBooks())));
+			tabbedPane.addTab("", CookBookPanel.createCookBookPanel(
+					toiToiController.getCbController().sortByLikes(toiToiController.getToiToi().getCookBooks())));
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
-		
+
 		pan.add(tabbedPane, BorderLayout.CENTER);
 		Font f = new Font("Serif", Font.PLAIN, 20);
 		Dimension d = new Dimension(100, 30);
@@ -122,13 +115,13 @@ public class MainFrame extends JFrame {
 		lab3.setFont(f);
 		lab3.setPreferredSize(d);
 		tabbedPane.setTabComponentAt(2, lab3);
-		
+
 		JLabel title = new JLabel("         ToiToi");
 		title.setFont(new Font("Serif", Font.ITALIC, 50));
 		title.setPreferredSize(new Dimension(100, 40));
 
 		signUpBttn = new JButton("Sign up");
-		
+
 		signUpBttn.addActionListener(new ActionListener() {
 
 			@Override
@@ -141,9 +134,9 @@ public class MainFrame extends JFrame {
 			}
 		});
 		signUpBttn.setSize(50, 30);
-		
+
 		logInBttn = new JButton("Log in");
-		
+
 		logInBttn.setSize(50, 30);
 		logInBttn.addActionListener(new ActionListener() {
 
@@ -181,7 +174,7 @@ public class MainFrame extends JFrame {
 						akter = signIn.getAkter();
 
 						if (akter != null) {
-							if(akter.getClass() != Admin.class) {
+							if (akter.getClass() != Admin.class) {
 								pw = new ProfileWindow(akter, toiToiController);
 								pw.setCurrentTabIndex(3);
 								try {
@@ -195,7 +188,7 @@ public class MainFrame extends JFrame {
 								tabbedPane.setTabComponentAt(3, lab4);
 								loggedInUser();
 							}
-							
+
 						}
 					}
 
@@ -208,7 +201,7 @@ public class MainFrame extends JFrame {
 		});
 		pan1.setPreferredSize(new Dimension(710, 80));
 		pan1.add(title, "gapleft 150");
-		pan1.add(signUpBttn, "gapleft 120");//"gapleft 100"
+		pan1.add(signUpBttn, "gapleft 120");// "gapleft 100"
 		pan1.add(logInBttn);
 
 		JPanel masterPan = new JPanel();
@@ -228,20 +221,21 @@ public class MainFrame extends JFrame {
 
 		return panel;
 	}
-	
+
 	private void loggedInUser() {
 		pan1.remove(logInBttn);
 		pan1.remove(signUpBttn);
 		pan1.repaint();
-		logOutBttn =  new JButton("Log out");
+		logOutBttn = new JButton("Log out");
 		pan1.add(logOutBttn, "gapleft 190");
-				
+
 		logOutBttn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Confirm Log Out", JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, new ImageIcon("./img/signOut.png"));
+
+				int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Confirm Log Out",
+						JOptionPane.YES_NO_OPTION, JOptionPane.YES_NO_OPTION, new ImageIcon("./img/signOut.png"));
 				if (reply == JOptionPane.YES_OPTION) {
 					toiToiController.writteData();
 					akter = null;
@@ -253,7 +247,7 @@ public class MainFrame extends JFrame {
 
 		});
 	}
-	
+
 	private void loggedOutUser() {
 		pan1.remove(logOutBttn);
 		pan1.repaint();
@@ -262,12 +256,9 @@ public class MainFrame extends JFrame {
 
 	}
 
-
 	public static MainFrame getInstance() {
 		return instance;
 	}
-
-
 
 	public static void setInstance(MainFrame instance) {
 		MainFrame.instance = instance;
@@ -277,94 +268,72 @@ public class MainFrame extends JFrame {
 		return recipesTab;
 	}
 
-
 	public void setRecipesTab(RecipesTab recipesTab) {
 		this.recipesTab = recipesTab;
 	}
-
 
 	public ToiToiController getToiToiController() {
 		return toiToiController;
 	}
 
-
 	public void setToiToiController(ToiToiController toiToiController) {
 		MainFrame.toiToiController = toiToiController;
 	}
-
 
 	public JTabbedPane getTabbedPane() {
 		return tabbedPane;
 	}
 
-
 	public void setTabbedPane(JTabbedPane tabbedPane) {
 		MainFrame.tabbedPane = tabbedPane;
 	}
-
 
 	public RecipeWindow getRecipeWindow() {
 		return recipeWindow;
 	}
 
-
 	public void setRecipeWindow(RecipeWindow recipeWindow) {
 		this.recipeWindow = recipeWindow;
 	}
-
 
 	public Akter getAkter() {
 		return akter;
 	}
 
-
 	public void setAkter(Akter akter) {
 		this.akter = akter;
 	}
-
 
 	public JPanel getHomePanel() {
 		return homePanel;
 	}
 
-
 	public void setHomePanel(JPanel homePanel) {
 		this.homePanel = homePanel;
 	}
-
 
 	public CommentWindow getCommentWindow() {
 		return commentWindow;
 	}
 
-
 	public void setCommentWindow(CommentWindow commentWindow) {
 		this.commentWindow = commentWindow;
 	}
-
 
 	public EditRecipeWindow getEditRecipe() {
 		return editRecipe;
 	}
 
-
 	public void setEditRecipe(EditRecipeWindow editRecipe) {
 		this.editRecipe = editRecipe;
 	}
-
-
 
 	public ProfileWindow getProfileForVisitor() {
 		return profileForVisitor;
 	}
 
-
-
 	public void setProfileForVisitor(ProfileWindow profileForVisitor) {
 		this.profileForVisitor = profileForVisitor;
 	}
 
-
-	
-	
 }
