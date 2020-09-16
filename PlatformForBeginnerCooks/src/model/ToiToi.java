@@ -29,6 +29,7 @@ public class ToiToi {
 		super();
 		this.name = name;
 		this.telephone = telephone;
+
 	}
 
 	public ToiToi() {

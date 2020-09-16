@@ -28,6 +28,22 @@ public class CookBook implements Serializable {
 
 	private User creator;
 
+	public CookBook() {
+		super();
+	}
+
+	public CookBook(String name, String image, LocalDate date, int likes, List<Comment> comments, List<Recipe> recipes,
+			User creator) {
+		super();
+		this.name = name;
+		this.image = image;
+		this.date = date;
+		this.likes = likes;
+		this.comments = comments;
+		this.recipes = recipes;
+		this.creator = creator;
+	}
+
 	public User getCreator() {
 		return creator;
 	}

@@ -116,7 +116,7 @@ public class SignUpForm extends JFrame {
 			newUser.setEquipment(stepTwo.getEquipment());
 			newUser.setGrocerie(stepTwo.getProducts());
 			toiToiController.getToiToi().addUsers(newUser);
-			System.out.println(toiToiController.getToiToi().getUsers());
+			//System.out.println(toiToiController.getToiToi().getUsers());
 			dispose();
 		}
 	}

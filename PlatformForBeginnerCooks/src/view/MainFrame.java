@@ -1,6 +1,7 @@
 package view;
 
 import net.miginfocom.swing.MigLayout;
+import view.CookBookForm.CookBookForm;
 import view.CookBookPanel.CookBookPanel;
 import view.HomePanel.HomePanel;
 import view.ProfileWindow.ProfileWindow;
@@ -150,7 +151,6 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (!(signIn == null))
 					signIn.dispose();
-
 
 				signIn = new SignInForm(toiToiController);
 				signIn.setVisible(true);

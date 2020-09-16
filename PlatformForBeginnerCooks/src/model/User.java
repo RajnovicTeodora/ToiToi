@@ -33,7 +33,7 @@ public class User extends Akter implements Serializable {
 
 	private List<Equipment> equipment;
 
-	private String image;
+	private String image = "";
 
 	private ArrayList<Recipe> likedRecipes;
 
