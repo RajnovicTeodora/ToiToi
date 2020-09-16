@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controller.ButtonActions.CookBookImageButtonAction;
 import model.CookBook;
 import net.miginfocom.swing.MigLayout;
 
@@ -23,20 +24,20 @@ public class TopCookbookPanel extends JPanel {
 	private ArrayList<CookBook> sortedCookBooks;
 
 	protected JButton top1;
-	private CookBook cookBook1;
+	private CookBook cookBook1 = null;
 	private JLabel name1;
 	private JLabel user1;
 	private JLabel like1;
 
 	protected JButton top2;
-	private CookBook cookBook2;
+	private CookBook cookBook2 = null;
 	private JLabel name2;
 	private JLabel user2;
 	private JLabel like2;
 
 	protected JButton top3;
 	private JLabel name3;
-	private CookBook cookBook3;
+	private CookBook cookBook3 = null;
 	private JLabel user3;
 	private JLabel like3;
 
@@ -80,13 +81,13 @@ public class TopCookbookPanel extends JPanel {
 
 		top1.setToolTipText("Go to cookBook");
 
-		// TODO OLJA ili ko vec
-		/*
-		 * CookBookImageButtonAction recAction1 = new CookBookImageButtonAction();
-		 * recAction1.setTabIndex(0); recAction1.setCookBook(cookBook1);
-		 * top1.setMnemonic(KeyEvent.VK_ENTER); top1.addActionListener(recAction1);
-		 * 
-		 */
+		if (cookBook1 != null) {
+			CookBookImageButtonAction cbAction1 = new CookBookImageButtonAction();
+			cbAction1.setTabIndex(2);
+			cbAction1.setCookBook(cookBook1);
+			top1.setMnemonic(KeyEvent.VK_ENTER);
+			top1.addActionListener(cbAction1);
+		}
 
 		panel1.add(top1, "wrap");
 		panel1.add(name1, "wrap");
@@ -113,13 +114,14 @@ public class TopCookbookPanel extends JPanel {
 
 		top2.setContentAreaFilled(false);
 		top2.setToolTipText("Go to cookBook");
-		// TODO
-		/*
-		 * CookBookImageButtonAction recAction2 = new CookBookImageButtonAction();
-		 * recAction2.setTabIndex(0); recAction2.setCookBook(cookBook2);
-		 * top2.setMnemonic(KeyEvent.VK_ENTER); top2.addActionListener(recAction2);
-		 * 
-		 */
+
+		if (cookBook2 != null) {
+			CookBookImageButtonAction cbAction2 = new CookBookImageButtonAction();
+			cbAction2.setTabIndex(2);
+			cbAction2.setCookBook(cookBook2);
+			top2.setMnemonic(KeyEvent.VK_ENTER);
+			top2.addActionListener(cbAction2);
+		}
 
 		panel2.add(top2, "wrap");
 		panel2.add(name2, "wrap");
@@ -147,14 +149,15 @@ public class TopCookbookPanel extends JPanel {
 		top3.setContentAreaFilled(false);
 
 		top3.setToolTipText("Go to cookBook");
-		// TODO
-		/*
-		 * CookBookImageButtonAction recAction3 = new CookBookImageButtonAction();
-		 * recAction3.setTabIndex(0); recAction3.setCookBook(cookBook3);
-		 * top3.setMnemonic(KeyEvent.VK_ENTER); top3.addActionListener(recAction3);
-		 * top3.addActionListener(new ActionListener() {
-		 * 
-		 */
+
+		if (cookBook3 != null) {
+			CookBookImageButtonAction cbAction3 = new CookBookImageButtonAction();
+			cbAction3.setTabIndex(2);
+			cbAction3.setCookBook(cookBook3);
+			top3.setMnemonic(KeyEvent.VK_ENTER);
+			top3.addActionListener(cbAction3);
+		}
+
 		panel3.add(top3, "wrap");
 		panel3.add(name3, "wrap");
 		panel3.add(user3, "wrap");

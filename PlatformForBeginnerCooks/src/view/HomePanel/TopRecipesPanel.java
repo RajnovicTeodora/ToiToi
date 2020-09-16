@@ -24,20 +24,20 @@ public class TopRecipesPanel extends JPanel {
 	private ArrayList<Recipe> sortedRecipes;
 
 	protected JButton top1;
-	private Recipe recipe1;
+	private Recipe recipe1 = null;
 	private JLabel name1;
 	private JLabel user1;
 	private JLabel like1;
 
 	protected JButton top2;
-	private Recipe recipe2;
+	private Recipe recipe2 = null;
 	private JLabel name2;
 	private JLabel user2;
 	private JLabel like2;
 
 	protected JButton top3;
 	private JLabel name3;
-	private Recipe recipe3;
+	private Recipe recipe3 = null;
 	private JLabel user3;
 	private JLabel like3;
 
@@ -81,11 +81,13 @@ public class TopRecipesPanel extends JPanel {
 		top1.setContentAreaFilled(false);
 		top1.setToolTipText("Go to recipe");
 
-		RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
-		recAction1.setTabIndex(0);
-		recAction1.setRecipe(recipe1);
-		top1.setMnemonic(KeyEvent.VK_ENTER);
-		top1.addActionListener(recAction1);
+		if (recipe1 != null) {
+			RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
+			recAction1.setTabIndex(0);
+			recAction1.setRecipe(recipe1);
+			top1.setMnemonic(KeyEvent.VK_ENTER);
+			top1.addActionListener(recAction1);
+		}
 
 		panel1.add(top1, "wrap");
 		panel1.add(name1, "wrap");
@@ -113,12 +115,13 @@ public class TopRecipesPanel extends JPanel {
 		top2.setContentAreaFilled(false);
 		top2.setToolTipText("Go to recipe");
 
-		RecipeImageButtonAction recAction2 = new RecipeImageButtonAction();
-		recAction2.setTabIndex(0);
-		recAction2.setRecipe(recipe2);
-		top2.setMnemonic(KeyEvent.VK_ENTER);
-		top2.addActionListener(recAction2);
-
+		if (recipe2 != null) {
+			RecipeImageButtonAction recAction2 = new RecipeImageButtonAction();
+			recAction2.setTabIndex(0);
+			recAction2.setRecipe(recipe2);
+			top2.setMnemonic(KeyEvent.VK_ENTER);
+			top2.addActionListener(recAction2);
+		}
 		panel2.add(top2, "wrap");
 		panel2.add(name2, "wrap");
 		panel2.add(user2, "wrap");
@@ -145,11 +148,13 @@ public class TopRecipesPanel extends JPanel {
 		top3.setContentAreaFilled(false);
 		top3.setToolTipText("Go to recipe");
 
-		RecipeImageButtonAction recAction3 = new RecipeImageButtonAction();
-		recAction3.setTabIndex(0);
-		recAction3.setRecipe(recipe3);
-		top3.setMnemonic(KeyEvent.VK_ENTER);
-		top3.addActionListener(recAction3);
+		if (recipe3 != null) {
+			RecipeImageButtonAction recAction3 = new RecipeImageButtonAction();
+			recAction3.setTabIndex(0);
+			recAction3.setRecipe(recipe3);
+			top3.setMnemonic(KeyEvent.VK_ENTER);
+			top3.addActionListener(recAction3);
+		}
 
 		panel3.add(top3, "wrap");
 		panel3.add(name3, "wrap");

@@ -404,14 +404,22 @@ public class User extends Akter implements Serializable {
 	public void setAvailableGroceries(List<ProductInfo> groceries) {
 		this.groceries = groceries;
 	}
-	
+
 	public void deleteRecipeById(int recipeId) {
-		for (int i =0;i<getRecipes().size();i++) {
-			if(recipeId == getRecipe().get(i).getRecipeID()) {
+		for (int i = 0; i < getRecipes().size(); i++) {
+			if (recipeId == getRecipe().get(i).getRecipeID()) {
 				recipes.remove(i);
 				break;
 			}
 		}
 	}
 
+	public void deleteCookBook(String name) {
+		for (int i = 0; i < cookBooks.size(); i++) {
+			if (cookBooks.get(i).getName().toLowerCase().compareTo(name.toLowerCase()) == 0) {
+				cookBooks.remove(i);
+				break;
+			}
+		}
+	}
 }

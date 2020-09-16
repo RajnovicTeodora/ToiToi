@@ -37,6 +37,7 @@ public class MainFrame extends JFrame {
 	private Akter akter = null;
 	private RecipesTab recipesTab;
 	private RecipeWindow recipeWindow;
+	private CookBookWindow cookBookWindow;
 	public static JTabbedPane tabbedPane;
 	private JPanel homePanel;
 	private CommentWindow commentWindow;
@@ -72,6 +73,9 @@ public class MainFrame extends JFrame {
 		pan1 = new JPanel(new MigLayout());
 
 		recipeWindow = new RecipeWindow(toiToiController);
+		
+		cookBookWindow = new CookBookWindow(toiToiController);
+		
 		recipesTab = new RecipesTab(toiToiController);
 
 		tabbedPane = new JTabbedPane();
@@ -334,6 +338,14 @@ public class MainFrame extends JFrame {
 
 	public void setProfileForVisitor(ProfileWindow profileForVisitor) {
 		this.profileForVisitor = profileForVisitor;
+	}
+
+	public CookBookWindow getCookBookWindow() {
+		return cookBookWindow;
+	}
+
+	public void setCookBookWindow(CookBookWindow cookBookWindow) {
+		this.cookBookWindow = cookBookWindow;
 	}
 
 }

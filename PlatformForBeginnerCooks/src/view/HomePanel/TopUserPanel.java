@@ -33,7 +33,7 @@ public class TopUserPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	protected JPanel userPanel;
-	private User user;
+	private User user = null;
 	protected JButton userLink;
 	protected JLabel username;
 	protected JLabel points;
@@ -106,53 +106,46 @@ public class TopUserPanel extends JPanel {
 		}
 
 		userLink.setContentAreaFilled(false);
-		userLink.setToolTipText("Go to user"); // TODO link to recipe page
+		userLink.setToolTipText("Go to user");
 		userLink.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (user != null) {
-					
-					if(MainFrame.getInstance().getAkter() !=null && MainFrame.getInstance().getAkter().getUsername() == user.getUsername()) {
+
+					if (MainFrame.getInstance().getAkter() != null
+							&& MainFrame.getInstance().getAkter().getUsername() == user.getUsername()) {
 						MainFrame.tabbedPane.setSelectedIndex(3);
-					}
-					else {
+					} else {
 						ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
-						
+
 						try {
 							MainFrame.tabbedPane.add("", pw.createOtherUserProfilePage());
-							
+
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-						
-						MainFrame.tabbedPane.setTabComponentAt(MainFrame.tabbedPane.getTabCount()-1,  new ButtonTabComponent(MainFrame.tabbedPane, user.getName()+ " " +user.getSurname()));
+
+						MainFrame.tabbedPane.setTabComponentAt(MainFrame.tabbedPane.getTabCount() - 1,
+								new ButtonTabComponent(MainFrame.tabbedPane, user.getName() + " " + user.getSurname()));
 					}
-					
-					
+
 				}
 			}
 
 		});
 
 		recipeLink.setContentAreaFilled(false);
-		// top2.setBorderPainted(false);
-		recipeLink.setToolTipText("Go to recipe"); // TODO link to recipe page
-		RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
-		recAction1.setTabIndex(0);
-		recAction1.setRecipe(recipe);
-		recipeLink.setMnemonic(KeyEvent.VK_ENTER);
-		recipeLink.addActionListener(recAction1);
-		/*recipeLink.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (recipe != null) {
-					// TODO recipe exits, so link it here
-				}
-			}
+		recipeLink.setToolTipText("Go to recipe");
 
-		});*/
+		if (recipe != null) {
+			RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
+			recAction1.setTabIndex(0);
+			recAction1.setRecipe(recipe);
+			recipeLink.setMnemonic(KeyEvent.VK_ENTER);
+			recipeLink.addActionListener(recAction1);
+		}
 
 		JLabel l1 = new JLabel("ToiToi top user!");
 		userPanel.add(l1, "wrap");
@@ -173,8 +166,6 @@ public class TopUserPanel extends JPanel {
 		rightPanel.add(recipePanel);
 		add(rightPanel);
 		rightPanel.setBackground(new Color(255, 233, 248));
-
-		// TODO
 
 		JTextArea area = new JTextArea(recipe.getDescription());
 		area.setPreferredSize(new Dimension(180, 180));

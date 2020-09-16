@@ -31,6 +31,11 @@ public class BackButtonAction extends AbstractAction{
 			updateHomeTab();
 			updateRecipesTab();
 		}
+		else if(getCurrentTabIndex() == 2) {
+			//updating recipe tab if changes occurred
+			updateHomeTab();
+			updateCookBookTab();
+		}
 		else if(getCurrentTabIndex() == 0) {
 			updateRecipesTab();
 			updateHomeTab();
@@ -93,6 +98,11 @@ public class BackButtonAction extends AbstractAction{
 		}
 		MainFrame.getInstance().getRecipesTab().setMainRecipeTab(pan);
 		MainFrame.getInstance().getTabbedPane().setComponentAt(1, pan);
+	}
+	
+	public void updateCookBookTab() {
+		//TODO
+		
 	}
 	
 	public int getCurrentTabIndex() {
