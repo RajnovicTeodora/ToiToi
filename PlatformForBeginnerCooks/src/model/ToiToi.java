@@ -24,6 +24,10 @@ public class ToiToi {
 	public java.util.List<Equipment> equipment;
 
 	public java.util.List<CookBook> cookBooks;
+	
+	public java.util.List<Company> companies;
+	
+	public java.util.List<Advertisement> advertisements;
 
 	public ToiToi(String name, String telephone) {
 		super();
