@@ -414,7 +414,9 @@ public class User extends Akter implements Serializable {
 		}
 	}
 
-	public void calculatePoints() {
+
+	public int calculatePoints() {
+
 		int points = 0;
 
 		for (Recipe r : recipes) {
@@ -425,6 +427,9 @@ public class User extends Akter implements Serializable {
 		if (!image.equals(""))
 			points += 5;
 		setPoints(points);
+
+		return points;
+
 
 	}
 

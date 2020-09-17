@@ -24,6 +24,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import controller.ToiToiController;
+
+import controller.ButtonActions.CookBookImageButtonAction;
 import controller.ButtonActions.RecipeImageButtonAction;
 import model.Akter;
 import model.CookBook;
@@ -56,7 +58,8 @@ public class ProfileWindow {
 		BufferedImage img = null;
 		if (!user.getImage().equals("")) {
 			img = ImageIO.read(new File(user.getImage()));
-		} else {
+		} 
+		else {
 			if (user.getGender() == Gender.FEMALE)
 				img = ImageIO.read(new File("./img/user-female.png"));
 			else if (user.getGender() == Gender.MALE)
@@ -73,7 +76,7 @@ public class ProfileWindow {
 
 		JLabel imePrezime = new JLabel(user.getName() + " " + user.getSurname());
 		imePrezime.setFont(new Font("Serif", Font.PLAIN, 40));
-		imePrezime.setBounds(100, 30, 200, 50);
+		imePrezime.setBounds(100, 30, 550, 50);
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(10, 90, 650, 600);
@@ -112,7 +115,7 @@ public class ProfileWindow {
 
 		JLabel imePrezime = new JLabel(user.getName() + " " + user.getSurname());
 		imePrezime.setFont(new Font("Serif", Font.PLAIN, 40));
-		imePrezime.setBounds(100, 30, 200, 50);
+		imePrezime.setBounds(100, 30, 550, 50);
 
 		JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setBounds(10, 90, 650, 600);
@@ -130,6 +133,67 @@ public class ProfileWindow {
 
 	}
 	
+//	private JPanel createLikedRecipesPanel() throws IOException {
+//		JPanel panel = new JPanel(new MigLayout());
+//
+//		ImageIcon recipeIcon = new ImageIcon("./img/like.png");
+//		JLabel naslov = new JLabel("Liked Recipes");
+//		naslov.setIcon(recipeIcon);
+//		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
+//		panel.add(naslov, "gapleft 200");
+//
+//		ArrayList<JButton> dugmici = new ArrayList<JButton>();
+//		Font f = new Font("Serif", Font.ITALIC, 20);
+//
+//
+//		Color c = new Color(204, 255, 255);
+//
+//
+//
+//		JPanel panel2 = new JPanel(new MigLayout());
+//
+//		int brojac = 1;
+//		for (Recipe r : user.getLikedRecipes()) {
+//			
+//		
+//			BufferedImage img = ImageIO.read(new File(r.getImage()));
+//			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+//			ImageIcon icon = new ImageIcon(image);
+//
+//			JButton dugmic = new JButton(icon);
+//			dugmici.add(dugmic); // mozda nece trebati
+//			dugmic.setBackground(c);
+//
+//			RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
+//			recAction1.setTabIndex(getCurrentTabIndex());///TODO veza na recepte-odradjeno
+//			recAction1.setRecipe(r);
+//			dugmic.setMnemonic(KeyEvent.VK_ENTER);
+//			dugmic.addActionListener(recAction1);
+//			
+//			/*dugmic.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					// ovde se poziva funkcija za prikaz celog recepta!
+//				}
+//			
+//			});*/
+//
+//			JLabel naziv = new JLabel(r.getName());
+//			naziv.setFont(f);
+//
+//			JLabel br = new JLabel(brojac + ".");
+//			br.setFont(f);
+//			panel2.add(br, "gapleft 10");
+//			panel2.add(dugmic, "gapleft 30, gaptop 30");
+//			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
+//			brojac++;
+//			
+//		}
+//		
+//		panel.add(panel2, "span, wrap");
+//		return panel;
+//	}
+
+	
 	private JPanel createLikedRecipesPanel() throws IOException {
 		JPanel panel = new JPanel(new MigLayout());
 
@@ -138,7 +202,7 @@ public class ProfileWindow {
 		naslov.setIcon(recipeIcon);
 		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
 		panel.add(naslov, "gapleft 200");
-
+		panel.add(new JLabel(), "span, wrap");
 		ArrayList<JButton> dugmici = new ArrayList<JButton>();
 		Font f = new Font("Serif", Font.ITALIC, 20);
 
@@ -167,13 +231,6 @@ public class ProfileWindow {
 			dugmic.setMnemonic(KeyEvent.VK_ENTER);
 			dugmic.addActionListener(recAction1);
 			
-			/*dugmic.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// ovde se poziva funkcija za prikaz celog recepta!
-				}
-			
-			});*/
-
 			JLabel naziv = new JLabel(r.getName());
 			naziv.setFont(f);
 
@@ -181,15 +238,15 @@ public class ProfileWindow {
 			br.setFont(f);
 			panel2.add(br, "gapleft 10");
 			panel2.add(dugmic, "gapleft 30, gaptop 30");
-			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
+			panel2.add(naziv, "gapleft 50, gaptop 30, gapright 250, wrap");
 			brojac++;
 			
 		}
-		
-		panel.add(panel2, "span, wrap");
+		JScrollPane jsp = new JScrollPane(panel2);
+		panel.add(jsp, "span, wrap");
+		//panel.add(panel2, "span, wrap");
 		return panel;
 	}
-
 
 	private JPanel createRecipesPanel(boolean trebaDugmic) throws IOException {
 
@@ -380,6 +437,13 @@ public class ProfileWindow {
 					// ovde se poziva funkcija za prikaz celog recepta!
 				}
 			});
+			
+			CookBookImageButtonAction cbAction2 = new CookBookImageButtonAction();
+			cbAction2.setCookBook(r);
+			cbAction2.setTabIndex(2);
+			//cbAction2.setCookBook(r);
+			dugmic.setMnemonic(KeyEvent.VK_ENTER);
+			dugmic.addActionListener(cbAction2);
 
 			JLabel naziv = new JLabel(r.getName());
 			naziv.setFont(f);

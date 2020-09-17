@@ -113,6 +113,9 @@ public class TopUserPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				if (user != null) {
 
+
+					System.out.println(user);
+
 					if (MainFrame.getInstance().getAkter() != null
 							&& MainFrame.getInstance().getAkter().getUsername() == user.getUsername()) {
 						MainFrame.tabbedPane.setSelectedIndex(3);

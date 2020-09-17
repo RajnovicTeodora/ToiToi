@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Equipment;
 
@@ -67,7 +68,7 @@ public class EquipmentController {
 	}
 
 	// find the first unused recipe id
-	public int freeId(ArrayList<Equipment> equipment) {
+	public int freeId(List<Equipment> equipment) {
 		int i = 1;
 		Boolean copy = false;
 		while (true) {
