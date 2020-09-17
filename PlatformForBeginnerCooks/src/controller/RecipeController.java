@@ -17,6 +17,7 @@ import model.NeededQuantity;
 import model.Recipe;
 import model.Tag;
 import model.Taste;
+import view.MainFrame;
 
 public class RecipeController {
 
@@ -84,15 +85,14 @@ public class RecipeController {
 
 	}
 
-	// TO DO OLJA POPRAVI DA NE PRAVI NOVI TOI TOI
 	public HashMap<Integer, Recipe> getHashMapRecipe() throws IOException {
-		ToiToiController toiToiController = new ToiToiController();
-		toiToiController.writteData();
-		toiToiController.readData();
+//		ToiToiController toiToiController = new ToiToiController();
+//		toiToiController.writteData();
+//		toiToiController.readData();
 
 		// ArrayList<Recipe> recipes = readRecipes();
 		HashMap<Integer, Recipe> retval = new HashMap<Integer, Recipe>();
-		for (Recipe recipe : toiToiController.getToiToi().getRecipe()) {
+		for (Recipe recipe : MainFrame.toiToiController.getToiToi().getRecipe()) {
 			retval.put(recipe.getRecipeID(), recipe);
 		}
 		return retval;

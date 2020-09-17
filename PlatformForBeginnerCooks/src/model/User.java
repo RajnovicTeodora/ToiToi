@@ -405,4 +405,37 @@ public class User extends Akter implements Serializable {
 		this.groceries = groceries;
 	}
 
+	public void deleteRecipeById(int recipeId) {
+		for (int i = 0; i < getRecipes().size(); i++) {
+			if (recipeId == getRecipe().get(i).getRecipeID()) {
+				recipes.remove(i);
+				break;
+			}
+		}
+	}
+
+	public int calculatePoints() {
+		int points = 0;
+
+		for (Recipe r : recipes) {
+			points += r.getLikes() * 2;
+		}
+		for (CookBook cb : cookBooks)
+			points += cb.getLikes();
+		if (!image.equals(""))
+			points += 5;
+		setPoints(points);
+		return points;
+
+	}
+
+	public void deleteCookBook(String name) {
+		for (int i = 0; i < cookBooks.size(); i++) {
+			if (cookBooks.get(i).getName().toLowerCase().compareTo(name.toLowerCase()) == 0) {
+				cookBooks.remove(i);
+				break;
+			}
+		}
+	}
+
 }

@@ -111,18 +111,26 @@ public class TopUserPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (user != null) {
-					//TODO ovo cu ja popravi <33
-					
-//					JDialog profil = new JDialog();
-//					profil.setSize(700, 700);
-//					ProfileWindow pw  = new ProfileWindow(user, MainFrame.toiToiController);
-//					try {
-//						profil.add(pw.createOtherUserProfilePage());
-//						profil.setVisible(true);
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+
+					System.out.println(user);
+					if (MainFrame.getInstance().getAkter() != null
+							&& MainFrame.getInstance().getAkter().getUsername() == user.getUsername()) {
+						MainFrame.tabbedPane.setSelectedIndex(3);
+					} else {
+						ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
+
+						try {
+							MainFrame.tabbedPane.add("", pw.createOtherUserProfilePage());
+
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
+						MainFrame.tabbedPane.setTabComponentAt(MainFrame.tabbedPane.getTabCount() - 1,
+								new ButtonTabComponent(MainFrame.tabbedPane, user.getName() + " " + user.getSurname()));
+					}
+
+
 				}
 			}
 
