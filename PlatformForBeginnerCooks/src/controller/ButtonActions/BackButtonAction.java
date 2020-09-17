@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import model.Recipe;
 import view.MainFrame;
+import view.CookBookPanel.CookBookPanel;
 import view.HomePanel.HomePanel;
 
 public class BackButtonAction extends AbstractAction{
@@ -34,7 +35,12 @@ public class BackButtonAction extends AbstractAction{
 		else if(getCurrentTabIndex() == 2) {
 			//updating recipe tab if changes occurred
 			updateHomeTab();
-			updateCookBookTab();
+			try {
+				updateCookBookTab();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(getCurrentTabIndex() == 0) {
 			updateRecipesTab();
@@ -100,8 +106,10 @@ public class BackButtonAction extends AbstractAction{
 		MainFrame.getInstance().getTabbedPane().setComponentAt(1, pan);
 	}
 	
-	public void updateCookBookTab() {
-		//TODO
+	public void updateCookBookTab() throws IOException {
+		JPanel panl = CookBookPanel.createCookBookPanel(MainFrame.toiToiController.getCbController().sortByLikes(MainFrame.toiToiController.getToiToi().getCookBooks()));
+		MainFrame.getInstance().setHomePanel(panl);
+		MainFrame.getInstance().getTabbedPane().setComponentAt(2, panl);
 		
 	}
 	

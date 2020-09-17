@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,8 +31,6 @@ import model.Recipe;
 import model.CookBook;
 import model.User;
 import net.miginfocom.swing.MigLayout;
-import view.ProfileWindow.ButtonTabComponent;
-import view.ProfileWindow.ProfileWindow;
 
 public class CookBookWindow {
 
@@ -78,6 +74,8 @@ public class CookBookWindow {
 		creatorBtn.setToolTipText("View user");
 		creatorBtn.setContentAreaFilled(false);
 		creatorBtn.setBorderPainted(false);
+
+
 
 		////////////////////////// LIKES/////////////////////////////////////////
 		ImageIcon like = new ImageIcon("./img/bigheart.png");
@@ -189,6 +187,9 @@ public class CookBookWindow {
 		back.setCurrentTabIndex(getCurrentTabIndex());
 		JButton backBttn = new JButton(back);
 		backBttn.setMnemonic(KeyEvent.VK_ENTER);
+		BackButtonAction bbc = new BackButtonAction("Back");
+		bbc.setCurrentTabIndex(currentTabIndex);
+		backBttn.addActionListener(bbc);
 
 		////////////////////////// DATE CREATOR/////////////////////////////
 
@@ -198,45 +199,18 @@ public class CookBookWindow {
 
 		JButton creatorBtn = new JButton(
 				"<HTML> <FONT color=\"#000099\">" + rec.getCreator().getUsername() + "</FONT></HTML>", userIcon);
-		// TODO
-
 		
-//		 CreatorButtonAction cra = new CreatorButtonAction();
-//		 cra.setRecipeCreator(cookBook.getCreator());
-//		 cra.setCurrentTabIndex(getCurrentTabIndex());
-//		 creatorBtn.addActionListener(cra);
-//		 creatorBtn.setContentAreaFilled(false);
-//		 creatorBtn.setBorderPainted(false);
-//		 creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
-//		  
-//		 creatorBtn.setToolTipText("View user");
-//		 
-//		 creatorBtn.addActionListener(new ActionListener() {
-//
-//				@Override
-//				public void actionPerformed(ActionEvent arg0) {
-//					if (user != null) {
-//						if (MainFrame.getInstance().getAkter() != null && MainFrame.getInstance().getAkter().getUsername() == user.getUsername()) {
-//							MainFrame.tabbedPane.setSelectedIndex(3);
-//						} 
-//						else {
-//							ProfileWindow pw = new ProfileWindow(user, MainFrame.toiToiController);
-//
-//							try {
-//								MainFrame.tabbedPane.add("", pw.createOtherUserProfilePage());
-//
-//							} catch (IOException e) {
-//								e.printStackTrace();
-//							}
-//
-//							MainFrame.tabbedPane.setTabComponentAt(MainFrame.tabbedPane.getTabCount() - 1,
-//									new ButtonTabComponent(MainFrame.tabbedPane, user.getName() + " " + user.getSurname()));
-//						}
-//
-//					}
-//				}
-//
-//		});
+
+		CreatorButtonAction cra = new CreatorButtonAction();
+		cra.setRecipeCreator(cookBook.getCreator());
+		cra.setCurrentTabIndex(getCurrentTabIndex());
+		creatorBtn.addActionListener(cra);
+		creatorBtn.setContentAreaFilled(false);
+		creatorBtn.setBorderPainted(false);
+		creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
+		  
+		creatorBtn.setToolTipText("View user");
+
 
 		////////////////////////// LIKES/////////////////////////////////////////
 		Image heart = new ImageIcon("./img/bigheart.png").getImage();

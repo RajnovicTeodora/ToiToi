@@ -31,19 +31,16 @@ public class CookBookImageButtonAction extends AbstractAction {
 		if (MainFrame.getInstance().getAkter() == null || MainFrame.getInstance().getAkter() instanceof Admin) {
 
 			try {
-				JPanel pan = MainFrame.getInstance().getCookBookWindow().createVisitorCookBookPage(getCookBook(),
-						getTabIndex());
+				JPanel pan = MainFrame.getInstance().getCookBookWindow().createVisitorCookBookPage(getCookBook(), getTabIndex());
 				MainFrame.getInstance().getTabbedPane().setComponentAt(getTabIndex(), pan);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-		} else if (MainFrame.getInstance().getAkter() != null
-				&& (MainFrame.getInstance().getAkter() instanceof Moderator
-						|| MainFrame.getInstance().getAkter() instanceof User)) {
+		} 
+		else if (MainFrame.getInstance().getAkter() != null && (MainFrame.getInstance().getAkter() instanceof Moderator || MainFrame.getInstance().getAkter() instanceof User)) {
 			try {
-				JPanel pan = MainFrame.getInstance().getCookBookWindow().createUserCookBookPage(getCookBook(),
-						MainFrame.getInstance().getAkter(), getTabIndex());
+				JPanel pan = MainFrame.getInstance().getCookBookWindow().createUserCookBookPage(getCookBook(), MainFrame.getInstance().getAkter(), getTabIndex());
 				MainFrame.getInstance().getTabbedPane().setComponentAt(getTabIndex(), pan);
 			} catch (IOException e) {
 				e.printStackTrace();

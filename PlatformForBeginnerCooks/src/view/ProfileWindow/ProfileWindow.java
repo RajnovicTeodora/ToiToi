@@ -91,7 +91,6 @@ public class ProfileWindow {
 		return panel;
 	}
 
-
 	public JPanel createMyProfilePage() throws IOException {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -133,67 +132,6 @@ public class ProfileWindow {
 
 	}
 	
-//	private JPanel createLikedRecipesPanel() throws IOException {
-//		JPanel panel = new JPanel(new MigLayout());
-//
-//		ImageIcon recipeIcon = new ImageIcon("./img/like.png");
-//		JLabel naslov = new JLabel("Liked Recipes");
-//		naslov.setIcon(recipeIcon);
-//		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
-//		panel.add(naslov, "gapleft 200");
-//
-//		ArrayList<JButton> dugmici = new ArrayList<JButton>();
-//		Font f = new Font("Serif", Font.ITALIC, 20);
-//
-//
-//		Color c = new Color(204, 255, 255);
-//
-//
-//
-//		JPanel panel2 = new JPanel(new MigLayout());
-//
-//		int brojac = 1;
-//		for (Recipe r : user.getLikedRecipes()) {
-//			
-//		
-//			BufferedImage img = ImageIO.read(new File(r.getImage()));
-//			Image image = img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-//			ImageIcon icon = new ImageIcon(image);
-//
-//			JButton dugmic = new JButton(icon);
-//			dugmici.add(dugmic); // mozda nece trebati
-//			dugmic.setBackground(c);
-//
-//			RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
-//			recAction1.setTabIndex(getCurrentTabIndex());///TODO veza na recepte-odradjeno
-//			recAction1.setRecipe(r);
-//			dugmic.setMnemonic(KeyEvent.VK_ENTER);
-//			dugmic.addActionListener(recAction1);
-//			
-//			/*dugmic.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent e) {
-//					// ovde se poziva funkcija za prikaz celog recepta!
-//				}
-//			
-//			});*/
-//
-//			JLabel naziv = new JLabel(r.getName());
-//			naziv.setFont(f);
-//
-//			JLabel br = new JLabel(brojac + ".");
-//			br.setFont(f);
-//			panel2.add(br, "gapleft 10");
-//			panel2.add(dugmic, "gapleft 30, gaptop 30");
-//			panel2.add(naziv, "gapleft 50, gaptop 30, wrap");
-//			brojac++;
-//			
-//		}
-//		
-//		panel.add(panel2, "span, wrap");
-//		return panel;
-//	}
-
-	
 	private JPanel createLikedRecipesPanel() throws IOException {
 		JPanel panel = new JPanel(new MigLayout());
 
@@ -203,14 +141,11 @@ public class ProfileWindow {
 		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
 		panel.add(naslov, "gapleft 200");
 		panel.add(new JLabel(), "span, wrap");
-		ArrayList<JButton> dugmici = new ArrayList<JButton>();
 		Font f = new Font("Serif", Font.ITALIC, 20);
 
 
 		Color c = new Color(204, 255, 255);
-
-
-
+		
 		JPanel panel2 = new JPanel(new MigLayout());
 
 		int brojac = 1;
@@ -222,7 +157,6 @@ public class ProfileWindow {
 			ImageIcon icon = new ImageIcon(image);
 
 			JButton dugmic = new JButton(icon);
-			dugmici.add(dugmic); // mozda nece trebati
 			dugmic.setBackground(c);
 
 			RecipeImageButtonAction recAction1 = new RecipeImageButtonAction();
@@ -244,7 +178,6 @@ public class ProfileWindow {
 		}
 		JScrollPane jsp = new JScrollPane(panel2);
 		panel.add(jsp, "span, wrap");
-		//panel.add(panel2, "span, wrap");
 		return panel;
 	}
 
@@ -295,17 +228,12 @@ public class ProfileWindow {
 			dugmic.setBackground(c);
 			
 			RecipeImageButtonAction recAction2 = new RecipeImageButtonAction();
-			recAction2.setTabIndex(getCurrentTabIndex());///TODO veza na recepte-odradjeno
+			
+			recAction2.setTabIndex(getCurrentTabIndex());
 			recAction2.setRecipe(r);
 			dugmic.setMnemonic(KeyEvent.VK_ENTER);
 			dugmic.addActionListener(recAction2);
 			
-			/*dugmic.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// ovde se poziva funkcija za prikaz celog recepta!
-				}
-			
-			});*/
 
 			JLabel naziv = new JLabel(r.getName());
 			naziv.setFont(f);
@@ -399,7 +327,6 @@ public class ProfileWindow {
 		naslov.setFont(new Font("Serif", Font.PLAIN, 30));
 		panel.add(naslov, "gapleft 200");
 
-		ArrayList<JButton> dugmici = new ArrayList<JButton>();
 		Font f = new Font("Serif", Font.ITALIC, 20);
 
 
@@ -409,11 +336,11 @@ public class ProfileWindow {
 		if(trebaDugmic) {
 			ImageIcon addIcon = new ImageIcon("./img/add.png");
 			JButton dodaj = new JButton("Add cookbook", addIcon);
-			dodaj.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// TODO : dugmic za dodavanje cookbook-a
-				}
-			});
+//			dodaj.addActionListener(new ActionListener() {
+//				public void actionPerformed(ActionEvent e) {
+//					// TODO : dugmic za dodavanje cookbook-a
+//				}
+//			});
 			panel.add(dodaj, "gapleft 30, wrap");
 		}
 		else {
@@ -429,21 +356,13 @@ public class ProfileWindow {
 			ImageIcon icon = new ImageIcon(image);
 
 			JButton dugmic = new JButton(icon);
-			dugmici.add(dugmic); // mozda nece trebati
 			dugmic.setBackground(c);
-
-			dugmic.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// ovde se poziva funkcija za prikaz celog recepta!
-				}
-			});
 			
-			CookBookImageButtonAction cbAction2 = new CookBookImageButtonAction();
-			cbAction2.setCookBook(r);
-			cbAction2.setTabIndex(2);
-			//cbAction2.setCookBook(r);
+			CookBookImageButtonAction cbAction1 = new CookBookImageButtonAction();
+			cbAction1.setTabIndex(currentTabIndex);
+			cbAction1.setCookBook(r);
 			dugmic.setMnemonic(KeyEvent.VK_ENTER);
-			dugmic.addActionListener(cbAction2);
+			dugmic.addActionListener(cbAction1);
 
 			JLabel naziv = new JLabel(r.getName());
 			naziv.setFont(f);

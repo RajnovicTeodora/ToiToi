@@ -6,17 +6,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,8 +24,6 @@ import TableModel.MissingEquipmentTable;
 import TableModel.MissingIngredientsTable;
 import TableModel.RecipeEquipmentTable;
 import TableModel.RecipeIngredientsTable;
-import controller.AkterController;
-import controller.RecipeController;
 import controller.ToiToiController;
 import controller.ButtonActions.BackButtonAction;
 import controller.ButtonActions.CommentButtonAction;
@@ -43,7 +36,6 @@ import model.Akter;
 import model.Comment;
 import model.Equipment;
 import model.Moderator;
-import model.NeededQuantity;
 import model.Recipe;
 import model.User;
 import net.miginfocom.swing.MigLayout;
@@ -82,6 +74,7 @@ public class RecipeWindow {
 		
 		ImageIcon userIcon =new ImageIcon("./img/smalluser.png");
 		JButton creatorBtn = new JButton("<HTML> <FONT color=\"#000099\">"+recipe.getCreator().getUsername()+"</FONT></HTML>", userIcon);
+		
 		CreatorButtonAction cra = new CreatorButtonAction();
 		cra.setRecipeCreator(recipe.getCreator());
 		cra.setCurrentTabIndex(getCurrentTabIndex());
@@ -274,7 +267,7 @@ public class RecipeWindow {
 		creatorBtn.addActionListener(cra);
 		creatorBtn.setContentAreaFilled(false);
 		creatorBtn.setBorderPainted(false);
-		//creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
+		creatorBtn.setFont(new Font("Serif", Font.PLAIN, 16));
 
 		creatorBtn.setToolTipText("View user");
 		

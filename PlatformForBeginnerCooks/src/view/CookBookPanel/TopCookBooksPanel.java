@@ -3,8 +3,7 @@ package view.CookBookPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import controller.ButtonActions.CookBookImageButtonAction;
 import model.CookBook;
 import net.miginfocom.swing.MigLayout;
 
@@ -60,11 +60,11 @@ public class TopCookBooksPanel {
 			JButton dugmic = new JButton(icon);
 			dugmic.setBackground(new Color(204, 204, 255));
 
-			dugmic.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// ovde se poziva funkcija za prikaz celog recepta!
-				}
-			});
+			CookBookImageButtonAction cbAction1 = new CookBookImageButtonAction();
+			cbAction1.setTabIndex(2);
+			cbAction1.setCookBook(cb);
+			dugmic.setMnemonic(KeyEvent.VK_ENTER);
+			dugmic.addActionListener(cbAction1);
 
 			JLabel naziv = new JLabel(cb.getName());
 			naziv.setFont(new Font("Serif", Font.PLAIN, 20));
