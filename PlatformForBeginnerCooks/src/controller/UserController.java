@@ -5,10 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
-import model.Recipe;
+import model.Akter;
+import model.Gender;
 import model.User;
 
 public class UserController {
@@ -92,21 +95,9 @@ public class UserController {
 		return userList;
 	}
 
-	public void calculatePoints(User user) {
-		int points = 0;
-			for (Recipe r : user.getRecipe()) {
-				points += r.getLikes() * 2;
-			}
-			points += user.getLikedRecipes().size();
-			// TODO for cookbooks
-			if (!user.getImage().equals(""))
-				points += 5;
-		user.setPoints(points);
-			
-	}
 	public User topUser(ArrayList<User> users) {
-		for(User u : users)
-			calculatePoints(u);
+		for (User u : users)
+			u.calculatePoints();
 		users.sort(new Comparator<User>() {
 
 			@Override
@@ -117,8 +108,35 @@ public class UserController {
 
 			}
 		});
-		if(users.size() > 0)
+		if (users.size() > 0)
 			return users.get(0);
 		return null;
+	}
+	
+
+	public User createUser(String name, String surname, String password, String username, String mail, String gender,
+			String telephone, String address, LocalDate birthday, List<Akter> users) throws Exception {
+
+		if (name.equals("") || surname.equals("") || password.equals("") || username.equals("") || telephone.equals("")
+				|| address.equals("") || mail.equals("") || birthday.equals(null))
+			throw new Exception("Not all fields were filled out!");
+
+		if (birthday.isAfter(LocalDate.now()) || birthday.isEqual(LocalDate.now())) {
+			throw new Exception("Birthday isnt valid!");
+		}
+		for (Akter akter : users) {
+			if (akter.getUsername().equals(username))
+				throw new Exception("Username is already taken!");
+		}
+		if (password.length() < 8) {
+			throw new Exception("Password must be atleast 8 characters long!");
+		} else {
+			gender = gender.toUpperCase();
+			Gender g = Gender.valueOf(gender);
+			User user = new User(name, surname, username, password, mail, g, birthday, address, telephone, 0, null,
+					null, null);
+			return user;
+		}
+
 	}
 }

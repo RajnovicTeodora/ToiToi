@@ -299,8 +299,8 @@ class SignUpStepOne extends JPanel {
 
 			try {
 
-				user = toiToiController.createUser(name, surname, password, username, email, gender, telephone, address,
-						birthday);
+				user = toiToiController.getUserController().createUser(name, surname, password, username, email, gender, telephone, address,
+						birthday, toiToiController.getToiToi().getUsers());
 				String code = "";
 				if (file != null) {
 					code = imageCode();
